@@ -1,5 +1,9 @@
 const WorldPage = () => {
-  return <div>RegistrationPage</div>;
+  return (
+    <div>
+      <div>Главная страница</div>
+    </div>
+  );
 };
 
 export default WorldPage;

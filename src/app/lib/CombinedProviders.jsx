@@ -1,10 +1,13 @@
 import { RouterProvider } from "./RouterProvider";
 import { StrictModeProvider } from "./StrictModeProvider";
+import { ReduxToolkitProvider } from "./ReduxToolkitProvider";
 
 export const CombinedProviders = ({ children }) => {
   return (
     <StrictModeProvider>
-      <RouterProvider>{children}</RouterProvider>
+      <RouterProvider>
+        <ReduxToolkitProvider>{children}</ReduxToolkitProvider>
+      </RouterProvider>
     </StrictModeProvider>
   );
 };
