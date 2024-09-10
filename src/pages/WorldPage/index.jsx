@@ -1,9 +1,3 @@
-const WorldPage = () => {
-  return (
-    <div>
-      <div>Главная страница</div>
-    </div>
-  );
-};
+import { WorldPage } from "./WorldPage";
 
 export default WorldPage;
