@@ -8,7 +8,7 @@ export const RatingTable = () => {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={10} columnSpacing={5}>
         {data.map(({ id, from, to }) => (
-          <Grid item key={id}>
+          <Grid item="true" key={id}>
             <RatingCard key={id} rating={id} minAmout={from} maxAmount={to} />
           </Grid>
         ))}
