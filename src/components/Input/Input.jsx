@@ -1,15 +1,8 @@
-import { TextField, styled } from '@mui/material';
+import { TextField, styled } from "@mui/material";
 
-const CustomInput = (props) => {
-  const {
-    variant,
-    value,
-    disabled,
-    error,
-    placeholder,
-    onChange,
-    ...rest
-  } = props;
+export const CustomInput = (props) => {
+  const { variant, value, disabled, error, placeholder, onChange, ...rest } =
+    props;
 
   return (
     <StyledFilledTextField

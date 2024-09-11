@@ -2,9 +2,9 @@ import React from "react";
 import { Button as MyButton } from "@mui/material";
 import { styled } from "@mui/system";
 
-const Button = ({
+export const Button = ({
   variant = "primary",
-  size = "medium", 
+  size = "medium",
   children,
   onClick,
   type = "submit",
@@ -15,7 +15,7 @@ const Button = ({
   return (
     <StyledButton
       variant={variant}
-      size={size} 
+      size={size}
       onClick={onClick}
       startIcon={startIcon}
       disabled={disabled}
@@ -25,8 +25,6 @@ const Button = ({
     </StyledButton>
   );
 };
-
-export default Button;
 
 const StyledButton = styled(MyButton)(({ variant, size }) => {
   const sizes = {
@@ -39,26 +37,26 @@ const StyledButton = styled(MyButton)(({ variant, size }) => {
       variant === "primary"
         ? "#637e7e"
         : variant === "secondary"
-        ? "#37d3d3"
-        : variant === "outlined"
-        ? "#ffffff"
-        : "#ffffff",
+          ? "#37d3d3"
+          : variant === "outlined"
+            ? "#ffffff"
+            : "#ffffff",
     color: variant === "tertiary" || variant === "outlined" ? "#000" : "#fff",
     border:
       variant === "outlined" || variant === "tertiary"
         ? "1px solid #000"
         : "none",
-    padding: sizes[size] || sizes.medium, 
+    padding: sizes[size] || sizes.medium,
     borderRadius: variant === "outlined" ? "5px" : "4px",
     "&:hover": {
       backgroundColor:
         variant === "primary"
           ? "#4f6565"
           : variant === "secondary"
-          ? "#2bbcbc"
-          : variant === "outlined"
-          ? "#f0f0f0"
-          : "#f0f0f0",
+            ? "#2bbcbc"
+            : variant === "outlined"
+              ? "#f0f0f0"
+              : "#f0f0f0",
     },
   };
 });

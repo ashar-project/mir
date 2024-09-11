@@ -1,17 +1,15 @@
-import Sidebar from "@/components/Sidebar/SideBar";
 import { Outlet } from "react-router-dom";
+import { Sidebar } from "@/components";
 
-const Layout = () => {
-	return (
-		<>
-			<aside>
-				<Sidebar />
-			</aside>
-			<main>
-				<Outlet />
-			</main>
-		</>
-	);
+export const Layout = () => {
+  return (
+    <>
+      <aside>
+        <Sidebar />
+      </aside>
+      <main>
+        <Outlet />
+      </main>
+    </>
+  );
 };
-
-export default Layout;

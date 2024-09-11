@@ -10,7 +10,7 @@ import { MdOutlineGetApp } from "react-icons/md";
 import logo from "../../assets/logo.svg";
 import LogoSideBarToAdaptation from "../../assets/Logo.svg";
 
-const Sidebar = (props) => {
+export const Sidebar = (props) => {
   const [closeOpen, setCloseOpen] = useState(true);
   const [menu, setMenu] = useState(false);
   console.log("🚀 ~ Sidebar ~ closeOpen:", closeOpen);
@@ -140,8 +140,6 @@ const Sidebar = (props) => {
     </Bg>
   );
 };
-
-export default Sidebar;
 
 // css styles
 

@@ -1,16 +1,9 @@
 import { lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import AdminLayout from "@/components/layout/BaseLayout/AdminLayout";
-import Layout from "@/components/layout/BaseLayout/Layout";
+import { AdminLayout, Layout } from "@/components";
 import { ADMIN_ROUTER } from "@/modules/admin";
 import { USER_ROUTES } from "@/modules/User";
-
-// const SignUp = lazy(() => import("../pages/RegistrationPage/SignUp/SignUp"));
-// const SignIn = lazy(() => import("../pages/RegistrationPage/SignIn/SignIn"));
-// const Forgot = lazy(
-//   () => import("../pages/RegistrationPage/Forgot/ForgotPassword")
-// );
 
 const SignUp = lazy(() => import("@/pages/RegistrationPage/SignUp"));
 const SignIn = lazy(() => import("@/pages/RegistrationPage//SignIn"));
