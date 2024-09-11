@@ -4,9 +4,9 @@ import { Sidebar } from "@/components";
 export const Layout = () => {
   return (
     <>
-      <aside>
+      {/* <aside>
         <Sidebar />
-      </aside>
+      </aside> */}
       <main>
         <Outlet />
       </main>

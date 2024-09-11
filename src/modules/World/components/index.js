@@ -1,2 +1,2 @@
-export { Card } from "./Card";
-export { SomeTable } from "./SomeTable";
+export { RatingCard } from "./RatingCard";
+export { RatingTable } from "./RatingTable";
