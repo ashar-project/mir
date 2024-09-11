@@ -7,10 +7,11 @@ export const RatingCard = ({ minAmout = 0, maxAmout = 0, rating }) => {
         padding: "15px",
         minWidth: "220px",
         maxHeight: "160px",
-        border: "1px solid black",
-        borderTop: "5px solid blue",
+        border: "1px solid grey",
+        borderTop: "5px solid #637E7E",
         justifyContent: "center",
         alignItems: "center",
+        boxShadow: "0px 4px 5px grey",
       }}
     >
       <Typography
