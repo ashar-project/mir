@@ -8,6 +8,8 @@ import {
 } from "@mui/material";
 import gmail from "../../assets/icon/gmail.svg";
 import Gogle from "../../assets/icon/Gogle.svg";
+import LogoTwo from "../../assets/icon/LogoTwo.svg";
+import log from "../../assets/icon/log.svg";
 
 const Forgot = () => {
 	return (
@@ -131,7 +133,7 @@ const Img = styled("div")(({ theme }) => ({
 
 const TypographyStyled = styled(Typography)(({ theme }) => ({
 	fontSize: "1.125rem",
-	fontFamily: "Montserrat",
+	fontFamily: "Montserrat,sans-serif",
 	fontWeight: "500",
 	textAlign: "center",
 

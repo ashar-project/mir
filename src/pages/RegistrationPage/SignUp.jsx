@@ -146,7 +146,7 @@ const Img = styled("div")(({ theme }) => ({
 
 const TypographyStyled = styled(Typography)(({ theme }) => ({
 	fontSize: "1.125rem",
-	fontFamily: "Montserrat",
+	fontFamily: "Montserrat,sans-serif",
 	fontWeight: "500",
 	textAlign: "center",
 

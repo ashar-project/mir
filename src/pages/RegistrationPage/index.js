@@ -1,3 +1,3 @@
-export const { default: Forgot } = require("./ForgotPassword");
-export const { default: SignIn } = require("./SignIn");
-export const { default: SignUp } = require("./SignUp");
+export { default as Forgot } from "./ForgotPassword";
+export { default as SignIn } from "./SignIn";
+export { default as SignUp } from "./SignUp";
