@@ -6,13 +6,11 @@ import {
 	TextField,
 	Typography,
 } from "@mui/material";
-import pass from "../../assets/icon/pass.svg";
-import log from "../../assets/icon/log.svg";
-import LogoTwo from "../../assets/icon/LogoTwo.svg";
-import gmail from "../../assets/icon/gmail.svg";
-import Gogle from "../../assets/icon/Gogle.svg";
+import { gmail } from "@/assets/icon";
+import { LogoTwo } from "@/assets/icon";
+import { log } from "@/assets/icon";
 
-const SignUp = () => {
+const Forgot = () => {
 	return (
 		<Container>
 			<Logo>
@@ -20,47 +18,22 @@ const SignUp = () => {
 				<TypographyStyled>Добро пожаловать</TypographyStyled>
 			</Logo>
 			<Block>
-				<BlockOne>Регистрация</BlockOne>
+				<BlockOne>Регестрация</BlockOne>
 				<BlockTwo>
 					<Input
 						InputProps={{
 							endAdornment: (
-								<InputAdornment sx={{ position: "relative" }} position="end">
-									<img
-										style={{
-											position: "absolute",
-											right: "0",
-											width: "1.125rem",
-											height: "1.125rem",
-										}}
-										src={gmail}
-										alt="Gmail"
-									/>
-								</InputAdornment>
+								<InputAdornmentStyled position="end">
+									<img src={gmail} alt="Gmail" />
+								</InputAdornmentStyled>
 							),
 						}}
-						placeholder="Email"
-					/>
-					<Input
-						InputProps={{
-							endAdornment: (
-								<InputAdornment sx={{ position: "relative" }} position="end">
-									<img
-										style={{ position: "absolute", right: "0" }}
-										src={pass}
-										alt="Gmail"
-									/>
-								</InputAdornment>
-							),
-						}}
-						placeholder="Password"
+						placeholder="Код: 0000"
 					/>
 				</BlockTwo>
 				<BlockThree>
 					<ButtonStyled fullWidth>Регестрация</ButtonStyled>
-					<ButtonStyledTwo fullWidth startIcon={<img src={Gogle} />}>
-						Регестрация с Google
-					</ButtonStyledTwo>
+
 					<TypographyMui>Войти</TypographyMui>
 				</BlockThree>
 			</Block>
@@ -68,7 +41,7 @@ const SignUp = () => {
 	);
 };
 
-export default SignUp;
+export default Forgot;
 
 const Container = styled(Box)(({ theme }) => ({
 	width: "100%",
@@ -86,9 +59,21 @@ const Container = styled(Box)(({ theme }) => ({
 	},
 }));
 
+const InputAdornmentStyled = styled(InputAdornment)(({}) => ({
+	position: "relative",
+	cursor: "pointer",
+	"& > img": {
+		position: "absolute",
+		right: "0",
+		width: "20px",
+		height: "20px",
+		cursor: "pointer",
+	},
+}));
+
 const Block = styled(Box)(({ theme }) => ({
 	width: "570px",
-	height: "600px",
+	height: "500px",
 	margin: "0 auto",
 	boxShadow: " 0rem 0rem 1.1875rem .1875rem rgba(34, 60, 80, 0.2)",
 	display: "flex",
@@ -101,7 +86,7 @@ const Block = styled(Box)(({ theme }) => ({
 	[theme.breakpoints.down("sm")]: {
 		backgroundColor: "white",
 		width: "20.625rem",
-		height: "24.375rem",
+		height: "21.5rem",
 		boxShadow: " 0rem 0rem 1.1875rem .1875rem rgba(34, 60, 80, 0.2)",
 		margin: "0 auto",
 		display: "flex",
@@ -114,7 +99,7 @@ const Block = styled(Box)(({ theme }) => ({
 
 const Logo = styled(Box)(({ theme }) => ({
 	width: "25rem",
-	height: "10rem",
+	height: "12.5rem",
 	margin: "20px auto",
 	display: "flex",
 	flexDirection: "column",
@@ -137,9 +122,10 @@ const Img = styled("div")(({ theme }) => ({
 	height: "70px",
 	padding: "10px",
 	background: `url(${LogoTwo}) center center / cover no-repeat`,
+
 	[theme.breakpoints.down("sm")]: {
-		width: "7.5rem",
-		height: "3.4375rem",
+		width: "100%",
+		height: "100%",
 		background: `url(${log}) center center / cover no-repeat`,
 	},
 }));
@@ -152,6 +138,7 @@ const TypographyStyled = styled(Typography)(({ theme }) => ({
 
 	[theme.breakpoints.down("sm")]: {
 		fontSize: "1.125rem",
+
 		fontFamily: "Montserrat,sans-serif",
 		textAlign: "center",
 	},
@@ -186,6 +173,8 @@ const BlockTwo = styled(Box)(({ theme }) => ({
 	flexDirection: "column",
 	gap: "10px",
 	position: "relative",
+	alignItems: "center",
+	justifyContent: "center",
 
 	[theme.breakpoints.down("sm")]: {
 		width: "17.8125rem",
@@ -196,6 +185,7 @@ const BlockTwo = styled(Box)(({ theme }) => ({
 		justifyContent: "center",
 		gap: "1.875rem",
 		marginBottom: ".9375rem",
+		position: "relative",
 	},
 }));
 
@@ -213,6 +203,7 @@ const BlockThree = styled(Box)(({ theme }) => ({
 		flexDirection: "column",
 		gap: "1.25rem",
 		alignItems: "center",
+		marginTop: "15px",
 	},
 }));
 
@@ -297,6 +288,7 @@ const TypographyMui = styled(Typography)(({ theme }) => ({
 	fontFamily: "Montserrat,sans-serif",
 	textAlign: "center",
 	textDecoration: "underline",
+	cursor: "pointer",
 
 	[theme.breakpoints.down("sm")]: {
 		color: "#9A9A9A",
