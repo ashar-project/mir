@@ -2,8 +2,9 @@ import { lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { AdminLayout, Layout } from "@/components";
-import { ADMIN_ROUTER } from "@/modules/admin";
-import { USER_ROUTES } from "@/modules/User";
+
+import { ADMIN_ROUTER } from "./lib/AdminRoutes";
+import { USER_ROUTES } from "./lib/UserRoutes";
 
 const SignUp = lazy(() => import("@/pages/RegistrationPage/SignUp"));
 const SignIn = lazy(() => import("@/pages/RegistrationPage//SignIn"));
@@ -34,5 +35,6 @@ export const Routing = () => {
       element: <Forgot />,
     },
   ]);
+
   return <RouterProvider router={router} />;
 };

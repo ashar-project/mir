@@ -1,29 +1,24 @@
 import { Typography, Stack } from "@mui/material";
 
-export const RatingCard = ({ minAmout = 0, maxAmout = 0, rating }) => {
+export const RatingCard = ({ minAmount, maxAmount, rating }) => {
   return (
     <Stack
-      sx={{
-        padding: "15px",
-        minWidth: "220px",
-        maxHeight: "160px",
-        border: "1px solid grey",
-        borderTop: "5px solid #637E7E",
-        justifyContent: "center",
-        alignItems: "center",
-        boxShadow: "0px 4px 5px grey",
-      }}
+      padding={1.5}
+      minWidth={220}
+      maxHeight={160}
+      alignItems="center"
+      border="1px solid grey"
+      boxShadow="0px 4px 5px grey"
+      borderTop="5px solid #637E7E"
+      justifyContent="space-between"
     >
-      <Typography
-        sx={{
-          fontSize: "100px",
-          fontWeight: 500,
-        }}
-      >
+      <Typography lineHeight={1.15} fontSize={96} fontWeight={500}>
         {rating}
       </Typography>
       <Stack direction="row" gap="10px">
-        <Typography>{minAmout}</Typography>-<Typography>{maxAmout}</Typography>
+        <Typography fontSize={16} fontWeight={500}>
+          {minAmount} - {maxAmount}
+        </Typography>
       </Stack>
     </Stack>
   );

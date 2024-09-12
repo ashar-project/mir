@@ -1,10 +1,10 @@
-import { Container } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import { RatingTable } from "@/modules/World";
 
 export const WorldPage = () => {
   return (
-    <Container w="100%" h="100vh">
+    <Box width="100%" height="100vh">
       <RatingTable />
-    </Container>
+    </Box>
   );
 };
