@@ -1,4 +1,5 @@
 import { Avatar, Stack, Typography, Box, Grid2 as Grid } from "@mui/material";
+import { Cards } from "@/components";
 
 const data = [
   { name: "John Smith", percent: 23 },
@@ -23,22 +24,13 @@ export const GraduatedTable = () => {
     <Box flexGrow={1}>
       <Grid
         container
-        spacing={{ xs: 5, sm: 8, md: 10 }}
         columnSpacing={5}
         padding="15px"
+        spacing={{ xs: 5, sm: 8, md: 10 }}
       >
         {data.map(({ name, percent }) => (
           <Grid item="true" key={name}>
-            <Stack
-              alignItems="center"
-              spacing={3}
-              border="1px solid black"
-              minWidth={150}
-            >
-              <Avatar />
-              <Typography>{name}</Typography>
-              <Typography>{percent}</Typography>
-            </Stack>
+            <Cards name={name} percentage={percent} />
           </Grid>
         ))}
       </Grid>
