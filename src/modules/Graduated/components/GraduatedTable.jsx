@@ -21,10 +21,20 @@ const data = [
 export const GraduatedTable = () => {
   return (
     <Box flexGrow={1}>
-      <Grid container spacing={10} columnSpacing={5}>
+      <Grid
+        container
+        spacing={{ xs: 5, sm: 8, md: 10 }}
+        columnSpacing={5}
+        padding="15px"
+      >
         {data.map(({ name, percent }) => (
           <Grid item="true" key={name}>
-            <Stack alignItems="center" spacing={3} border="1px solid black">
+            <Stack
+              alignItems="center"
+              spacing={3}
+              border="1px solid black"
+              minWidth={150}
+            >
               <Avatar />
               <Typography>{name}</Typography>
               <Typography>{percent}</Typography>
