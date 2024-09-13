@@ -1,24 +1,40 @@
 import { lazy } from "react";
-import { Route, Routes } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { Menu } from "../modules/Menu";
+import { AdminLayout, Layout } from "@/components";
 
-const RegistrationPage = lazy(() => import("../pages/RegistrationPage"));
-const WorldPage = lazy(() => import("../pages/WorldPage"));
+import { ADMIN_ROUTER } from "./lib/AdminRoutes";
+import { USER_ROUTES } from "./lib/UserRoutes";
+
+const SignUp = lazy(() => import("@/pages/RegistrationPage/SignUp"));
+const SignIn = lazy(() => import("@/pages/RegistrationPage//SignIn"));
+const Forgot = lazy(() => import("@/pages/RegistrationPage/Forgot"));
 
 export const Routing = () => {
-  return (
-    <div>
-      <Menu />
-      <Routes>
-        <Route path={SitePaths.registration} element={<RegistrationPage />} />
-        <Route path={SitePaths.world} element={<WorldPage />} />
-      </Routes>
-    </div>
-  );
-};
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: USER_ROUTES,
+    },
+    {
+      path: "/admin",
+      element: <AdminLayout />,
+      children: ADMIN_ROUTER,
+    },
+    {
+      path: "/sign-up",
+      element: <SignUp />,
+    },
+    {
+      path: "/sign-in",
+      element: <SignIn />,
+    },
+    {
+      path: "/forgot",
+      element: <Forgot />,
+    },
+  ]);
 
-const SitePaths = {
-  world: "/",
-  registration: "/registration",
+  return <RouterProvider router={router} />;
 };
