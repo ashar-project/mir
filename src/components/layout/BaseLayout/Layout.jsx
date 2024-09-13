@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
-import { Sidebar } from "@/components";
+import { Sidebar } from "@/modules/Sidebar";
 
 export const Layout = () => {
   return (
     <>
-      {/* <aside>
+      <aside>
         <Sidebar />
-      </aside> */}
+      </aside>
       <main>
         <Outlet />
       </main>

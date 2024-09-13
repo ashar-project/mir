@@ -2,7 +2,7 @@ import { createTheme, ThemeProvider } from "@mui/material";
 
 const theme = createTheme({
   typography: {
-    fontFamily: "Montserrat",
+    // fontFamily: "Montserrat",
   },
 });
 
