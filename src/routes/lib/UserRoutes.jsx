@@ -1,8 +1,8 @@
-import GaveUp from "@/pages/GaveUpPage/GaveUp";
-import { lazy } from "react";
+import GaveUp from '@/pages/GaveUpPage/GaveUp';
+import { lazy } from 'react';
 
-const WorldPage = lazy(() => import("@/pages/WorldPage"));
-const GraduatedPage = lazy(() => import("@/pages/GraduatedPage"));
+const WorldPage = lazy(() => import('@/pages/WorldPage'));
+const GraduatedPage = lazy(() => import('@/pages/GraduatedPage'));
 
 export const USER_ROUTES = [
   {
@@ -10,27 +10,40 @@ export const USER_ROUTES = [
     element: <WorldPage />,
   },
   {
-    path: "/received",
-    element: <h1>Received</h1>,
+    path: '/received',
+    children: [
+      {
+        index: true,
+        element: <h1>Received</h1>,
+      },
+      {
+        path: '/received/profile/:id',
+        element: <h1>Received profile</h1>,
+      },
+      {
+        path: '/received-profile',
+        element: <h1>Received profile</h1>,
+      },
+    ],
   },
   {
-    path: "/graduated",
+    path: '/graduated',
     element: <GraduatedPage />,
   },
   {
-    path: "/gave-up",
-    element: <GaveUp/>,
+    path: '/gave-up',
+    element: <GaveUp />,
   },
   {
-    path: "/pay",
+    path: '/pay',
     element: <h1>Pay</h1>,
   },
   {
-    path: "/about",
+    path: '/about',
     element: <h1>About Us</h1>,
   },
   {
-    path: "/tech-support",
+    path: '/tech-support',
     element: <h1>Tech support</h1>,
   },
 ];
