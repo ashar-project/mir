@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { AdminLayout, Layout } from "@/components";
@@ -14,7 +14,11 @@ export const Routing = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />,
+      element: (
+        <Suspense fallback={<div>Loading...</div>}>
+          <Layout />
+        </Suspense>
+      ),
       children: USER_ROUTES,
     },
     {
