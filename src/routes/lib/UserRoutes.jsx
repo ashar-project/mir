@@ -1,6 +1,6 @@
 import GaveUp from '@/pages/GaveUpPage/GaveUp';
 import { lazy } from 'react';
-
+import { UserProfile } from '@/pages/UserPage/UserProfile/UserProfile';
 const WorldPage = lazy(() => import('@/pages/WorldPage'));
 const GraduatedPage = lazy(() => import('@/pages/GraduatedPage'));
 
@@ -16,13 +16,10 @@ export const USER_ROUTES = [
         index: true,
         element: <h1>Received</h1>,
       },
+
       {
-        path: '/received/profile/:id',
-        element: <h1>Received profile</h1>,
-      },
-      {
-        path: '/received-profile',
-        element: <h1>Received profile</h1>,
+        path: 'received-profile/:id',
+        element: <UserProfile />,
       },
     ],
   },
