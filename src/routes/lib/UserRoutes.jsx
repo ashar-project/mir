@@ -1,5 +1,4 @@
 import GaveUp from "@/pages/GaveUpPage/GaveUp";
-import Support from "@/pages/SupportPage/Support";
 import { lazy } from "react";
 
 const WorldPage = lazy(() => import("@/pages/WorldPage"));
