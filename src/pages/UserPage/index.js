@@ -1,1 +1,3 @@
-export { UserProfile } from './UserProfile/UserProfile';
+import { UserProfile } from './UserProfile/UserProfile';
+
+export default UserProfile;

@@ -1,7 +1,7 @@
 import GaveUp from '@/pages/GaveUpPage/GaveUp';
 import { lazy } from 'react';
-import { UserProfile } from '@/pages/UserPage'; 
 
+const UserProfile = lazy(() => import('@/pages/UserPage'));
 const WorldPage = lazy(() => import('@/pages/WorldPage'));
 const GraduatedPage = lazy(() => import('@/pages/GraduatedPage'));
 const Support = lazy(() => import('@/pages/SupportPage'));
@@ -20,7 +20,7 @@ export const USER_ROUTES = [
       },
       {
         path: 'received-profile',
-        element: <UserProfile />, 
+        element: <UserProfile />,
       },
     ],
   },
