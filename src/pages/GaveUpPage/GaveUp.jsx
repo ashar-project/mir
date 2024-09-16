@@ -23,38 +23,41 @@ const GaveUp = () => {
 export default GaveUp;
 
 const Wrapper = styled(Box)(({ theme }) => ({
-	margin: "0 auto",
-	textAlign: "center",
-	maxWidth: "100%",
-	padding: "20px",
-	[theme.breakpoints.down("sm")]: {
-		width: "100%",
-	},
+  margin: "0 auto",
+  padding: "10px",
+  width: "100%",
+  [theme.breakpoints.down("sm")]: {
+    width: "470px",
+  },
 }));
 
 const StyledBox = styled(Box)(({ theme }) => ({
-	display: "grid",
-	gridTemplateColumns: "repeat(5, 1fr)",
-	gap: "16px",
-	padding: "40px 0",
-	width: "100%",
-	maxWidth: "1440px",
-	margin: "0 auto",
-	[theme.breakpoints.down("sm")]: {
-		gridTemplateColumns: "repeat(3, 1fr)",
-	},
-	[theme.breakpoints.down("sm")]: {
-		gridTemplateColumns: "repeat(2, 1fr)",
-		padding: "40px 0",
-	},
+  display: "grid",
+  gridTemplateColumns: "repeat(5, 1fr)",
+  gap: "16px",
+  padding: "40px 0",
+  maxWidth: "1200px",
+  margin: "0 auto",
+  [theme.breakpoints.down("lg")]: {
+    gridTemplateColumns: "repeat(4, 1fr)",
+  },
+  [theme.breakpoints.down("md")]: {
+    gridTemplateColumns: "repeat(3, 1fr)",
+  },
+  [theme.breakpoints.down("sm")]: {
+    gridTemplateColumns: "repeat(2, 1fr)",
+    gap: "13px",
+  },
+  [theme.breakpoints.down("xs")]: {
+    gridTemplateColumns: "1fr",
+  },
 }));
 
 const StyledContainerCart = styled("div")(({ theme }) => ({
-	display: "flex",
-	justifyContent: "center",
-	padding: "5px",
-	gap: "5px",
-	[theme.breakpoints.down("sm")]: {
-		marginLeft: "-10px",
-	},
+  display: "flex",
+  justifyContent: "center",
+  padding: "5px",
+  [theme.breakpoints.down("sm")]: {
+    padding: "15px",
+  },
 }));
