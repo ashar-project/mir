@@ -4,7 +4,7 @@ const UserProfile = lazy(() => import('@/pages/UserPage'));
 const WorldPage = lazy(() => import('@/pages/WorldPage'));
 const Support = lazy(() => import('@/pages/SupportPage'));
 const GraduatedPage = lazy(() => import('@/pages/GraduatedPage'));
-const GaveUp = lazy(() => import('@/pages/GaveUpPage'));
+const GaveUpPage = lazy(() => import('@/pages/GaveUpPage'));
 
 export const USER_ROUTES = [
   {
@@ -44,7 +44,7 @@ export const USER_ROUTES = [
     path: '/gave-up',
     element: (
       <Suspense fallback={<h1>Loading ...</h1>}>
-        <GaveUp />
+        <GaveUpPage />
       </Suspense>
     ),
   },
