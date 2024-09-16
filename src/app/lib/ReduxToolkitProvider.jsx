@@ -1,6 +1,6 @@
-import { Provider } from "react-redux";
-import { store } from "../../store";
+import { Provider } from 'react-redux';
+import { storeConfig } from '@/store';
 
 export const ReduxToolkitProvider = ({ children }) => {
-  return <Provider store={store}>{children}</Provider>;
+  return <Provider store={storeConfig}>{children}</Provider>;
 };
