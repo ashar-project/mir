@@ -11,14 +11,40 @@ const SignIn = lazy(() => import("@/pages/RegistrationPage//SignIn"));
 const Forgot = lazy(() => import("@/pages/RegistrationPage/Forgot"));
 
 export const Routing = () => {
+  // <<<<<<< HEAD
+  //   const router = createBrowserRouter([
+  //     {
+  //       path: "/",
+  //       element: (
+  //         <Suspense fallback={<div>Loading...</div>}>
+  //           <Layout />
+  //         </Suspense>
+  //       ),
+  //       children: USER_ROUTES,
+  //     },
+  //     {
+  //       path: "/admin",
+  //       element: <AdminLayout />,
+  //       children: ADMIN_ROUTER,
+  //     },
+  //     {
+  //       path: "/sign-up",
+  //       element: <SignUp />,
+  //     },
+  //     {
+  //       path: "/sign-in",
+  //       element: <SignIn />,
+  //     },
+  //     {
+  //       path: "/forgot",
+  //       element: <Forgot />,
+  //     },
+  //   ]);
+  // =======
   const router = createBrowserRouter([
     {
       path: "/",
-      element: (
-        <Suspense fallback={<div>Loading...</div>}>
-          <Layout />
-        </Suspense>
-      ),
+      element: <Layout />,
       children: USER_ROUTES,
     },
     {
@@ -39,6 +65,7 @@ export const Routing = () => {
       element: <Forgot />,
     },
   ]);
+  // >>>>>>> refactor/router
 
   return <RouterProvider router={router} />;
 };

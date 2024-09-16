@@ -15,3 +15,8 @@ export { UsersIcon } from "./users-icon";
 export { PayIcon } from "./pay-icon";
 export { LogoDesktop } from "./logo-desktop";
 export { LogoMobile } from "./logo-mobile";
+
+export { default as user } from "./user.svg";
+export { default as line } from "./line.svg";
+export { default as arrow } from "./arrow.svg";
+export { default as raiting } from "./raiting.svg";
