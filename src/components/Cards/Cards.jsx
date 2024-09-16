@@ -6,7 +6,6 @@ export const Cards = ({ name, percentage, imageSrc }) => {
     <StyledCard>
       <StyledAvatar alt={name} src={imageSrc} />
       <Typography variant="h6">{name}</Typography>
-      <PercentageText>{percentage}%</PercentageText>
     </StyledCard>
   );
 };
@@ -22,12 +21,8 @@ const StyledCard = styled(Card)(({ theme }) => ({
   justifyContent: "center",
   flexDirection: "column",
   [theme.breakpoints.down("sm")]: {
-    width: "220px",
-    height: "230px",
-  },
-  [theme.breakpoints.down("sm")]: {
-    width: "220px",
-    height: "240px",
+    width: "190x",
+		height: "220px",
   },
 }));
 
@@ -37,8 +32,4 @@ const StyledAvatar = styled(Avatar)(() => ({
   marginBottom: "10px",
 }));
 
-const PercentageText = styled(Typography)(() => ({
-  fontSize: "24px",
-  fontWeight: "bold",
-  marginTop: "10px",
-}));
+
