@@ -1,7 +1,6 @@
 import { MobileSideBar } from "@/components";
-import styled from "@emotion/styled";
-import { Box, TextField } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import { Box, TextField, styled } from "@mui/material";
 
 import { Sidebar } from "@/modules/Sidebar";
 
@@ -24,31 +23,14 @@ export const Layout = () => {
   );
 };
 
-const SideBare = styled(Box)(({ theme }) => ({
-  width: "300px",
-  height: "100vh",
-  border: "1px solid black",
-  backgroundColor: "red",
-
-  [theme.breakpoints.down("sm")]: {
-    backgroundColor: "red",
-    width: "45px",
-    height: "45px",
-    position: "absolute",
-    top: "10px",
-    left: "20px",
-    zIndex: 1100,
-  },
-}));
-
 const Container = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100vh",
   margin: "0 auto",
   position: "relative",
   overflow: "hidden",
-  maxWidth: "1680px",
-  minWidth: "1200px",
+  // maxWidth: "1680px",
+  // minWidth: "1200px",
 
   [theme.breakpoints.down("sm")]: {
     maxWidth: "100%",
@@ -80,7 +62,7 @@ const LayoutContainer = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
   display: "flex",
-  paddingBottom: "80px",
+  // paddingBottom: "80px",
 }));
 
 const Input = styled(TextField)(({ theme }) => ({
