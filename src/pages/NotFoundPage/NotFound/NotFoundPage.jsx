@@ -52,8 +52,12 @@ const StyledContainer = styled(Container)(({ theme }) => ({
   justifyContent: 'center',
   minHeight: '100vh',
   textAlign: 'center',
-  backgroundColor: theme.palette.grey[100],
+  width: '100%',
   padding: theme.spacing(4),
+
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(2),
+  },
 }));
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
@@ -62,6 +66,10 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.primary,
   fontFamily: 'monospace',
   marginBottom: theme.spacing(3),
+
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '2.5rem',
+  },
 }));
 
 const StyledSubtitle = styled(Typography)(({ theme }) => ({
@@ -69,6 +77,10 @@ const StyledSubtitle = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
   fontFamily: 'monospace',
   marginBottom: theme.spacing(2),
+
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '1.2rem',
+  },
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
@@ -79,5 +91,10 @@ const StyledButton = styled(Button)(({ theme }) => ({
   fontFamily: 'monospace',
   '&:hover': {
     backgroundColor: theme.palette.primary.main,
+  },
+
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '0.9rem',
+    padding: theme.spacing(1, 3),
   },
 }));

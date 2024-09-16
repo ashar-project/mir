@@ -20,11 +20,6 @@ export const Routing = () => {
         </Suspense>
       ),
       children: USER_ROUTES,
-      errorElement: (
-        <Suspense>
-          <NotFoundPage />
-        </Suspense>
-      ),
     },
     {
       path: '/admin',
@@ -58,6 +53,10 @@ export const Routing = () => {
           <Forgot />
         </Suspense>
       ),
+    },
+    {
+      path: '*',
+      element: <NotFoundPage />,
     },
   ]);
 
