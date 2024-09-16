@@ -2,27 +2,14 @@ import { MobileSideBar } from "@/components";
 import styled from "@emotion/styled";
 import { Box, TextField } from "@mui/material";
 import { Outlet } from "react-router-dom";
-// <<<<<<< HEAD
-// import { Stack, Box } from "@mui/material";
 
-// import { Sidebar } from "@/modules/Sidebar";
-
-// export const Layout = () => {
-//   return (
-//     <Stack direction="row">
-//       <Sidebar />
-//       <Box width="100%" height="100vh" padding="30px">
-//         <Outlet />
-//       </Box>
-//     </Stack>
-//   );
-// =======
+import { Sidebar } from "@/modules/Sidebar";
 
 export const Layout = () => {
   return (
     <Container>
       <LayoutContainer>
-        <SideBare />
+        <Sidebar />
         <OutletBox>
           <HeaderInput>
             <Input size="small" placeholder="Поиск" />
@@ -35,7 +22,6 @@ export const Layout = () => {
       <MobileSideBar />
     </Container>
   );
-  // >>>>>>> refactor/router
 };
 
 const SideBare = styled(Box)(({ theme }) => ({
