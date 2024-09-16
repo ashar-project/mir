@@ -1,30 +1,13 @@
-import { useState } from "react";
-import { Stack } from "@mui/material";
+import { Stack } from '@mui/material';
 
 import {
   FaChevronRight as RightArrow,
   FaChevronLeft as LeftArrow,
-} from "react-icons/fa";
+} from 'react-icons/fa';
 
-import { LogoDesktop } from "@/assets/icon";
-import { UserCard, Drawer, MenuList } from "..";
-
-const useSidebar = () => {
-  if (localStorage.getItem("open") === null) {
-    localStorage.setItem("open", JSON.stringify(true));
-  }
-
-  const initialSidebarState = JSON.parse(localStorage.getItem("open"));
-
-  const [open, setOpen] = useState(initialSidebarState);
-
-  const toggleOpen = () => {
-    setOpen((prev) => !prev);
-    localStorage.setItem("open", JSON.stringify(!open));
-  };
-
-  return { open, toggleOpen };
-};
+import { LogoDesktop } from '@/assets/icon';
+import { useSidebar } from '@/modules/Sidebar';
+import { UserCard, Drawer, MenuList } from '..';
 
 export const Sidebar = () => {
   const { open, toggleOpen } = useSidebar();
@@ -46,18 +29,19 @@ const SidebarTop = ({ open, onClick }) => {
       <button
         onClick={onClick}
         style={{
-          backgroundColor: "#BBBBBB",
-          borderRadius: "8px 0px 0px 8px",
-          position: "absolute",
-          top: "100px",
-          right: "0px",
-          width: "20px",
-          height: "40px",
-          border: "0",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          cursor: "pointer",
+          backgroundColor: '#BBBBBB',
+          borderRadius: '8px 0px 0px 8px',
+          position: 'absolute',
+          top: '100px',
+          right: '0px',
+          // zIndex: 1,
+          width: '20px',
+          height: '40px',
+          border: '0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
         }}
       >
         {open ? <LeftArrow /> : <RightArrow />}
