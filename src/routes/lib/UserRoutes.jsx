@@ -1,3 +1,5 @@
+import GaveUp from "@/pages/GaveUpPage/GaveUp";
+import Support from "@/pages/SupportPage/Support";
 import { lazy } from "react";
 
 const WorldPage = lazy(() => import("@/pages/WorldPage"));
@@ -18,7 +20,7 @@ export const USER_ROUTES = [
   },
   {
     path: "/gave-up",
-    element: <h1>Gave up</h1>,
+    element: <GaveUp/>,
   },
   {
     path: "/pay",
@@ -30,6 +32,6 @@ export const USER_ROUTES = [
   },
   {
     path: "/tech-support",
-    element: <h1>Tech support</h1>,
+    element: <Support/>
   },
 ];
