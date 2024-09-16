@@ -1,12 +1,10 @@
 import { Girl } from '@/assets/image';
 import { PaymentTable } from '@/modules/User';
-import { Box, styled, Table, Typography } from '@mui/material';
-import React from 'react';
+import { Box, styled, Typography } from '@mui/material';
 
 export const UserProfile = () => {
   return (
-    <div style={{ display: 'flex' }}>
-      <Sidebar />
+    <>
       <Container>
         <BlockOne>
           <ImgBlock>
@@ -29,7 +27,7 @@ export const UserProfile = () => {
           </TableInfo>
         </BlockTwo>
       </Container>
-    </div>
+    </>
   );
 };
 
@@ -39,12 +37,6 @@ const Container = styled(Box)(() => ({
   alignItems: 'center',
   flexDirection: 'column',
   height: '100vh',
-}));
-
-const Sidebar = styled(Box)(() => ({
-  width: '100px',
-  height: '100vh',
-  backgroundColor: 'red',
 }));
 
 const BlockOne = styled(Box)(() => ({
