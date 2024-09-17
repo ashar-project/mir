@@ -1,19 +1,20 @@
-import { lazy, Suspense } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { lazy, Suspense } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { AdminLayout, Layout } from "@/components";
+import { AdminLayout, Layout } from '@/components';
 
-import { ADMIN_ROUTER } from "./lib/AdminRoutes";
-import { USER_ROUTES } from "./lib/UserRoutes";
+import { ADMIN_ROUTER } from './lib/AdminRoutes';
+import { USER_ROUTES } from './lib/UserRoutes';
 
-const SignUp = lazy(() => import("@/pages/RegistrationPage/SignUp"));
-const SignIn = lazy(() => import("@/pages/RegistrationPage//SignIn"));
-const Forgot = lazy(() => import("@/pages/RegistrationPage/Forgot"));
+import { NotFoundPage } from '@/pages/NotFoundPage';
+import SignUp from '@/pages/RegistrationPage/SignUp';
+import SignIn from '@/pages/RegistrationPage/SignIn';
+import Forgot from '@/pages/RegistrationPage/Forgot';
 
 export const Routing = () => {
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: '/',
       element: (
         <Suspense fallback={<div>Loading...</div>}>
           <Layout />
@@ -22,21 +23,41 @@ export const Routing = () => {
       children: USER_ROUTES,
     },
     {
-      path: "/admin",
-      element: <AdminLayout />,
+      path: '/admin',
+      element: (
+        <Suspense>
+          <AdminLayout />
+        </Suspense>
+      ),
       children: ADMIN_ROUTER,
     },
     {
-      path: "/sign-up",
-      element: <SignUp />,
+      path: '/sign-up',
+      element: (
+        <Suspense>
+          <SignUp />
+        </Suspense>
+      ),
     },
     {
-      path: "/sign-in",
-      element: <SignIn />,
+      path: '/sign-in',
+      element: (
+        <Suspense>
+          <SignIn />
+        </Suspense>
+      ),
     },
     {
-      path: "/forgot",
-      element: <Forgot />,
+      path: '/forgot',
+      element: (
+        <Suspense>
+          <Forgot />
+        </Suspense>
+      ),
+    },
+    {
+      path: '*',
+      element: <NotFoundPage />,
     },
   ]);
 

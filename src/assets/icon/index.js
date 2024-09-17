@@ -1,18 +1,16 @@
-export { default as Gogle } from "./Gogle.svg";
-export { default as gmail } from "./gmail.svg";
-export { default as pass } from "./pass.svg";
+export { default as Gogle } from './Gogle.svg';
+export { default as gmail } from './gmail.svg';
+export { default as log } from './log.svg';
+// export { default as LogoTwo } from './LogoTwo.svg';
+export { default as LogoTwo } from './log.svg';
+export { default as pass } from './pass.svg';
+export { default as user } from './user.svg';
+export { default as line } from './line.svg';
+export { default as arrow } from './arrow.svg';
+export { default as raiting } from './raiting.svg';
+export { default as whatsappLogo } from './whatsap.svg';
+export { default as InstagramLogo } from './instagram.svg';
+export { default as TelegramLogo } from './telegram.svg';
 
-export { WorldIcon } from "./world-icon";
-export { GaveUpIcon } from "./gave-up-icon";
-export { GraduatedIcon } from "./graduated-icon";
-export { ReceivedIcon } from "./received-icon";
-export { HeadphonesIcon } from "./headphones-icon";
-export { UsersIcon } from "./users-icon";
-export { PayIcon } from "./pay-icon";
-export { LogoDesktop } from "./logo-desktop";
-export { LogoMobile } from "./logo-mobile";
-
-export { default as user } from "./user.svg";
-export { default as line } from "./line.svg";
-export { default as arrow } from "./arrow.svg";
-export { default as raiting } from "./raiting.svg";
+export { LogoDesktop } from './logo-desktop';
+export { LogoMobile } from './logo-mobile';

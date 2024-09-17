@@ -1,23 +1,40 @@
-import { Stack } from '@mui/material';
+import { useContext } from 'react';
+import { Stack, useMediaQuery } from '@mui/material';
+import { useTheme } from '@emotion/react';
 
 import {
   FaChevronRight as RightArrow,
   FaChevronLeft as LeftArrow,
 } from 'react-icons/fa';
 
-import { LogoDesktop } from '@/assets/icon';
+import { LogoDesktop, LogoMobile } from '@/assets/icon';
 import { useSidebar } from '@/modules/Sidebar';
 import { UserCard, Drawer, MenuList } from '..';
 
 export const Sidebar = () => {
   const { open, toggleOpen } = useSidebar();
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.up('mobile'));
+
+  // if (isMobile) {
+  //   return <MobileSidebar />;
+  // }
+
+  return <DesktopSidebar open={open} toggleOpen={toggleOpen} />;
+};
+
+const DesktopSidebar = ({ open, toggleOpen }) => {
   return (
     <Drawer open={open} variant="permanent">
       <SidebarTop open={open} onClick={toggleOpen} />
       <MenuList open={open} />
     </Drawer>
   );
+};
+
+const MobileSidebar = () => {
+  return <>Sidebar</>;
 };
 
 const SidebarTop = ({ open, onClick }) => {
@@ -34,7 +51,6 @@ const SidebarTop = ({ open, onClick }) => {
           position: 'absolute',
           top: '100px',
           right: '0px',
-          // zIndex: 1,
           width: '20px',
           height: '40px',
           border: '0',

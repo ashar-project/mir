@@ -1,15 +1,19 @@
-import GaveUp from "@/pages/GaveUpPage/GaveUp";
-import GraduatedPage from "@/pages/GraduatedPage";
-import WorldPage from "@/pages/WorldPage";
+import { lazy } from 'react';
+
+const UserProfile = lazy(() => import('@/pages/UserPage'));
+const WorldPage = lazy(() => import('@/pages/WorldPage'));
+const Support = lazy(() => import('@/pages/SupportPage'));
+const GraduatedPage = lazy(() => import('@/pages/GraduatedPage'));
+const GaveUpPage = lazy(() => import('@/pages/GaveUpPage'));
 
 export const SitePaths = {
-  world: "/",
-  received: "/received",
-  graduated: "/graduated",
-  gaveUp: "/gave-up",
-  pay: "/pay",
-  about: "/about",
-  techSupport: "/tech-support",
+  world: '/',
+  received: '/received',
+  graduated: '/graduated',
+  gaveUp: '/gave-up',
+  pay: '/pay',
+  about: '/about',
+  techSupport: '/tech-support',
 };
 
 export const USER_ROUTES = [
@@ -18,16 +22,26 @@ export const USER_ROUTES = [
     element: <WorldPage />,
   },
   {
-    path: SitePaths.received,
-    element: <h1>Received</h1>,
+    path: '/received',
+    children: [
+      {
+        index: true,
+        element: <h1>Received</h1>,
+      },
+      {
+        path: 'received-profile',
+        element: <UserProfile />,
+      },
+    ],
   },
+  ,
   {
     path: SitePaths.graduated,
     element: <GraduatedPage />,
   },
   {
     path: SitePaths.gaveUp,
-    element: <GaveUp />,
+    element: <GaveUpPage />,
   },
   {
     path: SitePaths.pay,
@@ -39,6 +53,6 @@ export const USER_ROUTES = [
   },
   {
     path: SitePaths.techSupport,
-    element: <h1>Tech support</h1>,
+    element: <Support />,
   },
 ];
