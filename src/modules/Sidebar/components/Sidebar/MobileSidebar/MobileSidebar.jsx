@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
   Stack,
   Drawer as DrawerMUI,
@@ -14,10 +15,11 @@ import { SitePaths } from '@/routes/lib/UserRoutes';
 import { MenuIcon } from '../..';
 
 export const MobileSidebar = () => {
-  const { open, toggleOpen } = useSidebar();
+  const { open, setOpen } = useSidebar();
+  const navigate = useNavigate();
 
   return (
-    <DrawerMUI open={open} onClose={toggleOpen}>
+    <DrawerMUI open={open} onClose={() => setOpen(false)}>
       <Stack
         width="100%"
         height="100px"
@@ -28,7 +30,7 @@ export const MobileSidebar = () => {
       </Stack>
 
       <List>
-        <ListItem onClick={() => console.log(SitePaths.graduated)}>
+        <ListItem onClick={() => navigate(SitePaths.graduated)}>
           <ListItemButton>
             <ListItemIcon>
               <MenuIcon path={SitePaths.graduated} color="#818093" />
@@ -37,7 +39,7 @@ export const MobileSidebar = () => {
           </ListItemButton>
         </ListItem>
 
-        <ListItem onClick={() => console.log(SitePaths.about)}>
+        <ListItem onClick={() => navigate(SitePaths.about)}>
           <ListItemButton>
             <ListItemIcon>
               <MenuIcon path={SitePaths.about} color="#818093" />
@@ -46,7 +48,7 @@ export const MobileSidebar = () => {
           </ListItemButton>
         </ListItem>
 
-        <ListItem onClick={() => console.log(SitePaths.techSupport)}>
+        <ListItem onClick={() => navigate(SitePaths.techSupport)}>
           <ListItemButton>
             <ListItemIcon>
               <MenuIcon path={SitePaths.techSupport} color="#818093" />
