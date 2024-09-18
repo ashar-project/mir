@@ -1,3 +1,4 @@
+import { UserProfilePage } from '@/pages/UserPage';
 import { Suspense, lazy } from 'react';
 
 const UserProfile = lazy(() => import('@/pages/UserPage'));
@@ -61,6 +62,14 @@ export const USER_ROUTES = [
     element: (
       <Suspense fallback={<h1>Loading ...</h1>}>
         <Support />
+      </Suspense>
+    ),
+  },
+  {
+    path: '/user-profile',
+    element: (
+      <Suspense>
+        <UserProfilePage />
       </Suspense>
     ),
   },
