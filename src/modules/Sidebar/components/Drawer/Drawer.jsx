@@ -10,13 +10,10 @@ const openedMixin = theme => ({
   }),
   padding: '16px 30px 40px 25px',
   overflowX: 'hidden',
-
-  [theme.breakpoints.down('mobile')]: {
-    width: '170px',
-  },
 });
 
 const closedMixin = theme => ({
+  minWidth: '70px',
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -25,9 +22,6 @@ const closedMixin = theme => ({
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-  [theme.breakpoints.down('mobile')]: {
-    display: 'none',
   },
 });
 

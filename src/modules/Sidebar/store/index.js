@@ -1,1 +1,1 @@
-export { toggleOpen, sidebarReducer } from './sidebarSlice';
+export { setOpen, toggleOpen, sidebarReducer } from './sidebarSlice';

@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleOpen as toggleOpenAction } from '../store';
+import {
+  toggleOpen as toggleOpenAction,
+  setOpen as setOpenAction,
+} from '../store';
 
 export const useSidebar = () => {
   const open = useSelector(state => state.sidebar.isOpen);
@@ -9,5 +12,9 @@ export const useSidebar = () => {
     dispatch(toggleOpenAction());
   };
 
-  return { open, toggleOpen };
+  const setOpen = state => {
+    dispatch(setOpenAction(state));
+  };
+
+  return { open, toggleOpen, setOpen };
 };

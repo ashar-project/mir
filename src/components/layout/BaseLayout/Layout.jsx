@@ -4,7 +4,15 @@ import { Box, TextField, styled } from '@mui/material';
 import { Sidebar } from '@/modules/Sidebar';
 import { MobileSideBar } from '@/components';
 
+// Test
+import IconButton from '@mui/material/IconButton';
+import { IoMenu as MenuIcon } from 'react-icons/io5';
+
+import { useSidebar } from '@/modules/Sidebar';
+
 export const Layout = () => {
+  const { open, toggleOpen } = useSidebar();
+
   return (
     <Container>
       <LayoutContainer>
@@ -12,6 +20,24 @@ export const Layout = () => {
 
         <OutletBox>
           <HeaderInput>
+            {/* Вынести отдельно */}
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={toggleOpen}
+              sx={[
+                {
+                  position: 'absolute',
+                  left: '20px',
+                  marginRight: 5,
+                },
+                open && { display: 'none' },
+              ]}
+            >
+              <MenuIcon />
+            </IconButton>
+
             <Input size="small" placeholder="Поиск" />
           </HeaderInput>
 
@@ -57,6 +83,11 @@ const HeaderInput = styled('header')(({ theme }) => ({
 
   [theme.breakpoints.down('sm')]: {
     height: '70px',
+  },
+  [theme.breakpoints.down('mobile')]: {
+    // Пока что сделано таким образом, при необходимости можно изменить
+    width: '35%',
+    backgroundColor: 'red',
   },
 }));
 
