@@ -22,6 +22,8 @@ const GaveUp = () => {
 
 export default GaveUp;
 
+
+
 const Wrapper = styled(Box)(({ theme }) => ({
   margin: "0 auto",
   padding: "10px",
@@ -61,3 +63,4 @@ const StyledContainerCart = styled("div")(({ theme }) => ({
     padding: "15px",
   },
 }));
+
