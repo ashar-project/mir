@@ -41,9 +41,7 @@ export const Layout = () => {
             <Input size="small" placeholder="Поиск" />
           </HeaderInput>
 
-          <div style={{ padding: '0 5px ' }}>
-            <Outlet />
-          </div>
+          <Outlet />
         </OutletBox>
       </LayoutContainer>
       <MobileSideBar />
@@ -67,6 +65,14 @@ const Container = styled(Box)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
   },
+
+  [theme.breakpoints.down('mobile')]: {
+    maxWidth: '450px',
+    minWidth: '375px',
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+  },
 }));
 
 const HeaderInput = styled('header')(({ theme }) => ({
@@ -86,7 +92,7 @@ const HeaderInput = styled('header')(({ theme }) => ({
   },
   [theme.breakpoints.down('mobile')]: {
     // Пока что сделано таким образом, при необходимости можно изменить
-    width: '35%',
+    // width: '35%',
     backgroundColor: 'red',
   },
 }));

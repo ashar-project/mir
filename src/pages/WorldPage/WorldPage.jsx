@@ -1,5 +1,5 @@
-import { Container, Box } from "@mui/material";
-import { RatingTable } from "@/modules/World";
+import { Container, Box } from '@mui/material';
+import { RatingTable } from '@/modules/World';
 
 export const WorldPage = () => {
   return (
