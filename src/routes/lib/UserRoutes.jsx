@@ -1,4 +1,4 @@
-import { UserProfilePage } from '@/pages/UserPage';
+import { UserEditPage, UserProfilePage } from '@/pages/UserPage';
 import { Suspense, lazy } from 'react';
 
 const UserProfile = lazy(() => import('@/pages/UserPage'));
@@ -67,10 +67,19 @@ export const USER_ROUTES = [
   },
   {
     path: '/user-profile',
-    element: (
-      <Suspense>
-        <UserProfilePage />
-      </Suspense>
-    ),
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense>
+            <UserProfilePage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'user-edit-page',
+        element: <UserEditPage />,
+      },
+    ],
   },
 ];

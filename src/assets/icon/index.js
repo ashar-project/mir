@@ -10,3 +10,4 @@ export { default as raiting } from './raiting.svg';
 export { default as whatsappLogo } from './whatsap.svg';
 export { default as InstagramLogo } from './instagram.svg';
 export { default as TelegramLogo } from './telegram.svg';
+export { default as upload } from './upload.svg';

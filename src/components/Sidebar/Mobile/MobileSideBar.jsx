@@ -46,14 +46,16 @@ const MobileSideBarStyled = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Block = styled(Box)(() => ({
-  width: '60px',
-  height: '60px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  transition: 'background-color 0.3s ease',
-  borderRadius: '6px',
+const Block = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    width: '60px',
+    height: '60px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    transition: 'background-color 0.3s ease',
+    borderRadius: '6px',
+  },
 }));
 
 const StyledNavLink = styled(NavLink)(() => ({
