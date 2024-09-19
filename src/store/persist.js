@@ -16,7 +16,7 @@ import { setupStore } from './store';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: [],
+  whitelist: ['sidebar'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

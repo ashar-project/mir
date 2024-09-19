@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, TextField, styled } from '@mui/material';
+import { Box, styled } from '@mui/material';
 
 import { Cards } from '@/components';
 import { cardsData } from '@/modules/GaveUp/components';

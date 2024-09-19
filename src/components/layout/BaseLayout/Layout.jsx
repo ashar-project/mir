@@ -1,43 +1,53 @@
-import { MobileSideBar } from '@/components';
-import styled from '@emotion/styled';
-import { Box, TextField } from '@mui/material';
 import { Outlet } from 'react-router-dom';
+import { Box, TextField, styled } from '@mui/material';
+
+import { Sidebar } from '@/modules/Sidebar';
+import { MobileSideBar } from '@/components';
+
+// Test
+import IconButton from '@mui/material/IconButton';
+import { IoMenu as MenuIcon } from 'react-icons/io5';
+
+import { useSidebar } from '@/modules/Sidebar';
 
 export const Layout = () => {
+  const { open, toggleOpen } = useSidebar();
+
   return (
     <Container>
       <LayoutContainer>
-        <SideBare />
+        <Sidebar />
+
         <OutletBox>
           <HeaderInput>
+            {/* Вынести отдельно */}
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={toggleOpen}
+              sx={[
+                {
+                  position: 'absolute',
+                  left: '20px',
+                  marginRight: 5,
+                },
+                open && { display: 'none' },
+              ]}
+            >
+              <MenuIcon />
+            </IconButton>
+
             <Input size="small" placeholder="Поиск" />
           </HeaderInput>
-          <div style={{ padding: '0 5px ' }}>
-            <Outlet />
-          </div>
+
+          <Outlet />
         </OutletBox>
       </LayoutContainer>
       <MobileSideBar />
     </Container>
   );
 };
-
-const SideBare = styled(Box)(({ theme }) => ({
-  width: '300px',
-  height: '100vh',
-  border: '1px solid black',
-  backgroundColor: 'red',
-
-  [theme.breakpoints.down('sm')]: {
-    backgroundColor: 'red',
-    width: '45px',
-    height: '45px',
-    position: 'absolute',
-    top: '10px',
-    left: '20px',
-    zIndex: 1100,
-  },
-}));
 
 const Container = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -51,6 +61,14 @@ const Container = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     maxWidth: '100%',
     minWidth: '100%',
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  [theme.breakpoints.down('mobile')]: {
+    maxWidth: '450px',
+    minWidth: '375px',
     height: '100vh',
     display: 'flex',
     flexDirection: 'column',
@@ -71,6 +89,11 @@ const HeaderInput = styled('header')(({ theme }) => ({
 
   [theme.breakpoints.down('sm')]: {
     height: '70px',
+  },
+  [theme.breakpoints.down('mobile')]: {
+    // Пока что сделано таким образом, при необходимости можно изменить
+    // width: '35%',
+    backgroundColor: 'red',
   },
 }));
 
@@ -98,8 +121,15 @@ const Input = styled(TextField)(({ theme }) => ({
 }));
 
 const OutletBox = styled(Box)(({ theme }) => ({
+  // <<<<<<< HEAD
   width: '100%',
   height: '100%',
   backgroundColor: 'white',
   overflow: 'auto',
+  // =======
+  //   width: '100%',
+  //   height: '100%',
+  //   backgroundColor: 'white',
+  //   overflow: 'auto',
+  // >>>>>>> dev
 }));

@@ -1,16 +1,27 @@
-import { Typography, Stack } from "@mui/material";
+import { useTheme } from '@emotion/react';
+import { Typography, Stack } from '@mui/material';
 
 export const RatingCard = ({ minAmount, maxAmount, rating }) => {
+  const theme = useTheme();
+
   return (
     <Stack
-      padding={1.5}
-      minWidth={220}
-      maxHeight={160}
-      alignItems="center"
-      border="1px solid grey"
-      boxShadow="0px 4px 5px grey"
-      borderTop="5px solid #637E7E"
-      justifyContent="space-between"
+      sx={{
+        padding: '15px',
+        minWidth: '220px',
+        maxHeight: '160px',
+        border: '1px solid grey',
+        boxShadow: '0px 4px 5px grey',
+        borderTop: '5px solid #637E7E',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+
+        [theme.breakpoints.down('mobile')]: {
+          minWidth: '160px',
+          maxHeight: '185px',
+        },
+      }}
     >
       <Typography lineHeight={1.15} fontSize={96} fontWeight={500}>
         {rating}

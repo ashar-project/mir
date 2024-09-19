@@ -16,5 +16,9 @@ const theme = createTheme({
 });
 
 export const MaterialProvider = ({ children }) => {
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  return (
+    <CssBaseline>
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+    </CssBaseline>
+  );
 };
