@@ -5,6 +5,7 @@ import { AdminLayout, Layout } from '@/components';
 
 import { ADMIN_ROUTER } from './lib/AdminRoutes';
 import { USER_ROUTES } from './lib/UserRoutes';
+
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import SignUp from '@/pages/RegistrationPage/SignUp';
 import SignIn from '@/pages/RegistrationPage/SignIn';
@@ -15,7 +16,7 @@ export const Routing = () => {
     {
       path: '/',
       element: (
-        <Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
           <Layout />
         </Suspense>
       ),

@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+import { lazy } from 'react';
 
 const UserProfile = lazy(() => import('@/pages/UserPage'));
 const WorldPage = lazy(() => import('@/pages/WorldPage'));
@@ -6,14 +6,20 @@ const Support = lazy(() => import('@/pages/SupportPage'));
 const GraduatedPage = lazy(() => import('@/pages/GraduatedPage'));
 const GaveUpPage = lazy(() => import('@/pages/GaveUpPage'));
 
+export const SitePaths = {
+  world: '/',
+  received: '/received',
+  graduated: '/graduated',
+  gaveUp: '/gave-up',
+  pay: '/pay',
+  about: '/about',
+  techSupport: '/tech-support',
+};
+
 export const USER_ROUTES = [
   {
     index: true,
-    element: (
-      <Suspense fallback={<h1>Loading ...</h1>}>
-        <WorldPage />
-      </Suspense>
-    ),
+    element: <WorldPage />,
   },
   {
     path: '/received',
@@ -24,44 +30,29 @@ export const USER_ROUTES = [
       },
       {
         path: 'received-profile',
-        element: (
-          <Suspense fallback={<h1>Loading ...</h1>}>
-            <UserProfile />
-          </Suspense>
-        ),
+        element: <UserProfile />,
       },
     ],
   },
+  ,
   {
-    path: '/graduated',
-    element: (
-      <Suspense fallback={<h1>Loading ...</h1>}>
-        <GraduatedPage />,
-      </Suspense>
-    ),
+    path: SitePaths.graduated,
+    element: <GraduatedPage />,
   },
   {
-    path: '/gave-up',
-    element: (
-      <Suspense fallback={<h1>Loading ...</h1>}>
-        <GaveUpPage />
-      </Suspense>
-    ),
+    path: SitePaths.gaveUp,
+    element: <GaveUpPage />,
   },
   {
-    path: '/pay',
+    path: SitePaths.pay,
     element: <h1>Pay</h1>,
   },
   {
-    path: '/about',
+    path: SitePaths.about,
     element: <h1>About Us</h1>,
   },
   {
-    path: '/tech-support',
-    element: (
-      <Suspense fallback={<h1>Loading ...</h1>}>
-        <Support />
-      </Suspense>
-    ),
+    path: SitePaths.techSupport,
+    element: <Support />,
   },
 ];

@@ -1,11 +1,21 @@
-import { createTheme, ThemeProvider } from "@mui/material";
+import { createTheme, ThemeProvider, CssBaseline } from '@mui/material';
 
 const theme = createTheme({
-  typography: {
-    fontFamily: "Montserrat",
+  breakpoints: {
+    values: {
+      null: 0,
+      mobile: 450,
+      tablet: 640,
+      laptop: 1024,
+      desktop: 1200,
+    },
   },
 });
 
 export const MaterialProvider = ({ children }) => {
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  return (
+    <CssBaseline>
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+    </CssBaseline>
+  );
 };
