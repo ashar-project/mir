@@ -1,5 +1,5 @@
-import { CombinedProviders } from "@/app/lib/CombinedProviders";
-import { Routing } from "@/routes/Routing";
+import { CombinedProviders } from '@/app/lib';
+import { Routing } from '@/routes/Routing';
 
 export default function App() {
   return (
