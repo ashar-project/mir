@@ -47,7 +47,7 @@ const StyledContainer = styled("div")(({ theme }) => ({
 	alignItems: "center",
 	boxSizing: "border-box",
 	[theme.breakpoints.down("sm")]: {
-		maxWidth: "270px",
+		maxWidth: "300px",
 	},
 	[theme.breakpoints.down("sm")]: {
 		maxWidth: "300px",
