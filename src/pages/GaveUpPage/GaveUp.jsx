@@ -8,7 +8,7 @@ export const GaveUpPage = () => {
   return (
     <Wrapper>
       <StyledBox>
-        {cardsData.map(card => (
+        {cardsData.map((card) => (
           <StyledContainerCart key={card.id}>
             <Cards
               name={card.name}
@@ -24,44 +24,39 @@ export const GaveUpPage = () => {
 
 const Wrapper = styled(Box)(({ theme }) => ({
   margin: '0 auto',
+  padding: '10px',
   width: '100%',
-  minHeight: '100vh',
-  backgroundColor: 'red',
   [theme.breakpoints.down('sm')]: {
-    width: '100%',
-    border: '2px solid blue',
-    backgroundColor: 'red',
+    width: '300px',
+    margin: '0',
+    padding: '0',
   },
 }));
 
 const StyledBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexWrap: 'wrap',
-  gap: '14px',
-  width: '100%',
+  display: 'grid',
+  gridTemplateColumns: 'repeat(5, 1fr)',
+  gap: '16px',
+  padding: '40px 0',
+  maxWidth: '1200px',
   margin: '0 auto',
-  backgroundColor: 'red',
+
   [theme.breakpoints.down('sm')]: {
+    gridTemplateColumns: 'repeat(2, 1fr)', 
+    gap: '13px',
+    width: '100vw',
     padding: '0',
-    maxWidth: '100%',
-    border: '2px solid blue',
-    backgroundColor: 'lightgreen',
+    backgroundColor: 'lightgreen', 
   },
 }));
 
-// Контейнер для каждой карточки
 const StyledContainerCart = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center',
   padding: '5px',
-  boxSizing: 'border-box',
-  backgroundColor: 'red',
-  // Корректировка для маленьких экранов
+
   [theme.breakpoints.down('sm')]: {
-    padding: '10px',
-    width: '60%',
-    border: '2px solid blue',
-    backgroundColor: 'lightcoral', // Добавляем для отладки
+    justifyContent: 'center',
+    alignItems: 'center', 
   },
 }));
