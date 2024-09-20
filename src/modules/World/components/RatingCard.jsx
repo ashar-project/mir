@@ -17,7 +17,7 @@ export const RatingCard = ({ minAmount, maxAmount, rating }) => {
         alignItems: 'center',
         justifyContent: 'space-between',
 
-        [theme.breakpoints.down('mobile')]: {
+        [theme.breakpoints.down('sm')]: {
           minWidth: '160px',
           maxHeight: '185px',
         },

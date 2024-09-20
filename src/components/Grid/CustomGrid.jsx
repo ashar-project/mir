@@ -13,7 +13,7 @@ export const CustomGrid = ({ children }) => {
           columnGap: '35px',
           padding: '30px 15px',
 
-          [theme.breakpoints.down('mobile')]: {
+          [theme.breakpoints.down('sm')]: {
             display: 'flex',
             gap: '25px',
             justifyContent: 'center',
