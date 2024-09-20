@@ -1,3 +1,3 @@
-import { GraduatedPage } from "./GraduatedPage";
+import { GraduatedPage } from './GraduatedPage';
 
 export default GraduatedPage;

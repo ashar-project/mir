@@ -1,5 +1,5 @@
-import React from "react";
-import { Card, Typography, styled, Avatar } from "@mui/material";
+import React from 'react';
+import { Card, Typography, styled, Avatar } from '@mui/material';
 
 export const Cards = ({ name, percentage, imageSrc }) => {
   return (
@@ -11,25 +11,23 @@ export const Cards = ({ name, percentage, imageSrc }) => {
 };
 
 const StyledCard = styled(Card)(({ theme }) => ({
-  width: "190px",
-  height: "230px",
+  width: '190px',
+  height: '230px',
   background:
-    "linear-gradient(180deg, #F8F7FD 0%, #AFDBC4 49.49%, #BDC0EB 100%)",
-  borderRadius: "43px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  flexDirection: "column",
-  [theme.breakpoints.down("sm")]: {
-    width: "190x",
-		height: "220px",
+    'linear-gradient(180deg, #F8F7FD 0%, #AFDBC4 49.49%, #BDC0EB 100%)',
+  borderRadius: '43px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  [theme.breakpoints.down('sm')]: {
+    width: '190x',
+    height: '220px',
   },
 }));
 
 const StyledAvatar = styled(Avatar)(() => ({
-  width: "56px",
-  height: "56px",
-  marginBottom: "10px",
+  width: '56px',
+  height: '56px',
+  marginBottom: '10px',
 }));
-
-
