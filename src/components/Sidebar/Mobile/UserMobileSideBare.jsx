@@ -1,30 +1,17 @@
-import { arrow, line, raiting, user } from '@/assets/icon';
 import { Box, styled } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import { adminPath } from './lib/constants/pathData';
 
-export const MobileSideBar = () => {
+export const UserMobileSideBar = () => {
   return (
     <MobileSideBarStyled>
-      <Block>
-        <StyledNavLink to="/">
-          <img src={user} alt="User" />
-        </StyledNavLink>
-      </Block>
-      <Block>
-        <StyledNavLink to="/graduated">
-          <img src={line} alt="Line" />
-        </StyledNavLink>
-      </Block>
-      <Block>
-        <StyledNavLink to="/gave-up">
-          <img src={raiting} alt="Rating" />
-        </StyledNavLink>
-      </Block>
-      <Block>
-        <StyledNavLink to="/pay">
-          <img src={arrow} alt="Arrow" />
-        </StyledNavLink>
-      </Block>
+      {adminPath?.map(item => (
+        <Block key={item.to}>
+          <StyledNavLink to={item.to}>
+            <img src={item.img} alt={item.to} />
+          </StyledNavLink>
+        </Block>
+      ))}
     </MobileSideBarStyled>
   );
 };
