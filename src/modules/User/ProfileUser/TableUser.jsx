@@ -1,3 +1,4 @@
+import { Button } from '@/components';
 import {
   Table,
   TableBody,
@@ -11,7 +12,7 @@ import {
   styled,
 } from '@mui/material';
 
-export const PaymentTable = () => {
+export const PaymentTable = ({ onClick, variants }) => {
   const data = [
     { id: 1, date: '01.01.2024', amount: '5 000 сом', status: 'Оплачено' },
     { id: 2, date: '01.02.2024', amount: '5 000 сом', status: 'Пропущено' },
@@ -40,14 +41,28 @@ export const PaymentTable = () => {
   return (
     <Box>
       <TableWrapper>
-        <DebtInfo variant="body1">Основной долг: 50 000 сом</DebtInfo>
-        <DebtInfo variant="body1" style={{ color: 'green' }}>
-          Оплатил: 25 000 сом
-        </DebtInfo>
-        <DebtInfo variant="body1" style={{ color: 'orange' }}>
-          Остаток: 25 000 сом
-        </DebtInfo>
-
+        <Bot>
+          <div>
+            <DebtInfo variant="body1">Основной долг: 50 000 сом</DebtInfo>
+            <DebtInfo variant="body1" style={{ color: 'green' }}>
+              Оплатил: 25 000 сом
+            </DebtInfo>
+            <DebtInfo variant="body1" style={{ color: 'orange' }}>
+              Остаток: 25 000 сом
+            </DebtInfo>
+          </div>
+          {variants === 'admin' ? (
+            <Block>
+              <Button
+                onClick={onClick}
+                fullWidth
+                style={{ backgroundColor: '#0C0CB9DE', borderRadius: '10px' }}
+              >
+                Добавить
+              </Button>
+            </Block>
+          ) : null}
+        </Bot>
         <TableContainer>
           <Table>
             <TableHead>
@@ -77,11 +92,29 @@ export const PaymentTable = () => {
   );
 };
 
-const DebtInfo = styled(Typography)(() => ({
+const DebtInfo = styled(Typography)(({ theme }) => ({
   marginBottom: '16px',
   fontFamily: 'Montserrat, sans-serif',
   fontSize: '24px',
   fontWeight: 500,
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '18px',
+  },
+}));
+
+const Bot = styled('div')(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  padding: '16px',
+  [theme.breakpoints.down('sm')]: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+}));
+
+const Block = styled('div')(() => ({
+  width: '200px',
+  borderRadius: '10px',
 }));
 
 const TableWrapper = styled(Paper)`
@@ -89,6 +122,7 @@ const TableWrapper = styled(Paper)`
   border-radius: 8px;
   background-color: #f6f5fa;
   font-family: sans-serif;
+  position: relative;
 `;
 
 const TableCellStyled = styled(TableCell)(() => ({
