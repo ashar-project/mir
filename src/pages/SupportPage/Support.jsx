@@ -1,4 +1,4 @@
-import { InstagramLogo, TelegramLogo, whatsappLogo } from '@/assets/icon';
+import { InstagramLogo, TelegramLogo, WhatsappLogo } from '@/assets/icon';
 import { Typography, styled } from '@mui/material';
 import React from 'react';
 
@@ -8,13 +8,13 @@ export const Support = () => {
       <StyledTyphograpyText>По Вопросам</StyledTyphograpyText>
       <StyledSocialNetworks>
         <StyledIconWrapper>
-          <StyledIcon src={whatsappLogo} alt="WhatsApp" />
+          <WhatsappLogo />
         </StyledIconWrapper>
         <StyledIconWrapper>
-          <StyledIcon src={InstagramLogo} alt="Instagram" />
+          <InstagramLogo />
         </StyledIconWrapper>
         <StyledIconWrapper>
-          <StyledIcon src={TelegramLogo} alt="Telegram" />
+          <TelegramLogo />
         </StyledIconWrapper>
       </StyledSocialNetworks>
       <StyledLoremTextBox>

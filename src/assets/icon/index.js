@@ -8,7 +8,7 @@ export { default as user } from './user.svg';
 export { default as line } from './line.svg';
 export { default as arrow } from './arrow.svg';
 export { default as raiting } from './raiting.svg';
-export { default as whatsappLogo } from './whatsap.svg';
+export { default as WhatsappLogo } from './whatsap.svg';
 export { default as InstagramLogo } from './instagram.svg';
 export { default as TelegramLogo } from './telegram.svg';
 export { default as upload } from './upload.svg';

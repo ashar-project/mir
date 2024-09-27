@@ -10,7 +10,7 @@ const GaveUpPage = lazy(() => import('@/pages/GaveUpPage'));
 export const SitePaths = {
   world: '/',
   received: '/received',
-  graduated: '/graduated',
+  graduated: '/graduated', 
   gaveUp: '/gave-up',
   pay: '/pay',
   about: '/about',
@@ -42,7 +42,7 @@ export const USER_ROUTES = [
   },
   {
     path: SitePaths.gaveUp,
-    element: <GaveUpPage />,
+    element: <GaveUpPage/>,
   },
   {
     path: SitePaths.pay,

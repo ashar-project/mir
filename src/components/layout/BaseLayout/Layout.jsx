@@ -66,7 +66,7 @@ const Container = styled(Box)(({ theme }) => ({
     flexDirection: 'column',
   },
 
-  [theme.breakpoints.down('mobile')]: {
+  [theme.breakpoints.down('sm')]: {
     maxWidth: '450px',
     minWidth: '375px',
     height: '100vh',
@@ -90,7 +90,7 @@ const HeaderInput = styled('header')(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     height: '70px',
   },
-  [theme.breakpoints.down('mobile')]: {
+  [theme.breakpoints.down('sm')]: {
     // Пока что сделано таким образом, при необходимости можно изменить
     // width: '35%',
     backgroundColor: 'red',
