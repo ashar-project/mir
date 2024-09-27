@@ -51,7 +51,7 @@ export const PaymentTable = ({ onClick, variants }) => {
               Остаток: 25 000 сом
             </DebtInfo>
           </div>
-          {variants === 'admin' ? (
+          {variants === 'admin' && (
             <Block>
               <Button
                 onClick={onClick}
@@ -61,7 +61,7 @@ export const PaymentTable = ({ onClick, variants }) => {
                 Добавить
               </Button>
             </Block>
-          ) : null}
+          )}
         </Bot>
         <TableContainer>
           <Table>
