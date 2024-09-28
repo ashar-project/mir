@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Typography, styled, Avatar } from '@mui/material';
 
-export const Cards = ({ name, percentage, imageSrc }) => {
+export const Cards = ({ name, imageSrc }) => {
   return (
     <StyledCard>
       <StyledAvatar alt={name} src={imageSrc} />
@@ -20,9 +20,10 @@ const StyledCard = styled(Card)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'column',
+
   [theme.breakpoints.down('sm')]: {
-    width: '190x',
-    height: '220px',
+    width: '160px', 
+    height: '200px',
   },
 }));
 

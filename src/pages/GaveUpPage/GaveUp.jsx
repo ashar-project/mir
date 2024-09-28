@@ -8,7 +8,7 @@ export const GaveUpPage = () => {
   return (
     <Wrapper>
       <StyledBox>
-        {cardsData.map(card => (
+        {cardsData.map((card) => (
           <StyledContainerCart key={card.id}>
             <Cards
               name={card.name}
@@ -27,7 +27,9 @@ const Wrapper = styled(Box)(({ theme }) => ({
   padding: '10px',
   width: '100%',
   [theme.breakpoints.down('sm')]: {
-    width: '470px',
+    width: '300px',
+    margin: '0',
+    padding: '0',
   },
 }));
 
@@ -38,18 +40,13 @@ const StyledBox = styled(Box)(({ theme }) => ({
   padding: '40px 0',
   maxWidth: '1200px',
   margin: '0 auto',
-  [theme.breakpoints.down('lg')]: {
-    gridTemplateColumns: 'repeat(4, 1fr)',
-  },
-  [theme.breakpoints.down('md')]: {
-    gridTemplateColumns: 'repeat(3, 1fr)',
-  },
+
   [theme.breakpoints.down('sm')]: {
-    gridTemplateColumns: 'repeat(2, 1fr)',
+    gridTemplateColumns: 'repeat(2, 1fr)', 
     gap: '13px',
-  },
-  [theme.breakpoints.down('xs')]: {
-    gridTemplateColumns: '1fr',
+    width: '100vw',
+    padding: '0',
+    backgroundColor: 'lightgreen', 
   },
 }));
 
@@ -57,7 +54,9 @@ const StyledContainerCart = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   padding: '5px',
+
   [theme.breakpoints.down('sm')]: {
-    padding: '15px',
+    justifyContent: 'center',
+    alignItems: 'center', 
   },
 }));
