@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import { IoMenu as MenuIcon } from 'react-icons/io5';
 
 import { useSidebar } from '@/modules/Sidebar';
-import { UserMobileSideBar } from '@/components';
+import { UserMobileNavBar } from '@/components';
 
 export const Layout = () => {
   const { open, toggleOpen } = useSidebar();
@@ -44,7 +44,7 @@ export const Layout = () => {
           <Outlet />
         </OutletBox>
       </LayoutContainer>
-      <UserMobileSideBar />
+      <UserMobileNavBar />
     </Container>
   );
 };
@@ -101,7 +101,9 @@ const LayoutContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   height: '100%',
   display: 'flex',
-  paddingBottom: '80px',
+  [theme.breakpoints.down('sm')]: {
+    paddingBottom: '80px',
+  },
 }));
 
 const Input = styled(TextField)(({ theme }) => ({

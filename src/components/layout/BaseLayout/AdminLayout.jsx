@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom';
-import { Box, TextField, styled } from '@mui/material';
+import { Box, styled } from '@mui/material';
 
 import { Sidebar } from '@/modules/Sidebar';
-import { UserMobileSideBar } from '@/components';
+import { UserMobileNavBar } from '@/components';
 
 export const AdminLayout = () => {
   return (
@@ -13,7 +13,7 @@ export const AdminLayout = () => {
           <Outlet />
         </OutletBox>
       </LayoutContainer>
-      <UserMobileSideBar />
+      <UserMobileNavBar />
     </Container>
   );
 };

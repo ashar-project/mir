@@ -1,38 +1,40 @@
 import { arrow, line, raiting, user } from '@/assets/icon';
+import { SitePaths } from '@/routes/lib/UserRoutes';
 
 export const userPath = [
   {
     img: user,
-    to: '/',
+    to: SitePaths.world,
   },
   {
     img: line,
-    to: '/graduated',
+    to: SitePaths.received,
   },
   {
     img: raiting,
-    to: '/gave-up',
+    to: SitePaths.gaveUp,
   },
   {
     img: arrow,
-    to: '/pay',
+    to: SitePaths.pay,
   },
 ];
+
 export const adminPath = [
   {
     img: user,
-    to: '/admin', 
+    to: SitePaths.admin,
   },
   {
     img: line,
-    to: '/admin/received-page', // Обратите внимание, что тут полный путь с '/admin'
+    to: SitePaths.adminReceived,
   },
   {
     img: raiting,
-    to: '/admin/graduated-page',
+    to: SitePaths.adminGraduated,
   },
   {
     img: arrow,
-    to: '/admin/gave-page',
+    to: SitePaths.adminGaveUp,
   },
 ];
