@@ -101,7 +101,9 @@ const LayoutContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   height: '100%',
   display: 'flex',
-  paddingBottom: '80px',
+  [theme.breakpoints.down('sm')]: {
+    paddingBottom: '80px',
+  },
 }));
 
 const Input = styled(TextField)(({ theme }) => ({

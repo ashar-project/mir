@@ -2,7 +2,7 @@ import { Girl } from '@/assets/image';
 import { PaymentTable } from '@/modules/User';
 import { Box, styled, Typography } from '@mui/material';
 
-export const UserProfile = () => {
+export const InnerUserPage = () => {
   return (
     <>
       <Container>
