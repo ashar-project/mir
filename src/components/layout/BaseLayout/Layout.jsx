@@ -2,13 +2,13 @@ import { Outlet } from 'react-router-dom';
 import { Box, TextField, styled } from '@mui/material';
 
 import { Sidebar } from '@/modules/Sidebar';
-import { MobileSideBar } from '@/components';
 
 // Test
 import IconButton from '@mui/material/IconButton';
 import { IoMenu as MenuIcon } from 'react-icons/io5';
 
 import { useSidebar } from '@/modules/Sidebar';
+import { UserMobileNavBar } from '@/components';
 
 export const Layout = () => {
   const { open, toggleOpen } = useSidebar();
@@ -44,7 +44,7 @@ export const Layout = () => {
           <Outlet />
         </OutletBox>
       </LayoutContainer>
-      <MobileSideBar />
+      <UserMobileNavBar />
     </Container>
   );
 };

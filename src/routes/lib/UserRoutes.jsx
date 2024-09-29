@@ -16,6 +16,10 @@ export const SitePaths = {
   pay: '/pay',
   about: '/about',
   techSupport: '/tech-support',
+  admin: '/admin',
+  adminReceived: '/admin/received-page',
+  adminGraduated: '/admin/graduated-page',
+  adminGaveUp: '/admin/gave-page',
 };
 
 export const USER_ROUTES = [
