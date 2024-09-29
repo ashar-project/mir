@@ -6,11 +6,12 @@ const WorldPage = lazy(() => import('@/pages/WorldPage'));
 const Support = lazy(() => import('@/pages/SupportPage'));
 const GraduatedPage = lazy(() => import('@/pages/GraduatedPage'));
 const GaveUpPage = lazy(() => import('@/pages/GaveUpPage'));
+const RatingPage = lazy(() => import('@/pages/RatingPage'));
 
 export const SitePaths = {
   world: '/',
   received: '/received',
-  graduated: '/graduated', 
+  graduated: '/graduated',
   gaveUp: '/gave-up',
   pay: '/pay',
   about: '/about',
@@ -21,6 +22,10 @@ export const USER_ROUTES = [
   {
     index: true,
     element: <WorldPage />,
+  },
+  {
+    path: 'rating/:id',
+    element: <RatingPage />,
   },
   {
     path: '/received',
@@ -42,7 +47,7 @@ export const USER_ROUTES = [
   },
   {
     path: SitePaths.gaveUp,
-    element: <GaveUpPage/>,
+    element: <GaveUpPage />,
   },
   {
     path: SitePaths.pay,

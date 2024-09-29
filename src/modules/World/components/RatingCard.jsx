@@ -1,8 +1,10 @@
 import { useTheme } from '@emotion/react';
 import { Typography, Stack } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export const RatingCard = ({ minAmount, maxAmount, rating }) => {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   return (
     <Stack
@@ -22,6 +24,7 @@ export const RatingCard = ({ minAmount, maxAmount, rating }) => {
           maxHeight: '185px',
         },
       }}
+      onClick={() => navigate(`rating/${rating}`)}
     >
       <Typography lineHeight={1.15} fontSize={96} fontWeight={500}>
         {rating}
