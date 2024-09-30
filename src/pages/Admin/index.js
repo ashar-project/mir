@@ -1,1 +1,2 @@
-export { AdminProfilePage } from './AdminProfilePage/AdminProfilePage';
+export { TotalAmout } from './TotalAmountPage/TotalAmout';
+export { MobileCard } from './TotalAmountPage/lib/MobileCard';
