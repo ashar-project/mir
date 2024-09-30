@@ -14,8 +14,6 @@ export const MenuList = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const { open } = useSidebar();
-
   return (
     <List>
       {menuElements.map(({ label, navigation }) => {
@@ -47,7 +45,6 @@ export const MenuList = () => {
                 sx={{
                   fontWeight: 500,
                   fontSize: '12px',
-                  opacity: open ? 1 : 0,
                   color: isSelectedPage ? 'white' : 'black',
                 }}
               />

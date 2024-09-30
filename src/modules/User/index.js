@@ -1,1 +1,1 @@
-export { PaymentTable } from './ProfileUser/TableUser';
+export { PaymentTable } from './components/ProfileUser/TableUser';
