@@ -1,4 +1,5 @@
-import { lazy } from 'react';
+import { UserEditPage, UserProfilePage } from '@/pages/UserPage';
+import { Suspense, lazy } from 'react';
 
 const UserProfile = lazy(() => import('@/pages/UserPage'));
 const WorldPage = lazy(() => import('@/pages/WorldPage'));
@@ -14,6 +15,10 @@ export const SitePaths = {
   pay: '/pay',
   about: '/about',
   techSupport: '/tech-support',
+  admin: '/admin',
+  adminReceived: '/admin/received-page',
+  adminGraduated: '/admin/graduated-page',
+  adminGaveUp: '/admin/gave-page',
 };
 
 export const USER_ROUTES = [
@@ -54,5 +59,22 @@ export const USER_ROUTES = [
   {
     path: SitePaths.techSupport,
     element: <Support />,
+  },
+  {
+    path: '/user-profile',
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense>
+            <UserProfilePage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'user-edit-page',
+        element: <UserEditPage />,
+      },
+    ],
   },
 ];

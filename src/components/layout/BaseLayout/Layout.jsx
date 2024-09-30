@@ -2,16 +2,18 @@ import { Outlet } from 'react-router-dom';
 import { Box, TextField, styled } from '@mui/material';
 
 import { Sidebar } from '@/modules/Sidebar';
-import { MobileSideBar } from '@/components';
 
 // Test
 import IconButton from '@mui/material/IconButton';
 import { IoMenu as MenuIcon } from 'react-icons/io5';
 
 import { useSidebar } from '@/modules/Sidebar';
+import { UserMobileNavBar } from '@/components';
+import { useCheckClient } from '@/helpers';
 
 export const Layout = () => {
-  const { open, toggleOpen } = useSidebar();
+  const { open, setOpen } = useSidebar();
+  const { isMobile } = useCheckClient();
 
   return (
     <Container>
@@ -20,31 +22,31 @@ export const Layout = () => {
 
         <OutletBox>
           <HeaderInput>
-            {/* Вынести отдельно */}
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={toggleOpen}
-              sx={[
-                {
-                  position: 'absolute',
-                  left: '20px',
-                  marginRight: 5,
-                },
-                open && { display: 'none' },
-              ]}
-            >
-              <MenuIcon />
-            </IconButton>
-
+            {isMobile && (
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={() => setOpen(true)}
+                sx={[
+                  {
+                    position: 'absolute',
+                    left: '20px',
+                    marginRight: 5,
+                  },
+                  open && { display: 'none' },
+                ]}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
             <Input size="small" placeholder="Поиск" />
           </HeaderInput>
 
           <Outlet />
         </OutletBox>
       </LayoutContainer>
-      <MobileSideBar />
+      <UserMobileNavBar />
     </Container>
   );
 };
@@ -101,7 +103,9 @@ const LayoutContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   height: '100%',
   display: 'flex',
-  paddingBottom: '80px',
+  [theme.breakpoints.down('sm')]: {
+    paddingBottom: '80px',
+  },
 }));
 
 const Input = styled(TextField)(({ theme }) => ({

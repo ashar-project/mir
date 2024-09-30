@@ -1,30 +1,17 @@
-import { arrow, line, raiting, user } from '@/assets/icon';
 import { Box, styled } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import { adminPath } from '../helpers/pathData';
 
-export const MobileSideBar = () => {
+export const UserMobileNavBar = () => {
   return (
     <MobileSideBarStyled>
-      <Block>
-        <StyledNavLink to="/">
-          <img src={user} alt="User" />
-        </StyledNavLink>
-      </Block>
-      <Block>
-        <StyledNavLink to="/graduated">
-          <img src={line} alt="Line" />
-        </StyledNavLink>
-      </Block>
-      <Block>
-        <StyledNavLink to="/gave-up">
-          <img src={raiting} alt="Rating" />
-        </StyledNavLink>
-      </Block>
-      <Block>
-        <StyledNavLink to="/pay">
-          <img src={arrow} alt="Arrow" />
-        </StyledNavLink>
-      </Block>
+      {adminPath?.map(item => (
+        <Block key={item.to}>
+          <StyledNavLink to={item.to}>
+            <img src={item.img} alt={item.to} />
+          </StyledNavLink>
+        </Block>
+      ))}
     </MobileSideBarStyled>
   );
 };
@@ -46,14 +33,16 @@ const MobileSideBarStyled = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Block = styled(Box)(() => ({
-  width: '60px',
-  height: '60px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  transition: 'background-color 0.3s ease',
-  borderRadius: '6px',
+const Block = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    width: '60px',
+    height: '60px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    transition: 'background-color 0.3s ease',
+    borderRadius: '6px',
+  },
 }));
 
 const StyledNavLink = styled(NavLink)(() => ({
