@@ -1,4 +1,9 @@
+import { lazy } from 'react';
+
 import { TotalAmout } from '@/pages/Admin';
+
+const WorldPage = lazy(() => import('@/pages/WorldPage'));
+const RatingPage = lazy(() => import('@/pages/RatingPage'));
 
 export const ADMIN_ROUTER = [
   {
@@ -7,7 +12,11 @@ export const ADMIN_ROUTER = [
   },
   {
     path: 'worlds-page',
-    element: <h1>World Page</h1>,
+    element: <WorldPage />,
+  },
+  {
+    path: 'worlds-page/:id',
+    element: <RatingPage />,
   },
   {
     path: 'received-page',
