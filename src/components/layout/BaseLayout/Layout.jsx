@@ -9,9 +9,11 @@ import { IoMenu as MenuIcon } from 'react-icons/io5';
 
 import { useSidebar } from '@/modules/Sidebar';
 import { UserMobileNavBar } from '@/components';
+import { useCheckClient } from '@/helpers';
 
 export const Layout = () => {
-  const { open, toggleOpen } = useSidebar();
+  const { open, setOpen } = useSidebar();
+  const { isMobile } = useCheckClient();
 
   return (
     <Container>
@@ -20,24 +22,24 @@ export const Layout = () => {
 
         <OutletBox>
           <HeaderInput>
-            {/* Вынести отдельно */}
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={toggleOpen}
-              sx={[
-                {
-                  position: 'absolute',
-                  left: '20px',
-                  marginRight: 5,
-                },
-                open && { display: 'none' },
-              ]}
-            >
-              <MenuIcon />
-            </IconButton>
-
+            {isMobile && (
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={() => setOpen(true)}
+                sx={[
+                  {
+                    position: 'absolute',
+                    left: '20px',
+                    marginRight: 5,
+                  },
+                  open && { display: 'none' },
+                ]}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
             <Input size="small" placeholder="Поиск" />
           </HeaderInput>
 
