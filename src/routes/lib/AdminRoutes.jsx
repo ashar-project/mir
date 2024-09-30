@@ -1,4 +1,4 @@
-import { TotalAmout } from '@/pages/Admin';
+import { AdminReceivePage, TotalAmout } from '@/pages/Admin';
 
 export const ADMIN_ROUTER = [
   {
@@ -11,7 +11,7 @@ export const ADMIN_ROUTER = [
   },
   {
     path: 'received-page',
-    element: <h1>Received Page</h1>,
+    element: <AdminReceivePage />,
   },
   {
     element: <h1>Graduated Page</h1>,
