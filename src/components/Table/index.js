@@ -1,1 +1,1 @@
-export { Table } from '../../helpers/Table/Table';
+export { Table } from './Table';

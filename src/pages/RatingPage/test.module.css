@@ -1,10 +1,14 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 90px;
+  gap: 30px;
   width: 100%;
   height: 100vh;
-  padding: 60px 30px;
+  padding: 30px;
+}
+
+.backButton {
+  width: 100px;
 }
 
 .ratingBox {
