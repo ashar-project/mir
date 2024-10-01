@@ -2,6 +2,7 @@ import {
   AdminGaveUpPage,
   AdminGraduatedPage,
   AdminReceivedPage,
+  AdminInnerReceivePage,
   TotalAmout,
 } from '@/pages/Admin';
 
@@ -16,7 +17,16 @@ export const ADMIN_ROUTER = [
   },
   {
     path: 'received-page',
-    element: <AdminReceivedPage />,
+    children: [
+      {
+        index: true,
+        element: <AdminReceivedPage />,
+      },
+      {
+        path: 'received-inner-page',
+        element: <AdminInnerReceivePage />,
+      },
+    ],
   },
   {
     element: <AdminGraduatedPage />,

@@ -9,7 +9,11 @@ export const AdminReceivedPage = () => {
     <Wrapper>
       <ContentWrapper>
         <SearchContainer>
-          <StyledTextField size='small' placeholder=" Search" variant="outlined" />
+          <StyledTextField
+            size="small"
+            placeholder=" Search"
+            variant="outlined"
+          />
           <ClearButton
             variant="contained"
             color="error"
@@ -116,8 +120,8 @@ const ClearButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#D50000',
   },
   [theme.breakpoints.down('sm')]: {
-    width: "150px",
-    height:"36px",
+    width: '150px',
+    height: '36px',
     fontSize: '0.8rem',
     marginTop: '-2px',
     marginLeft: '10px',
