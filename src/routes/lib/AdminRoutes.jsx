@@ -1,6 +1,12 @@
 import { lazy } from 'react';
 
-import { TotalAmout } from '@/pages/Admin';
+import {
+  AdminGaveUpPage,
+  AdminGraduatedPage,
+  AdminReceivedPage,
+  AdminInnerReceivePage,
+  TotalAmout,
+} from '@/pages/Admin';
 
 const WorldPage = lazy(() => import('@/pages/WorldPage'));
 const RatingPage = lazy(() => import('@/pages/RatingPage'));
@@ -20,14 +26,24 @@ export const ADMIN_ROUTER = [
   },
   {
     path: 'received-page',
-    element: <h1>Received Page</h1>,
+    children: [
+      {
+        index: true,
+        element: <AdminReceivedPage />,
+      },
+      {
+        path: 'received-inner-page',
+        element: <AdminInnerReceivePage />,
+        // element: <>asdsdas</>,
+      },
+    ],
   },
   {
-    element: <h1>Graduated Page</h1>,
+    element: <AdminGraduatedPage />,
     path: 'graduated-page',
   },
   {
     path: 'gave-page',
-    element: <h1>Gave Up Page</h1>,
+    element: <AdminGaveUpPage />,
   },
 ];

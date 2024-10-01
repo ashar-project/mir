@@ -1,9 +1,6 @@
-import { useSelector } from 'react-redux';
 import { Stack, Avatar, Typography } from '@mui/material';
 
 export const UserCard = ({ imageUrl, userName = 'No name' }) => {
-  const open = useSelector(state => state.sidebar.isOpen);
-
   return (
     <Stack
       spacing={1}
@@ -23,7 +20,7 @@ export const UserCard = ({ imageUrl, userName = 'No name' }) => {
         }}
       />
 
-      <Stack display={!open && 'none'}>
+      <Stack>
         <Typography color="#949494" fontSize={12} lineHeight={1.5}>
           Добрый день
         </Typography>

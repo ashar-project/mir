@@ -17,7 +17,7 @@ const options = [
     label: 'Ожидание.',
   },
 ];
-export const AdminProfilePage = () => {
+export const AdminInnerReceivePage = () => {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('Ожидание');
   const handleChange = event => {
@@ -64,7 +64,6 @@ export const AdminProfilePage = () => {
               fullWidth
               value={status}
               onChange={handleChange}
-              placeholder="Ожидание"
               options={options}
             />
           </BlockS>
