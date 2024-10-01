@@ -203,3 +203,5 @@ const BlockS = styled(Box)(({ theme }) => ({
     justifyContent: 'center',
     alignItems: 'center',
     padding: '5px',
+  },
+}));

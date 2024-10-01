@@ -25,6 +25,7 @@ export const ADMIN_ROUTER = [
       {
         path: 'received-inner-page',
         element: <AdminInnerReceivePage />,
+        // element: <>asdsdas</>,
       },
     ],
   },
