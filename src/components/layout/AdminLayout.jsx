@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { Box, styled } from '@mui/material';
 
 import { AdminSidebar } from '@/modules/Sidebar';
-import { AdminMobileNavBar } from '@/components';
+import { AdminMobileNavBar } from '@/modules/Navbar/components/AdminMobailNavBar';
 
 export const AdminLayout = () => {
   return (
