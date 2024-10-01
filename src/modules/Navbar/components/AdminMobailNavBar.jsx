@@ -2,39 +2,37 @@ import {
   FinichedIcon,
   GaveUpIcon,
   ReceivedIcon,
-  user as User,
   WorldPageicon,
 } from '@/assets/icon';
-import { SitePaths } from '@/routes/lib/UserRoutes';
 import { Box, styled } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
-export const UserMobileNavBar = () => {
+export const AdminMobileNavBar = () => {
   return (
     <MobileSideBarStyled>
       <Block>
-        <StyledNavLink to={SitePaths.world}>
+        <StyledNavLink to={'/admin'}>
           <WorldPageicon />
         </StyledNavLink>
       </Block>
       <Block>
-        <StyledNavLink to={SitePaths.received}>
+        <StyledNavLink to={'worlds-page'}>
           <ReceivedIcon />
         </StyledNavLink>
       </Block>
       <Block>
-        <StyledNavLink to={SitePaths.graduated}>
+        <StyledNavLink to={'received-page'}>
           <GaveUpIcon />
         </StyledNavLink>
       </Block>
       <Block>
-        <StyledNavLink to={SitePaths.gaveUp}>
+        <StyledNavLink to={'graduated-page'}>
           <FinichedIcon />
         </StyledNavLink>
       </Block>
       <Block>
-        <StyledNavLink to={SitePaths.userProfilePage}>
-          <User />
+        <StyledNavLink to={'gave-page'}>
+          <WorldPageicon />
         </StyledNavLink>
       </Block>
     </MobileSideBarStyled>

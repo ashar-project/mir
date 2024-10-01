@@ -54,7 +54,7 @@ export const Table = ({ data, columns, variant }) => {
 };
 
 const TableContainerStyled = styled(Box)({
-  width: '90%',
+  width: '100%',
   margin: '0 auto',
   fontFamily: '"Manrope",sans-serif',
 });

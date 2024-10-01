@@ -41,10 +41,6 @@ export const UserProfilePage = () => {
         </Container>
 
         <ButtonBlock>
-          <Progress>
-            <CircularProgress />
-            <Procent>20%</Procent>
-          </Progress>
           <ButtonStyled
             onClick={openModal}
             style={{ borderRadius: '10px' }}
@@ -104,7 +100,7 @@ const TypographyStyledUser = styled(Box)(({ theme }) => ({
 const ButtonStyled = styled(Button)(({ theme }) => ({
   display: 'block',
   [theme.breakpoints.down('sm')]: {
-    display: 'none',
+    display: 'block',
   },
 }));
 
@@ -175,54 +171,6 @@ const ButtonBlock = styled(Box)(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'center',
     gap: '10px',
-  },
-}));
-
-const Progress = styled(Box)(({ theme }) => ({
-  width: '100%',
-  height: '44px',
-  borderRadius: '10px',
-  backgroundColor: '#E5E5E5',
-  position: 'relative',
-  display: 'none',
-
-  [theme.breakpoints.down('sm')]: {
-    display: 'block',
-    position: 'relative',
-    width: '100%',
-    height: '44px',
-  },
-}));
-
-const CircularProgress = styled(Box)(({ theme }) => ({
-  width: '67%',
-  height: '100%',
-  backgroundColor: '#637e7e',
-  borderRadius: '10px 10px 10px 10px',
-
-  [theme.breakpoints.down('sm')]: {
-    width: '67%',
-    height: '100%',
-    backgroundColor: '#637e7e',
-    borderRadius: '10px 10px 10px 10px',
-  },
-}));
-
-const Procent = styled(Box)(({ theme }) => ({
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  fontSize: '1.5em',
-  color: 'white',
-
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '16px',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    color: 'white',
   },
 }));
 

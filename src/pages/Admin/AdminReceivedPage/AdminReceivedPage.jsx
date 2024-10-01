@@ -20,9 +20,11 @@ const options = [
 export const AdminReceivePage = () => {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('Ожидание');
+
   const handleChange = event => {
     setStatus(event.target.value);
   };
+
   const openModal = () => setOpen(prev => !prev);
 
   return (

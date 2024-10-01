@@ -1,5 +1,5 @@
 import { Negr } from '@/assets/image';
-import { upload } from '@/assets/icon';
+import { upload as Upload } from '@/assets/icon';
 import { Button, Input } from '@/components';
 import { Box, styled, Typography } from '@mui/material';
 
@@ -8,7 +8,9 @@ export const UserEditPage = () => {
     <Main>
       <Container>
         <BlockOne>
-          <Upload src={upload} />
+          <Div>
+            <Upload />
+          </Div>
           <Img src={Negr} alt="Negr" />
         </BlockOne>
         <BlockTwo>
@@ -27,10 +29,9 @@ export const UserEditPage = () => {
         </BlockTwo>
       </Container>
       <ButtonBlock>
-        <Progress>
-          <CircularProgress />
-          <Procent>20%</Procent>
-        </Progress>
+        <Button variant="outlined" style={{ borderRadius: '10px' }} fullWidth>
+          Назад
+        </Button>
         <Button style={{ borderRadius: '10px' }} fullWidth>
           Изменить
         </Button>
@@ -81,8 +82,9 @@ const Main = styled(Box)(({ theme }) => ({
 }));
 
 const ButtonBlock = styled(Box)(({ theme }) => ({
-  width: '30%',
-
+  width: '60%',
+  display: 'flex',
+  gap: '20px',
   [theme.breakpoints.down('sm')]: {
     width: '85%',
     margin: '0 auto',
@@ -156,7 +158,7 @@ const BlockOne = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Upload = styled('img')(({ theme }) => ({
+const Div = styled('div')(({ theme }) => ({
   position: 'absolute',
   top: '50%',
   left: '50%',

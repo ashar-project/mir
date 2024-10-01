@@ -16,10 +16,14 @@ import {
 import { FaRegUser as UserIcon } from 'react-icons/fa';
 
 import { useCheckClient } from '@/helpers';
+import { useNavigate } from 'react-router-dom';
 
 export const SignUp = () => {
   const { isMobile } = useCheckClient();
-
+  const navigate = useNavigate();
+  const signInPage = () => {
+    navigate('/sign-in');
+  };
   return (
     <Container>
       <Logo>
@@ -62,7 +66,7 @@ export const SignUp = () => {
         </BlockTwo>
         <BlockThree>
           <ButtonStyled fullWidth>Регистрация</ButtonStyled>
-          <TypographyMui>Войти</TypographyMui>
+          <TypographyMui onClick={signInPage}>Войти</TypographyMui>
         </BlockThree>
       </Block>
     </Container>
@@ -196,7 +200,7 @@ const BlockTwo = styled(Box)(({ theme }) => ({
   height: '10.25rem',
   display: 'flex',
   flexDirection: 'column',
-  gap: '10px',
+  gap: '20px',
   position: 'relative',
 
   [theme.breakpoints.down('sm')]: {
@@ -206,7 +210,7 @@ const BlockTwo = styled(Box)(({ theme }) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '1.875rem',
+    gap: '2rem',
     marginBottom: '.9375rem',
     marginTop: '20px',
   },
@@ -225,8 +229,9 @@ const BlockThree = styled(Box)(({ theme }) => ({
     height: '7.9375rem',
     display: 'flex',
     flexDirection: 'column',
-    gap: '1.25rem',
+    gap: '1rem',
     alignItems: 'center',
+    marginTop: '10px',
   },
 }));
 

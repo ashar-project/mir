@@ -1,19 +1,29 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { Box, TextField, styled } from '@mui/material';
-
 import { Sidebar } from '@/modules/Sidebar';
-
-// Test
 import IconButton from '@mui/material/IconButton';
 import { IoMenu as MenuIcon } from 'react-icons/io5';
-
 import { useSidebar } from '@/modules/Sidebar';
 import { UserMobileNavBar } from '@/components';
 import { useCheckClient } from '@/helpers';
+import { useState, useEffect } from 'react';
 
 export const Layout = () => {
   const { open, setOpen } = useSidebar();
+  const [status, setStatus] = useState(true);
   const { isMobile } = useCheckClient();
+  const { pathname } = useLocation();
+
+  const hiddenPaths = [
+    '/tech-support',
+    '/user-profile',
+    '/received/received-profile',
+    '/about',
+  ];
+
+  useEffect(() => {
+    setStatus(!hiddenPaths.includes(pathname));
+  }, [pathname]);
 
   return (
     <Container>
@@ -40,7 +50,7 @@ export const Layout = () => {
                 <MenuIcon />
               </IconButton>
             )}
-            <Input size="small" placeholder="Поиск" />
+            {status && <Input size="small" placeholder="Поиск" />}
           </HeaderInput>
 
           <Outlet />
@@ -67,21 +77,15 @@ const Container = styled(Box)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
   },
-
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('xs')]: {
     maxWidth: '450px',
     minWidth: '375px',
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
   },
 }));
 
 const HeaderInput = styled('header')(({ theme }) => ({
   width: '100%',
-  height: '100px',
-  backgroundColor: 'yellow',
-  borderBottom: '3px solid green',
+  height: '90px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -90,12 +94,8 @@ const HeaderInput = styled('header')(({ theme }) => ({
   zIndex: 1000,
 
   [theme.breakpoints.down('sm')]: {
-    height: '70px',
-  },
-  [theme.breakpoints.down('sm')]: {
-    // Пока что сделано таким образом, при необходимости можно изменить
-    // width: '35%',
-    backgroundColor: 'red',
+    height: '80px',
+    backgroundColor: 'white',
   },
 }));
 
@@ -123,15 +123,8 @@ const Input = styled(TextField)(({ theme }) => ({
 }));
 
 const OutletBox = styled(Box)(({ theme }) => ({
-  // <<<<<<< HEAD
   width: '100%',
   height: '100%',
   backgroundColor: 'white',
   overflow: 'auto',
-  // =======
-  //   width: '100%',
-  //   height: '100%',
-  //   backgroundColor: 'white',
-  //   overflow: 'auto',
-  // >>>>>>> dev
 }));
