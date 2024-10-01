@@ -1,4 +1,10 @@
-import { AdminReceivePage, TotalAmout } from '@/pages/Admin';
+import {
+  AdminGaveUpPage,
+  AdminGraduatedPage,
+  AdminReceivedPage,
+  AdminInnerReceivePage,
+  TotalAmout,
+} from '@/pages/Admin';
 
 export const ADMIN_ROUTER = [
   {
@@ -11,14 +17,24 @@ export const ADMIN_ROUTER = [
   },
   {
     path: 'received-page',
-    element: <AdminReceivePage />,
+    children: [
+      {
+        index: true,
+        element: <AdminReceivedPage />,
+      },
+      {
+        path: 'received-inner-page',
+        element: <AdminInnerReceivePage />,
+        // element: <>asdsdas</>,
+      },
+    ],
   },
   {
-    element: <h1>Graduated Page</h1>,
+    element: <AdminGraduatedPage />,
     path: 'graduated-page',
   },
   {
     path: 'gave-page',
-    element: <h1>Gave Up Page</h1>,
+    element: <AdminGaveUpPage />,
   },
 ];

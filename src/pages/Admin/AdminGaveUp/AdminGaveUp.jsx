@@ -4,16 +4,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Cards } from '@/components';
 import { cardsData } from '@/modules/GaveUp/components';
 
-export const AdminReceivedPage = () => {
+export const AdminGaveUpPage = () => {
   return (
     <Wrapper>
       <ContentWrapper>
         <SearchContainer>
-          <StyledTextField
-            size="small"
-            placeholder=" Search"
-            variant="outlined"
-          />
+          <StyledTextField placeholder="Поиск" variant="outlined" />
           <ClearButton
             variant="contained"
             color="error"
@@ -38,7 +34,6 @@ export const AdminReceivedPage = () => {
     </Wrapper>
   );
 };
-
 const Wrapper = styled(Box)(({ theme }) => ({
   width: '100%',
   display: 'flex',
