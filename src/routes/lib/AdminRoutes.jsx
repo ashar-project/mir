@@ -18,11 +18,17 @@ export const ADMIN_ROUTER = [
   },
   {
     path: 'worlds-page',
-    element: <WorldPage />,
-  },
-  {
-    path: 'worlds-page/:id',
-    element: <RatingPage />,
+    children: [
+      {
+        index: true,
+        element: <WorldPage />,
+      },
+
+      {
+        path: ':id',
+        element: <RatingPage />,
+      },
+    ],
   },
   {
     path: 'received-page',
@@ -34,13 +40,12 @@ export const ADMIN_ROUTER = [
       {
         path: 'received-inner-page',
         element: <AdminInnerReceivePage />,
-        // element: <>asdsdas</>,
       },
     ],
   },
   {
-    element: <AdminGraduatedPage />,
     path: 'graduated-page',
+    element: <AdminGraduatedPage />,
   },
   {
     path: 'gave-page',

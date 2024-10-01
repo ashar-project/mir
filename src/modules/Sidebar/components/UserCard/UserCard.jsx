@@ -1,6 +1,17 @@
 import { Stack, Avatar, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-export const UserCard = ({ imageUrl, userName = 'No name' }) => {
+export const UserCard = ({
+  imageUrl,
+  userName = 'No name',
+  isAdmin = false,
+}) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    isAdmin && navigate('/admin');
+  };
+
   return (
     <Stack
       spacing={1}
@@ -11,6 +22,10 @@ export const UserCard = ({ imageUrl, userName = 'No name' }) => {
       borderTop="1px solid #D9D9D9"
       borderBottom="1px solid #D9D9D9"
       paddingX={open ? '15px' : '10px'}
+      onClick={handleClick}
+      sx={{
+        cursor: 'pointer',
+      }}
     >
       <Avatar
         src={imageUrl}

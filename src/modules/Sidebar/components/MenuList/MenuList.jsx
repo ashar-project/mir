@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { menuElements, useSidebar } from '@/modules/Sidebar';
+import { menuElements } from '@/modules/Sidebar';
 import { MenuIcon } from '..';
 
 export const MenuList = () => {
