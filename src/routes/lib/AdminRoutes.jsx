@@ -1,3 +1,5 @@
+import { lazy } from 'react';
+
 import {
   AdminGaveUpPage,
   AdminGraduatedPage,
@@ -6,6 +8,9 @@ import {
   TotalAmout,
 } from '@/pages/Admin';
 
+const WorldPage = lazy(() => import('@/pages/WorldPage'));
+const RatingPage = lazy(() => import('@/pages/RatingPage'));
+
 export const ADMIN_ROUTER = [
   {
     index: true,
@@ -13,7 +18,17 @@ export const ADMIN_ROUTER = [
   },
   {
     path: 'worlds-page',
-    element: <h1>World Page</h1>,
+    children: [
+      {
+        index: true,
+        element: <WorldPage />,
+      },
+
+      {
+        path: ':id',
+        element: <RatingPage />,
+      },
+    ],
   },
   {
     path: 'received-page',
@@ -25,13 +40,12 @@ export const ADMIN_ROUTER = [
       {
         path: 'received-inner-page',
         element: <AdminInnerReceivePage />,
-        // element: <>asdsdas</>,
       },
     ],
   },
   {
-    element: <AdminGraduatedPage />,
     path: 'graduated-page',
+    element: <AdminGraduatedPage />,
   },
   {
     path: 'gave-page',

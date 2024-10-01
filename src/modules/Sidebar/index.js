@@ -1,2 +1,2 @@
-export { Sidebar } from "./components";
-export * from "./helpers";
+export { Sidebar, AdminSidebar } from './components';
+export * from './helpers';
