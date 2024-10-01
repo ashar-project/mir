@@ -1,17 +1,40 @@
+import {
+  FinichedIcon,
+  GaveUpIcon,
+  ReceivedIcon,
+  WorldPageicon,
+} from '@/assets/icon';
 import { Box, styled } from '@mui/material';
 import { NavLink } from 'react-router-dom';
-import { adminPath } from '../helpers/pathData';
 
 export const UserMobileNavBar = () => {
   return (
     <MobileSideBarStyled>
-      {adminPath?.map(item => (
-        <Block key={item.to}>
-          <StyledNavLink to={item.to}>
-            <img src={item.img} alt={item.to} />
-          </StyledNavLink>
-        </Block>
-      ))}
+      <Block>
+        <StyledNavLink to={'/admin'}>
+          <WorldPageicon />
+        </StyledNavLink>
+      </Block>
+      <Block>
+        <StyledNavLink to={'worlds-page'}>
+          <ReceivedIcon />
+        </StyledNavLink>
+      </Block>
+      <Block>
+        <StyledNavLink to={'received-page'}>
+          <GaveUpIcon />
+        </StyledNavLink>
+      </Block>
+      <Block>
+        <StyledNavLink to={'graduated-page'}>
+          <FinichedIcon />
+        </StyledNavLink>
+      </Block>
+      <Block>
+        <StyledNavLink to={'gave-page'}>
+          <WorldPageicon />
+        </StyledNavLink>
+      </Block>
     </MobileSideBarStyled>
   );
 };
@@ -63,7 +86,8 @@ const StyledNavLink = styled(NavLink)(() => ({
 
   '&.active': {
     backgroundColor: '#637E7E',
-    '& img': {
+
+    '& svg': {
       filter: 'brightness(0) invert(1)',
     },
   },
