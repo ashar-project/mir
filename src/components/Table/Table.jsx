@@ -7,7 +7,7 @@ import {
 import { styled } from '@mui/material';
 import { Box } from '@mui/system';
 
-export const Table = ({ data, columns, variant }) => {
+export const Table = ({ data, columns, variant, onClickItem }) => {
   const table = useReactTable({
     data,
     columns,
@@ -16,7 +16,7 @@ export const Table = ({ data, columns, variant }) => {
 
   const patientInfoPage = id => {
     if (variant === 'patients') {
-      console.log('hello');
+      onClickItem(id);
     }
   };
 

@@ -1,14 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import { Box, styled } from '@mui/material';
 
-import { AdminMobileNavBar } from '@/modules/Navbar/components/AdminMobailNavBar';
-import { Sidebar } from '@/modules/Sidebar';
+import { AdminSidebar } from '@/modules/Sidebar';
+import { AdminMobileNavBar } from '@/components';
 
 export const AdminLayout = () => {
   return (
     <Container>
       <LayoutContainer>
-          <Sidebar />
+        <AdminSidebar />
         <OutletBox>
           <Outlet />
         </OutletBox>
