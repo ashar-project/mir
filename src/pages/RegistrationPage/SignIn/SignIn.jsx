@@ -15,10 +15,18 @@ import {
 
 import { log as LogoOne, LogoTwo } from '@/assets/icon';
 import { useCheckClient } from '@/helpers';
+import { useNavigate } from 'react-router-dom';
 
 export const SignIn = () => {
   const { isMobile } = useCheckClient();
+  const navigate = useNavigate();
 
+  const signUpPage = () => {
+    navigate('/sign-up');
+  };
+  const forgotPage = () => {
+    navigate('/forgot');
+  };
   return (
     <Container>
       <Logo>
@@ -51,11 +59,11 @@ export const SignIn = () => {
             }}
             placeholder="Password"
           />
-          <TypographyMuiTwo>Забыл пароль</TypographyMuiTwo>
+          <TypographyMuiTwo onClick={forgotPage}>Забыл пароль</TypographyMuiTwo>
         </BlockTwo>
         <BlockThree>
           <ButtonStyled fullWidth>Войти</ButtonStyled>
-          <TypographyMui>Регистрация</TypographyMui>
+          <TypographyMui onClick={signUpPage}>Регистрация</TypographyMui>
         </BlockThree>
       </Block>
     </Container>

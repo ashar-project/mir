@@ -44,27 +44,6 @@ export const TotalAmout = () => {
   ];
   return (
     <>
-      <HeaderInput>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={toggleOpen}
-          sx={[
-            {
-              position: 'absolute',
-              left: '20px',
-              marginRight: 5,
-              top: '50%',
-              transform: 'translateY(-50%)',
-            },
-            open && { display: 'none' },
-          ]}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Input placeholder="Поиск" size="small" />
-      </HeaderInput>
       <Main>
         <BlockOne>
           <TypographyStyled
@@ -107,48 +86,10 @@ export const TotalAmout = () => {
         <Div>
           <Table data={tableData} columns={columns} />
         </Div>
-        <BlockNext>
-          <Typography color="#3D348B" fontSize={'16px'} fontWeight={700}>
-            перейти
-          </Typography>
-          <img src="src/assets/icon/Next.svg" alt="" />
-        </BlockNext>
       </Main>
     </>
   );
 };
-
-const HeaderInput = styled('header')(({ theme }) => ({
-  width: '100%',
-  height: '70px',
-  backgroundColor: 'yellow',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  position: 'sticky',
-  top: 0,
-  left: 0,
-  zIndex: 1000,
-
-  [theme.breakpoints.down('sm')]: {
-    backgroundColor: 'white',
-    border: '1px solid gray',
-  },
-}));
-
-const Input = styled(TextField)(({ theme }) => ({
-  width: '40%',
-  '& .MuiOutlinedInput-root': {
-    borderRadius: '10px',
-    backgroundColor: 'white',
-  },
-  [theme.breakpoints.down('sm')]: {
-    width: '65%',
-    '& .MuiOutlinedInput-root': {
-      height: '45px',
-    },
-  },
-}));
 
 const Main = styled('main')(({ theme }) => ({
   width: '100%',
@@ -165,7 +106,7 @@ const Main = styled('main')(({ theme }) => ({
 const Div = styled(Box)(({ theme }) => ({
   display: 'block',
   minHeight: '200px',
-  width: '100%',
+  width: '90%',
   margin: '5px auto',
   [theme.breakpoints.down('sm')]: {
     display: 'none',

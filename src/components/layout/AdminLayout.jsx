@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { Box, styled } from '@mui/material';
 
 import { AdminSidebar } from '@/modules/Sidebar';
-import { UserMobileNavBar } from '@/components';
+import { AdminMobileNavBar } from '@/modules/Navbar/components/AdminMobailNavBar';
 
 export const AdminLayout = () => {
   return (
@@ -13,7 +13,7 @@ export const AdminLayout = () => {
           <Outlet />
         </OutletBox>
       </LayoutContainer>
-      <UserMobileNavBar />
+      <AdminMobileNavBar />
     </Container>
   );
 };
@@ -52,15 +52,12 @@ const LayoutContainer = styled(Box)(({ theme }) => ({
 }));
 
 const OutletBox = styled(Box)(({ theme }) => ({
-  // <<<<<<< HEAD
   width: '100%',
   height: '100%',
   backgroundColor: 'white',
   overflow: 'auto',
-  // =======
   //   width: '100%',
   //   height: '100%',
   //   backgroundColor: 'white',
   //   overflow: 'auto',
-  // >>>>>>> dev
 }));

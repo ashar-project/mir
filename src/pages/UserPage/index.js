@@ -1,6 +1,3 @@
-import { InnerUserPage } from './InnerUserPage/UserProfile';
-
-export default InnerUserPage;
-
+export { InnerUserPage } from './InnerUserPage/UserProfile';
 export { UserProfilePage } from './UserProfile/UserProfilePage';
 export { UserEditPage } from './UserProfile/UserEditPage';

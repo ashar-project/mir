@@ -1,7 +1,6 @@
-import { UserEditPage, UserProfilePage } from '@/pages/UserPage';
+import { InnerUserPage, UserEditPage, UserProfilePage } from '@/pages/UserPage';
 import { Suspense, lazy } from 'react';
 
-const UserProfile = lazy(() => import('@/pages/UserPage'));
 const WorldPage = lazy(() => import('@/pages/WorldPage'));
 const Support = lazy(() => import('@/pages/SupportPage'));
 const GraduatedPage = lazy(() => import('@/pages/GraduatedPage'));
@@ -10,7 +9,7 @@ const GaveUpPage = lazy(() => import('@/pages/GaveUpPage'));
 export const SitePaths = {
   world: '/',
   received: '/received',
-  graduated: '/graduated', 
+  graduated: '/graduated',
   gaveUp: '/gave-up',
   pay: '/pay',
   about: '/about',
@@ -19,6 +18,7 @@ export const SitePaths = {
   adminReceived: '/admin/received-page',
   adminGraduated: '/admin/graduated-page',
   adminGaveUp: '/admin/gave-page',
+  userProfilePage: '/user-profile',
 };
 
 export const USER_ROUTES = [
@@ -35,7 +35,7 @@ export const USER_ROUTES = [
       },
       {
         path: 'received-profile',
-        element: <UserProfile />,
+        element: <InnerUserPage />,
       },
     ],
   },
@@ -46,7 +46,7 @@ export const USER_ROUTES = [
   },
   {
     path: SitePaths.gaveUp,
-    element: <GaveUpPage/>,
+    element: <GaveUpPage />,
   },
   {
     path: SitePaths.pay,
@@ -61,7 +61,7 @@ export const USER_ROUTES = [
     element: <Support />,
   },
   {
-    path: '/user-profile',
+    path: SitePaths.userProfilePage,
     children: [
       {
         index: true,
