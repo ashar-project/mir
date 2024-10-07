@@ -7,19 +7,29 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-
 import {
   MdOutlineMarkEmailUnread as EmailIcon,
   MdOutlinePassword as PasswordIcon,
 } from 'react-icons/md';
-
 import { log as LogoOne, LogoTwo } from '@/assets/icon';
 import { useCheckClient } from '@/helpers';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { signIn } from '@/store/slice/authThunk';
 
 export const SignIn = () => {
   const { isMobile } = useCheckClient();
+  // const { token, isAuth } = useSelector(state => state.auth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // console.log(token, isAuth);
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+    reset,
+  } = useForm();
 
   const signUpPage = () => {
     navigate('/sign-up');
@@ -27,16 +37,22 @@ export const SignIn = () => {
   const forgotPage = () => {
     navigate('/forgot');
   };
+  const submitHandler = value => {
+    console.log(value);
+    dispatch(signIn(value));
+  };
   return (
     <Container>
       <Logo>
         {isMobile ? <LogoTwo /> : <LogoOne />}
         <TypographyStyled>Добро пожаловать</TypographyStyled>
       </Logo>
-      <Block>
+      <Block onSubmit={handleSubmit(submitHandler)}>
         <BlockOne>Войти</BlockOne>
         <BlockTwo>
           <Input
+            {...register('email', { required: true })}
+            error={!!errors.email}
             InputProps={{
               endAdornment: (
                 <InputAdornmentStyled position="end">
@@ -47,6 +63,8 @@ export const SignIn = () => {
             placeholder="Email"
           />
           <Input
+            {...register('password', { required: true })}
+            error={!!errors.password}
             InputProps={{
               endAdornment: (
                 <InputAdornmentStyled
@@ -62,8 +80,12 @@ export const SignIn = () => {
           <TypographyMuiTwo onClick={forgotPage}>Забыл пароль</TypographyMuiTwo>
         </BlockTwo>
         <BlockThree>
-          <ButtonStyled fullWidth>Войти</ButtonStyled>
-          <TypographyMui onClick={signUpPage}>Регистрация</TypographyMui>
+          <ButtonStyled fullWidth type="submit">
+            Войти
+          </ButtonStyled>
+          <TypographyMui onClick={signUpPage} typeof="button">
+            Регистрация
+          </TypographyMui>
         </BlockThree>
       </Block>
     </Container>
@@ -98,7 +120,7 @@ const InputAdornmentStyled = styled(InputAdornment)(({}) => ({
   },
 }));
 
-const Block = styled(Box)(({ theme }) => ({
+const Block = styled('form')(({ theme }) => ({
   width: '570px',
   height: '500px',
   margin: '0 auto',

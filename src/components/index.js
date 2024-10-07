@@ -8,3 +8,4 @@ export { UserMobileNavBar } from '../modules/Navbar/components/UserMobileNavBar'
 export { ReusableModal } from './modal/ReusableModal';
 export { CustomGrid } from './Grid';
 export { Select } from './Select/Select';
+export { Notification } from './Toastify/Notification';

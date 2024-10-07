@@ -92,6 +92,8 @@ const HeaderInput = styled('header')(({ theme }) => ({
   position: 'sticky',
   top: 0,
   zIndex: 1000,
+  backgroundColor:"white",
+  borderBottom:"1px solid #e0e0e0",
 
   [theme.breakpoints.down('sm')]: {
     height: '80px',

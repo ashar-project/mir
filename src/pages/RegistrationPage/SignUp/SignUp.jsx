@@ -1,4 +1,4 @@
-import { log as LogoOne, LogoTwo } from '@/assets/icon';
+import { log, log as LogoOne, LogoTwo } from '@/assets/icon';
 import {
   Box,
   Button,
@@ -7,16 +7,20 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-
+import { IoMdCall } from 'react-icons/io';
 import {
   MdOutlineMarkEmailUnread as EmailIcon,
   MdOutlinePassword as PasswordIcon,
 } from 'react-icons/md';
+import { TfiMoney } from 'react-icons/tfi';
 
 import { FaRegUser as UserIcon } from 'react-icons/fa';
 
 import { useCheckClient } from '@/helpers';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { signUp } from '@/store/slice/authThunk';
 
 export const SignUp = () => {
   const { isMobile } = useCheckClient();
@@ -24,16 +28,32 @@ export const SignUp = () => {
   const signInPage = () => {
     navigate('/sign-in');
   };
+  const dispatch = useDispatch();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+  const handlerSubmit = data => {
+    console.log(data);
+    dispatch(signUp(data));
+  };
   return (
     <Container>
       <Logo>
         {isMobile ? <LogoTwo /> : <LogoOne />}
         <TypographyStyled>Добро пожаловать</TypographyStyled>
       </Logo>
-      <Block>
+      <Block onSubmit={handleSubmit(handlerSubmit)}>
         <BlockOne>Регистрация</BlockOne>
         <BlockTwo>
           <Input
+            {...register('userName', {
+              required: true,
+            })}
+            error={!!errors.userName}
+            helperText={errors.userName?.message}
             InputProps={{
               endAdornment: (
                 <InputAdornmentStyled position="end">
@@ -44,6 +64,11 @@ export const SignUp = () => {
             placeholder="Full Name"
           />
           <Input
+            {...register('email', {
+              required: true,
+            })}
+            error={!!errors.email}
+            helperText={errors.email?.message}
             InputProps={{
               endAdornment: (
                 <InputAdornmentStyled position="end">
@@ -54,18 +79,40 @@ export const SignUp = () => {
             placeholder="Email"
           />
           <Input
+            {...register('phoneNumber', {
+              required: true,
+            })}
+            error={!!errors.phoneNumber}
+            helperText={errors.phoneNumber?.message}
             InputProps={{
               endAdornment: (
                 <InputAdornmentStyled position="end">
-                  <PasswordIcon size={25} />
+                  <IoMdCall size={25} />
                 </InputAdornmentStyled>
               ),
             }}
-            placeholder="Password"
+            placeholder="Phone Number"
+          />
+          <Input
+            {...register('totalSum', {
+              required: true,
+            })}
+            error={!!errors.totalSum}
+            helperText={errors.totalSum?.message}
+            InputProps={{
+              endAdornment: (
+                <InputAdornmentStyled position="end">
+                  <TfiMoney size={25} />
+                </InputAdornmentStyled>
+              ),
+            }}
+            placeholder="Sum"
           />
         </BlockTwo>
         <BlockThree>
-          <ButtonStyled fullWidth>Регистрация</ButtonStyled>
+          <ButtonStyled type="submit" fullWidth>
+            Регистрация
+          </ButtonStyled>
           <TypographyMui onClick={signInPage}>Войти</TypographyMui>
         </BlockThree>
       </Block>
@@ -101,7 +148,7 @@ const InputAdornmentStyled = styled(InputAdornment)(({}) => ({
   },
 }));
 
-const Block = styled(Box)(({ theme }) => ({
+const Block = styled('form')(({ theme }) => ({
   width: '570px',
   height: '500px',
   margin: '0 auto',
@@ -124,6 +171,7 @@ const Block = styled(Box)(({ theme }) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     gap: '.625rem',
+    padding: '15px 0 0 0',
   },
 }));
 
@@ -144,19 +192,6 @@ const Logo = styled(Box)(({ theme }) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'end',
-  },
-}));
-
-const Img = styled('div')(({ theme }) => ({
-  width: '79px',
-  height: '70px',
-  background: `url(${LogoTwo}) center center / cover no-repeat`,
-
-  [theme.breakpoints.down('sm')]: {
-    padding: '13px 5px 5px 5px',
-    width: '100%',
-    height: '100%',
-    background: `url(${log}) center center / cover no-repeat`,
   },
 }));
 
@@ -197,7 +232,7 @@ const BlockOne = styled(Box)(({ theme }) => ({
 
 const BlockTwo = styled(Box)(({ theme }) => ({
   width: '29rem',
-  height: '10.25rem',
+  minHeight: '10.25rem',
   display: 'flex',
   flexDirection: 'column',
   gap: '20px',
@@ -223,6 +258,7 @@ const BlockThree = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: '20px',
   justifyContent: 'center',
+  marginTop: '10px',
 
   [theme.breakpoints.down('sm')]: {
     width: '15.6875rem',
@@ -231,7 +267,7 @@ const BlockThree = styled(Box)(({ theme }) => ({
     flexDirection: 'column',
     gap: '1rem',
     alignItems: 'center',
-    marginTop: '10px',
+    marginTop: '0',
   },
 }));
 
