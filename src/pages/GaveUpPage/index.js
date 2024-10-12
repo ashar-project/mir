@@ -1,3 +1,3 @@
-import { GaveUpPage } from './GaveUp';
+import { GaveUpPage } from './GaveUpPage';
 
 export default GaveUpPage;

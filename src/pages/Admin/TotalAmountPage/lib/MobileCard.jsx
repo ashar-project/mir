@@ -1,18 +1,19 @@
-import { complete, Delete } from '@/assets/icon';
+import { complete, Delete, Gogle } from '@/assets/icon';
 import { styled, Typography } from '@mui/material';
 import React from 'react';
 
-export const MobileCard = ({item}) => {
-  return (
-    <Card key={item}>
+export const MobileCard = ({ item }) => {
+  console.log(item);
+  return item.map(el => (
+    <Card key={el}>
       <BlockAvatat>
-        <Img src={'src/assets/icon/Gogle.svg'} />
+        <Delete />
         <div>
           <Typography fontWeight={400} fontSize={'17px'}>
-            Ахатджанов Даниел
+            {el?.userName || 'Ахатджанов Даниел'}
           </Typography>
           <Typography color="#959393" fontWeight={400} fontSize={'13px'}>
-            tanya.hill@example.com
+            {el?.email || 'tanya.hill@example.com'}
           </Typography>
         </div>
       </BlockAvatat>
@@ -24,17 +25,16 @@ export const MobileCard = ({item}) => {
           lineHeight={20}
           fontFamily="'Nunito', sans-serif"
         >
-          1 000 000 сом
+          {`${el?.goal} сом` || '1 000 000 сом'}
         </Typography>
       </BlockPrice>
-      <BlockActions>
-        <DeleteIcon src={Delete} />
-        <CompleteIcon src={complete} />
-      </BlockActions>
+      {/* <BlockActions>
+        <DeleteIcon src={Delete} alt="Delete" />
+        <CompleteIcon src={complete} alt="Complete" />
+      </BlockActions> */}
     </Card>
-  );
+  ));
 };
-
 
 const Card = styled('div')(({ theme }) => ({
   width: '100%',
@@ -43,7 +43,7 @@ const Card = styled('div')(({ theme }) => ({
     width: '95%',
     minHeight: '150px',
     margin: '20px auto',
-    display: ' flex',
+    display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
     alignItems: 'center',
@@ -54,7 +54,6 @@ const Card = styled('div')(({ theme }) => ({
 
 const BlockAvatat = styled('div')(({ theme }) => ({
   width: '50%',
-
   [theme.breakpoints.down('sm')]: {
     width: '95%',
     height: '73px',
@@ -69,7 +68,6 @@ const Img = styled('img')(({ theme }) => ({
   width: '50%',
   height: '50%',
   borderRadius: '50%',
-
   [theme.breakpoints.down('sm')]: {
     width: '70px',
     height: '70px',
@@ -79,13 +77,11 @@ const Img = styled('img')(({ theme }) => ({
 
 const BlockPrice = styled('div')(({ theme }) => ({
   width: '50%',
-  // height: '50%',
-
   [theme.breakpoints.down('sm')]: {
     width: '90%',
     height: '50px',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'start',
     alignItems: 'center',
     marginTop: '10px',
   },
@@ -93,8 +89,6 @@ const BlockPrice = styled('div')(({ theme }) => ({
 
 const BlockActions = styled('div')(({ theme }) => ({
   width: '100%',
-  // height: '50%',
-
   [theme.breakpoints.down('sm')]: {
     width: '95%',
     minHeight: '60px',
@@ -105,5 +99,5 @@ const BlockActions = styled('div')(({ theme }) => ({
   },
 }));
 
-const DeleteIcon = styled('img')(({ theme }) => ({}));
-const CompleteIcon = styled('img')(({ theme }) => ({}));
+const DeleteIcon = styled('img')({});
+const CompleteIcon = styled('img')({});

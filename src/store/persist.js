@@ -16,7 +16,6 @@ import { setupStore } from './store';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: [],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

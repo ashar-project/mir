@@ -1,4 +1,6 @@
+import { ReceivedPage } from '@/pages/ReceivedPage';
 import { InnerUserPage, UserEditPage, UserProfilePage } from '@/pages/UserPage';
+import { WorldInfo } from '@/pages/WorldPage';
 import { Suspense, lazy } from 'react';
 
 const WorldPage = lazy(() => import('@/pages/WorldPage'));
@@ -23,18 +25,27 @@ export const SitePaths = {
 
 export const USER_ROUTES = [
   {
-    index: true,
-    element: <WorldPage />,
-  },
-  {
-    path: '/received',
+    path: '/',
     children: [
       {
         index: true,
-        element: <h1>Received</h1>,
+        element: <WorldPage />,
       },
       {
-        path: 'received-profile',
+        path: ':id/worldInfo',
+        element: <WorldInfo />,
+      },
+    ],
+  },
+  {
+    path: SitePaths.received,
+    children: [
+      {
+        index: true,
+        element: <ReceivedPage />,
+      },
+      {
+        path: ':id/received-profile',
         element: <InnerUserPage />,
       },
     ],

@@ -76,9 +76,19 @@ const TableStyled = styled('table')({
   '& tbody td': {
     borderBottom: '1px solid #ddd',
     fontSize: '13px',
+    padding: '0 10px',
+    textAlign: 'left',
+    cursor: 'pointer',
+  },
+  '& tbody tr': {
+    fontSize: '13px',
     cursor: 'pointer',
   },
   '& tbody tr:hover': {
     backgroundColor: '#f1f1f1',
+  },
+  '& tbody td:first-child, & tbody td:nth-child(2)': {
+    textAlign: 'left',
+    paddingLeft: '5px',
   },
 });

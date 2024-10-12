@@ -1,12 +1,14 @@
-import React from 'react';
 import { Card, Typography, styled, Avatar } from '@mui/material';
 
-export const Cards = ({ name, imageSrc }) => {
+export const GraduatadCards = ({ name, imageSrc, totalSum }) => {
   return (
     <StyledCard>
       <StyledAvatar alt={name} src={imageSrc} />
       <Typography textAlign={'center'} fontSize={14} variant="h6">
         {name}
+      </Typography>
+      <Typography textAlign={'center'} fontSize={14} variant="h6">
+        {totalSum}
       </Typography>
     </StyledCard>
   );

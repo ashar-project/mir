@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { signIn, signUp } from './authThunk';
+import { forgotPassword, resetPassword, signIn, signUp } from './authThunk';
 
 const initialState = {
   isAuth: false,
@@ -8,7 +8,8 @@ const initialState = {
   token: '',
   role: 'GUEST',
 };
-console.log(initialState.token,'token');
+
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -19,6 +20,7 @@ export const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(signUp.fulfilled, (state, { payload }) => {
+        console.log(payload);
         state.isAuth = true;
         state.isLoading = false;
         state.role = payload.role;
@@ -39,6 +41,28 @@ export const authSlice = createSlice({
         state.token = payload.token;
       })
       .addCase(signIn.rejected, state => {
+        state.isLoading = false;
+      });
+
+    builder
+      .addCase(forgotPassword.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(forgotPassword.fulfilled, state => {
+        state.isLoading = false;
+      })
+      .addCase(forgotPassword.rejected, state => {
+        state.isLoading = false;
+      });
+
+    builder
+      .addCase(resetPassword.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(resetPassword.fulfilled, state => {
+        state.isLoading = false;
+      })
+      .addCase(resetPassword.rejected, state => {
         state.isLoading = false;
       });
   },

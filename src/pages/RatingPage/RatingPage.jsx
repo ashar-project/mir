@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { FaArrowLeft as BackIcon } from 'react-icons/fa6';
 
-import { useNavigate, useParams, useNavigation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from './test.module.css';
 
 import { Table } from '@/components/Table';

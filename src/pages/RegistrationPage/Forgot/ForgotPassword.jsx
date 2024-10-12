@@ -10,23 +10,45 @@ import { gmail as Gmail } from '@/assets/icon';
 import { LogoTwo } from '@/assets/icon';
 import { log } from '@/assets/icon';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { forgotPassword } from '@/store/slice/auth/authThunk';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 export const Forgot = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector(state => state.auth);
   const signInPage = () => {
     navigate('/sign-in');
   };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm();
+
+  setValue('link', `${window.location.origin}/reset_password`);
+
+  const submitHandlers = data => {
+    dispatch(forgotPassword(data));
+  };
+
   return (
     <Container>
+      {isLoading && <Spinner />}
       <Logo>
         <Img />
         <TypographyStyled>Добро пожаловать</TypographyStyled>
       </Logo>
-      <Block>
+      <Block onSubmit={handleSubmit(submitHandlers)}>
         <BlockOne>Регестрация</BlockOne>
         <BlockTwo>
           <Input
+            {...register('email', { required: true })}
+            error={!!errors.email}
             InputProps={{
               endAdornment: (
                 <InputAdornmentStyled position="end">
@@ -34,13 +56,17 @@ export const Forgot = () => {
                 </InputAdornmentStyled>
               ),
             }}
-            placeholder="Код: 0000"
+            placeholder="Email"
           />
         </BlockTwo>
         <BlockThree>
-          <ButtonStyled fullWidth>Регестрация</ButtonStyled>
+          <ButtonStyled fullWidth type="submit">
+            Next
+          </ButtonStyled>
 
-          <TypographyMui onClick={signInPage}>Войти</TypographyMui>
+          <TypographyMui onClick={signInPage} type="button">
+            Войти
+          </TypographyMui>
         </BlockThree>
       </Block>
     </Container>
@@ -75,7 +101,7 @@ const InputAdornmentStyled = styled(InputAdornment)(({}) => ({
   },
 }));
 
-const Block = styled(Box)(({ theme }) => ({
+const Block = styled('form')(({ theme }) => ({
   width: '570px',
   height: '500px',
   margin: '0 auto',

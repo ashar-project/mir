@@ -16,14 +16,13 @@ import { useCheckClient } from '@/helpers';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { signIn } from '@/store/slice/authThunk';
+import { signIn } from '@/store/slice/auth/authThunk';
 
 export const SignIn = () => {
   const { isMobile } = useCheckClient();
   // const { token, isAuth } = useSelector(state => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // console.log(token, isAuth);
   const {
     formState: { errors },
     handleSubmit,
@@ -31,14 +30,10 @@ export const SignIn = () => {
     reset,
   } = useForm();
 
-  const signUpPage = () => {
-    navigate('/sign-up');
-  };
   const forgotPage = () => {
     navigate('/forgot');
   };
   const submitHandler = value => {
-    console.log(value);
     dispatch(signIn(value));
   };
   return (
@@ -83,9 +78,6 @@ export const SignIn = () => {
           <ButtonStyled fullWidth type="submit">
             Войти
           </ButtonStyled>
-          <TypographyMui onClick={signUpPage} typeof="button">
-            Регистрация
-          </TypographyMui>
         </BlockThree>
       </Block>
     </Container>

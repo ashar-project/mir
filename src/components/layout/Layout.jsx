@@ -17,12 +17,17 @@ export const Layout = () => {
   const hiddenPaths = [
     '/tech-support',
     '/user-profile',
-    '/received/received-profile',
+    /^\/received\/\d+\/received-profile$/,
+    /^\/\d+\/worldInfo$/, // Исправленное регулярное выражение
     '/about',
   ];
 
   useEffect(() => {
-    setStatus(!hiddenPaths.includes(pathname));
+    setStatus(
+      !hiddenPaths.some(path =>
+        typeof path === 'string' ? path === pathname : path.test(pathname)
+      )
+    );
   }, [pathname]);
 
   return (
@@ -31,27 +36,29 @@ export const Layout = () => {
         <Sidebar />
 
         <OutletBox>
-          <HeaderInput>
-            {isMobile && (
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={() => setOpen(true)}
-                sx={[
-                  {
-                    position: 'absolute',
-                    left: '20px',
-                    marginRight: 5,
-                  },
-                  open && { display: 'none' },
-                ]}
-              >
-                <MenuIcon />
-              </IconButton>
-            )}
-            {status && <Input size="small" placeholder="Поиск" />}
-          </HeaderInput>
+          {status && (
+            <HeaderInput>
+              {isMobile && (
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  edge="start"
+                  onClick={() => setOpen(true)}
+                  sx={[
+                    {
+                      position: 'absolute',
+                      left: '20px',
+                      marginRight: 5,
+                    },
+                    open && { display: 'none' },
+                  ]}
+                >
+                  <MenuIcon />
+                </IconButton>
+              )}
+              {status && <Input size="small" placeholder="Поиск" />}
+            </HeaderInput>
+          )}
 
           <Outlet />
         </OutletBox>
@@ -92,8 +99,8 @@ const HeaderInput = styled('header')(({ theme }) => ({
   position: 'sticky',
   top: 0,
   zIndex: 1000,
-  backgroundColor:"white",
-  borderBottom:"1px solid #e0e0e0",
+  backgroundColor: 'white',
+  borderBottom: '1px solid #e0e0e0',
 
   [theme.breakpoints.down('sm')]: {
     height: '80px',
