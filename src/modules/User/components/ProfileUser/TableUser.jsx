@@ -12,43 +12,38 @@ import {
   styled,
 } from '@mui/material';
 
-export const PaymentTable = ({ onClick, variants }) => {
-  const data = [
-    { id: 1, date: '01.01.2024', amount: '5 000 сом', status: 'Оплачено' },
-    { id: 2, date: '01.02.2024', amount: '5 000 сом', status: 'Пропущено' },
-    { id: 3, date: '01.03.2024', amount: '5 000 сом', status: 'Ожидание' },
-    { id: 4, date: '01.04.2024', amount: '5 000 сом', status: '--------' },
-    { id: 4, date: '01.04.2024', amount: '5 000 сом', status: '--------' },
-    { id: 4, date: '01.04.2024', amount: '5 000 сом', status: '--------' },
-    { id: 4, date: '01.04.2024', amount: '5 000 сом', status: '--------' },
-    { id: 4, date: '01.04.2024', amount: '5 000 сом', status: '--------' },
-    { id: 4, date: '01.04.2024', amount: '5 000 сом', status: '--------' },
-    { id: 4, date: '01.04.2024', amount: '5 000 сом', status: '--------' },
-    { id: 4, date: '01.04.2024', amount: '5 000 сом', status: '--------' },
-  ];
+export const PaymentTable = ({ onClick, variants, value }) => {
+  const translateValue = {
+    PAID: 'Оплачено',
+    WAITING: 'Ожидание',
+    MISSED: 'Пропущено',
+  };
 
   const StatusText = styled('span')(({ status }) => ({
     color:
-      status === 'Оплачено'
+      status === 'PAID'
         ? 'green'
-        : status === 'Пропущено'
+        : status === 'MISSED'
           ? 'red'
-          : status === 'Ожидание'
+          : status === 'WAITING'
             ? 'orange'
             : 'inherit',
   }));
+  console.log(value);
 
   return (
     <Box>
       <TableWrapper>
         <Bot>
           <div>
-            <DebtInfo variant="body1">Основной долг: 50 000 сом</DebtInfo>
+            <DebtInfo variant="body1">
+              Основной долг: {value.principalDebt} сом
+            </DebtInfo>
             <DebtInfo variant="body1" style={{ color: 'green' }}>
-              Оплатил: 25 000 сом
+              Оплатил: {value.totalSum} сом
             </DebtInfo>
             <DebtInfo variant="body1" style={{ color: 'orange' }}>
-              Остаток: 25 000 сом
+              Остаток: {value.remainingAmount} сом
             </DebtInfo>
           </div>
           {variants === 'admin' && (
@@ -73,17 +68,25 @@ export const PaymentTable = ({ onClick, variants }) => {
                 <TableCellStyled>Статус</TableCellStyled>
               </TableRowStyled>
             </TableHead>
-            <TableBody>
-              {data.map(row => (
-                <TableRowStyled key={row.id}>
-                  <TableCellStyled>{row.id}</TableCellStyled>
-                  <TableCellStyled>{row.date}</TableCellStyled>
-                  <TableCellStyled>{row.amount}</TableCellStyled>
-                  <TableCellStyled>
-                    <StatusText status={row.status}>{row.status}</StatusText>
-                  </TableCellStyled>
-                </TableRowStyled>
-              ))}
+            <TableBody sx={{ position: 'relative' }}>
+              {value.payment.length > 0 ? (
+                value.payment.map((row, index) => (
+                  <TableRowStyled key={row.id || index}>
+                    <TableCellStyled>{index + 1}</TableCellStyled>
+                    <TableCellStyled>{row.date}</TableCellStyled>
+                    <TableCellStyled>{row.sum}</TableCellStyled>
+                    <TableCellStyled>
+                      <StatusText status={row.status}>
+                        {translateValue[row.status]}
+                      </StatusText>
+                    </TableCellStyled>
+                  </TableRowStyled>
+                ))
+              ) : (
+                <Typography fontFamily={'Montserrat, sans-serif'}>
+                  Упс данных пока нету
+                </Typography>
+              )}
             </TableBody>
           </Table>
         </TableContainer>
@@ -132,5 +135,30 @@ const TableCellStyled = styled(TableCell)(() => ({
 const TableRowStyled = styled(TableRow)(() => ({
   '&:hover': {
     backgroundColor: '#f6f1f1',
+  },
+}));
+
+const NoDataText = styled(Typography)(({ theme }) => ({
+  fontSize: '24px',
+  color: '#FF0000',
+  fontWeight: 700,
+  textAlign: 'center',
+  marginTop: '20px',
+  animation: 'fadeIn 2s ease-in-out infinite',
+
+  '@keyframes fadeIn': {
+    '0%': {
+      opacity: 0,
+    },
+    '50%': {
+      opacity: 0.5,
+    },
+    '100%': {
+      opacity: 1,
+    },
+  },
+
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '18px', // Размер для мобильных устройств
   },
 }));

@@ -1,29 +1,42 @@
 import { Girl } from '@/assets/image';
+import { Spinner } from '@/components/Spinner/Spinner';
 import { PaymentTable } from '@/modules/User';
+import { getUserById } from '@/store/slice/receivedSlice/receivedThunk';
 import { Box, styled, Typography } from '@mui/material';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 export const InnerUserPage = () => {
+  const { id } = useParams();
+  const { receivedInfo, isLoading } = useSelector(state => state.received);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserById(id));
+  }, []);
   return (
     <>
+      {isLoading && <Spinner />}
       <Container>
         <BlockOne>
           <ImgBlock>
-            <Img src={Girl} />
+            <Img src={receivedInfo.imageSrc || Girl} />
             <TypographyStyled
               variant="h5"
               fontFamily={'Montserrat,sans-serif'}
               fontWeight={400}
             >
-              John Doe
+              {receivedInfo.userName}
             </TypographyStyled>
-            <TypographyStyled variant="h4" fontFamily={'Montserrat,sans-serif'}>
+            {/* <TypographyStyled variant="h4" fontFamily={'Montserrat,sans-serif'}>
               50%
-            </TypographyStyled>
+            </TypographyStyled> */}
           </ImgBlock>
         </BlockOne>
         <BlockTwo>
           <TableInfo>
-            <PaymentTable />
+            <PaymentTable value={receivedInfo} />
           </TableInfo>
         </BlockTwo>
       </Container>
@@ -60,9 +73,14 @@ const Img = styled('img')(() => ({
   borderRadius: '50%',
 }));
 
-const TypographyStyled = styled(Typography)(() => ({
+const TypographyStyled = styled(Typography)(({ theme }) => ({
   textAlign: 'center',
   marginTop: '5px',
+
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '14px',
+    fontWeight: '500',
+  },
 }));
 
 // !

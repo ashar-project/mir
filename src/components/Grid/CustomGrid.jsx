@@ -9,14 +9,15 @@ export const CustomGrid = ({ children }) => {
       <Grid
         container
         sx={{
-          rowGap: '75px',
-          columnGap: '35px',
-          padding: '30px 15px',
+          rowGap: '20px',
+          columnGap: '20px',
+          padding: '15px 15px',
 
           [theme.breakpoints.down('sm')]: {
             display: 'flex',
             gap: '25px',
             justifyContent: 'center',
+            // padding: '15px 15px',
           },
         }}
       >

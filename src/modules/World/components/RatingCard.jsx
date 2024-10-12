@@ -29,7 +29,7 @@ export const RatingCard = ({ minAmount, maxAmount, rating }) => {
         justifyContent: 'space-between',
 
         [theme.breakpoints.down('sm')]: {
-          minWidth: '160px',
+          minWidth: '150px',
           maxHeight: '185px',
         },
         cursor: 'pointer',

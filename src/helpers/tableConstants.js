@@ -9,7 +9,7 @@ export const tableData = [
     url: 'src/assets/icon/Gogle.svg',
   },
   {
-    id: 1,
+    id: 2,
     firstName: 'Ахатджанов  ',
     lastName: 'Даниел',
     email: 'syimyk@gmail.com',
@@ -19,7 +19,7 @@ export const tableData = [
   },
 
   {
-    id: 1,
+    id: 3,
     firstName: 'Ахатджанов  ',
     lastName: 'Даниел',
     email: 'syimyk@gmail.com',
@@ -28,7 +28,7 @@ export const tableData = [
     url: 'src/assets/icon/Gogle.svg',
   },
   {
-    id: 1,
+    id: 4,
     firstName: 'Ахатджанов  ',
     lastName: 'Даниел',
     email: 'syimyk@gmail.com',
@@ -37,7 +37,7 @@ export const tableData = [
     url: 'src/assets/icon/Gogle.svg',
   },
   {
-    id: 1,
+    id: 5,
     firstName: 'Ахатджанов  ',
     lastName: 'Даниел',
     email: 'syimyk@gmail.com',
@@ -46,7 +46,7 @@ export const tableData = [
     url: 'src/assets/icon/Gogle.svg',
   },
   {
-    id: 1,
+    id: 6,
     firstName: 'Ахатджанов  ',
     lastName: 'Даниел',
     email: 'syimyk@gmail.com',
