@@ -1,15 +1,17 @@
+import { SitePaths } from '@/routes/lib/UserRoutes';
 import { Stack, Avatar, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-export const UserCard = ({
-  imageUrl,
-  userName = 'No name',
-  isAdmin = false,
-}) => {
+export const UserCard = ({ imageUrl, userName = 'No name' }) => {
   const navigate = useNavigate();
-
+  const { role } = useSelector(state => state.auth);
   const handleClick = () => {
-    isAdmin && navigate('/admin');
+    if (role === 'USER') {
+      role && navigate(SitePaths.userProfilePage);
+    } else {
+      navigate('/admin');
+    }
   };
 
   return (

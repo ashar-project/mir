@@ -20,6 +20,7 @@ export const Layout = () => {
     /^\/received\/\d+\/received-profile$/,
     /^\/\d+\/worldInfo$/, // Исправленное регулярное выражение
     '/about',
+    '/user-profile/user-edit-page',
   ];
 
   useEffect(() => {

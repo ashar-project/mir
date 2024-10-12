@@ -7,19 +7,43 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Modal,
+  Box,
 } from '@mui/material';
 import { LogoMobile } from '@/assets/icon';
 import { useSidebar } from '@/modules/Sidebar';
 import { SitePaths } from '@/routes/lib/UserRoutes';
 
 import { MenuIcon } from '../..';
+import { Button, ReusableModal } from '@/components';
+import { useDispatch } from 'react-redux';
+import { logout } from '@/store/slice/auth/authSlice';
+import { useState } from 'react';
+import zIndex from '@mui/material/styles/zIndex';
 
 export const MobileSidebar = () => {
   const { open, setOpen } = useSidebar();
+  const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const handlerModal = () => {
+    console.log('click');
+    setOpenModal(prev => !prev);
+  };
+
+  const handleLogout = () => {
+    console.log('click');
+
+    dispatch(logout());
+    handlerModal();
+  };
   return (
-    <DrawerMUI open={open} onClose={() => setOpen(false)}>
+    <DrawerMUI
+      sx={{ position: 'relative' }}
+      open={open}
+      onClose={() => setOpen(false)}
+    >
       <Stack
         width="100%"
         height="100px"
@@ -57,6 +81,28 @@ export const MobileSidebar = () => {
           </ListItemButton>
         </ListItem>
       </List>
+      <Button
+        type="button"
+        onClick={handlerModal}
+        style={{
+          width: '100px',
+          position: 'absolute',
+          left: 10,
+          bottom: 50,
+          zIndex: 9999,
+        }}
+      >
+        Выйти
+      </Button>
+      <ReusableModal open={openModal} onClose={handlerModal}>
+        <Box sx={{ display: 'flex', gap: '30px', flexDirection: 'column' }}>
+          Вы точна хотите выйти
+          <div style={{ display: 'flex', gap: '20px' }}>
+            <Button onClick={handlerModal}>Отмена</Button>
+            <Button onClick={handleLogout}>Да</Button>
+          </div>
+        </Box>
+      </ReusableModal>
     </DrawerMUI>
   );
 };

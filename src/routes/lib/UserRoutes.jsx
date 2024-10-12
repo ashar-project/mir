@@ -53,7 +53,11 @@ export const USER_ROUTES = [
   ,
   {
     path: SitePaths.graduated,
-    element: <GraduatedPage />,
+    element: (
+      <Suspense>
+        <GraduatedPage />
+      </Suspense>
+    ),
   },
   {
     path: SitePaths.gaveUp,

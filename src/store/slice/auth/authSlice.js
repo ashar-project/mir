@@ -9,11 +9,16 @@ const initialState = {
   role: 'GUEST',
 };
 
-
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    logout(state) {
+      state.isAuth = false;
+      state.role = 'GUEST';
+      state.token = '';
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(signUp.pending, state => {
@@ -67,3 +72,5 @@ export const authSlice = createSlice({
       });
   },
 });
+
+export const { logout } = authSlice.actions;

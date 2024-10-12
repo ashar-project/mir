@@ -1,12 +1,19 @@
 import { Negr } from '@/assets/image';
 import { Button, ReusableModal } from '@/components';
+import { getProfileUser } from '@/store/slice/profileSlice/profileThunk';
 import { Box, styled, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export const UserProfilePage = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProfileUser());
+  }, []);
 
   const handleClick = () => {
     navigate('user-edit-page');
@@ -27,14 +34,14 @@ export const UserProfilePage = () => {
               <TypographyStyled>Имя:</TypographyStyled>
               <TypographyStyledTwo>Nurles Nazirbaev</TypographyStyledTwo>
             </Block>
-            <Block>
+            {/* <Block>
               <TypographyStyled>Email:</TypographyStyled>
               <TypographyStyledTwo>
                 nurlesnazirbaev@gmail.com
               </TypographyStyledTwo>
-            </Block>
+            </Block> */}
             <Block>
-              <TypographyStyled>Номер:</TypographyStyled>
+              <TypographyStyled>Цель:</TypographyStyled>
               <TypographyStyledTwo>+996709590511</TypographyStyledTwo>
             </Block>
           </BlockTwo>
@@ -112,7 +119,7 @@ const Main = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'start',
   margin: '50px auto',
-
+  boxShadow: '0px 7px 20px -1px rgba(199,193,199,1)',
   [theme.breakpoints.down('sm')]: {
     width: '100%',
     margin: '0 auto',

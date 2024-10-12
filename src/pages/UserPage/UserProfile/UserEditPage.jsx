@@ -2,41 +2,53 @@ import { Negr } from '@/assets/image';
 import { upload as Upload } from '@/assets/icon';
 import { Button, Input } from '@/components';
 import { Box, styled, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export const UserEditPage = () => {
+  const navigate = useNavigate();
   return (
-    <Main>
-      <Container>
-        <BlockOne>
-          <Div>
-            <Upload />
-          </Div>
-          <Img src={Negr} alt="Negr" />
-        </BlockOne>
-        <BlockTwo>
-          <Block>
-            <TypographyStyled>Имя:</TypographyStyled>
-            <Input fullWidth size="small" />
-          </Block>
-          <Block>
-            <TypographyStyled>Email:</TypographyStyled>
-            <Input fullWidth size="small" />
-          </Block>
-          <Block>
-            <TypographyStyled>Номер:</TypographyStyled>
-            <Input fullWidth size="small" />
-          </Block>
-        </BlockTwo>
-      </Container>
-      <ButtonBlock>
-        <Button variant="outlined" style={{ borderRadius: '10px' }} fullWidth>
-          Назад
-        </Button>
-        <Button style={{ borderRadius: '10px' }} fullWidth>
-          Изменить
-        </Button>
-      </ButtonBlock>
-    </Main>
+    <>
+      <Button style={{ margin: '10px' }} onClick={() => navigate(-1)}>
+        Назад
+      </Button>
+      <Main>
+        <Container>
+          <BlockOne>
+            <Div>
+              <Upload />
+            </Div>
+            <Img src={Negr} alt="Negr" />
+          </BlockOne>
+          <BlockTwo>
+            <Block>
+              <TypographyStyled>Имя:</TypographyStyled>
+              <Input fullWidth size="small" />
+            </Block>
+            <Block>
+              <TypographyStyled>Email:</TypographyStyled>
+              <Input fullWidth size="small" />
+            </Block>
+            <Block>
+              <TypographyStyled>Номер:</TypographyStyled>
+              <Input fullWidth size="small" />
+            </Block>
+          </BlockTwo>
+        </Container>
+        <ButtonBlock>
+          <Button
+            variant="outlined"
+            style={{ borderRadius: '10px' }}
+            onClick={() => navigate(-1)}
+            fullWidth
+          >
+            Назад
+          </Button>
+          <Button style={{ borderRadius: '10px' }} fullWidth>
+            Изменить
+          </Button>
+        </ButtonBlock>
+      </Main>
+    </>
   );
 };
 
