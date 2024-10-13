@@ -19,7 +19,7 @@ export const AdminPaymentTable = ({ onClick, variants, value }) => {
     MISSED: 'Пропущено',
   };
 
-  const StatusText = styled('td')(({ status }) => ({
+  const StatusText = styled('span')(({ status }) => ({
     color:
       status === 'PAID'
         ? 'green'

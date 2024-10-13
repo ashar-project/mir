@@ -17,10 +17,24 @@ export const getReceivedUser = createAsyncThunk(
   'adminReceived/getReceivedUser',
   async ({ id, navigate }, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get(`/api/users/receivedUser/${id}`);
+      const { data } = await axiosInstance.get(`/api/users/receivedUser/${id}`);
       navigate(`${id}/received-inner-page`);
-      console.log(data);
-      return response.data;
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const postReceivedUserPayment = createAsyncThunk(
+  'adminReceived/postReceivedUserPayment',
+  async ({ userId, value }, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.post(
+        `/api/payments/${userId}/addPayment`,
+        value
+      );
+      return data;
     } catch (error) {
       return rejectWithValue(error);
     }

@@ -25,13 +25,13 @@ export const adminReceivedSlice = createSlice({
       .addCase(getReceivedUser.pending, state => {
         state.isLoading = true;
       })
-      .addCase(getReceivedUser.fulfilled, (state, { paylaod }) => {
-        console.log(paylaod)
+      .addCase(getReceivedUser.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.receivedUser = paylaod;
+        state.receivedUser = payload;
       })
-      .addCase(getReceivedUser.rejected, state => {
+      .addCase(getReceivedUser.rejected, (state, { payload }) => {
         state.isLoading = false;
+        state.error = payload;
       });
   },
 });

@@ -1,33 +1,40 @@
 import { Girl } from '@/assets/image';
 import { Button, Input, ReusableModal, Select } from '@/components';
 import { Box, styled, Typography, InputLabel } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AdminPaymentTable } from './AdminTable/AdminTable';
 import { useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+
 const options = [
-  {
-    value: 'Оплачено.',
-    label: 'Оплачено.',
-  },
-  {
-    value: 'Пропущено.',
-    label: 'Пропущено.',
-  },
-  {
-    value: 'Ожидание.',
-    label: 'Ожидание.',
-  },
+  { value: 'Оплачено.', label: 'Оплачено.' },
+  { value: 'Пропущено.', label: 'Пропущено.' },
+  { value: 'Ожидание.', label: 'Ожидание.' }, // Обратите внимание на точку в конце
 ];
+
 export const AdminInnerReceivePage = () => {
   const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState('Ожидание');
-  const { receivedUser } = useSelector(state => state.adminReceived);
+  const [status, setStatus] = useState('Ожидание.'); // Добавлена точка в конце
+  const receivedUser = useSelector(state => state.adminReceived.receivedUser);
 
   const handleChange = event => setStatus(event.target.value);
-
-  console.log(receivedUser);
-
   const openModal = () => setOpen(prev => !prev);
+
+  const {
+    register,
+    setValue,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm();
+
+  useEffect(() => {
+    setValue('status', status);
+  }, [status, setValue]); // Добавление useEffect для установки значения
+
+  const handlerSubmitValue = data => {
+    console.log(data);
+  };
 
   return (
     <>
@@ -49,19 +56,32 @@ export const AdminInnerReceivePage = () => {
         </BlockOne>
         <BlockTwo>
           <TableInfo>
-            <AdminPaymentTable variants={'admin'} onClick={openModal} />
+            <AdminPaymentTable
+              variants={'admin'}
+              value={receivedUser}
+              onClick={openModal}
+            />
           </TableInfo>
         </BlockTwo>
       </Container>
       <ReusableModal open={open} onClose={openModal}>
-        <ModalBox>
+        <ModalBox onSubmit={handleSubmit(handlerSubmitValue)}>
           <TypographyStyled variant="h4">Введите сумму</TypographyStyled>
           <BlockS>
             <InputLabelStyled fullWidth htmlFor="amount">
               Сумма
-              <Input size="small" fullWidth id="amount" variant="outlined" />
+              <Input
+                {...register('sum', { required: true })}
+                error={!!errors.sum}
+                size="small"
+                fullWidth
+              />
+              {errors.sum && (
+                <TypographyStyled color="error">
+                  Это поле обязательно для заполнения.
+                </TypographyStyled>
+              )}
             </InputLabelStyled>
-
             <Select
               style={{ width: '100%' }}
               label="Статус"
@@ -75,7 +95,7 @@ export const AdminInnerReceivePage = () => {
             <Button onClick={openModal} variant="outlined">
               Отменить
             </Button>
-            <Button onClick={openModal}>Подтвердить</Button>
+            <Button type="submit">Подтвердить</Button>
           </Class>
         </ModalBox>
       </ReusableModal>
@@ -91,22 +111,13 @@ const Container = styled(Box)(() => ({
   height: '100vh',
 }));
 
-const ModalBox = styled(Box)(({ theme }) => ({
+const ModalBox = styled('form')(({ theme }) => ({
   width: '90%',
   height: '250px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'column',
-
-  [theme.breakpoints.down('sm')]: {
-    width: '90%',
-    height: '250px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-  },
 }));
 
 const InputLabelStyled = styled(InputLabel)(({ theme }) => ({
@@ -115,14 +126,6 @@ const InputLabelStyled = styled(InputLabel)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'start',
   justifyContent: 'center',
-
-  [theme.breakpoints.down('sm')]: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'start',
-    justifyContent: 'center',
-    width: '100%',
-  },
 }));
 
 const Class = styled(Box)(({ theme }) => ({
@@ -132,14 +135,6 @@ const Class = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   gap: '10px',
   margin: '10px auto',
-  [theme.breakpoints.down('sm')]: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: '10px',
-    margin: '10px auto',
-  },
 }));
 
 const BlockOne = styled(Box)(() => ({
@@ -166,10 +161,6 @@ const Img = styled('img')(() => ({
 const TypographyStyled = styled(Typography)(({ theme }) => ({
   textAlign: 'center',
   marginTop: '5px',
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '17px',
-    fontWeight: '600',
-  },
 }));
 
 const BlockTwo = styled(Box)(() => ({

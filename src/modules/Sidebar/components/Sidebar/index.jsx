@@ -9,9 +9,10 @@ import {
   ListItemText,
   Drawer as DrawerMUI,
 } from '@mui/material';
+import { MdOutlineAttachMoney as Pay } from 'react-icons/md';
 
 import { useSidebar } from '@/modules/Sidebar';
-import { AboutAs, LogoDesktop, LogoMobile, Pay } from '@/assets/icon';
+import { AboutAs, LogoDesktop, LogoMobile } from '@/assets/icon';
 import { Drawer } from '@/modules/Sidebar/components';
 import { useCheckClient } from '@/helpers';
 
@@ -44,7 +45,7 @@ export const AdminMenuIcons = ({ path, color = 'grey' }) => {
     [AdminSitePaths.received]: <ReceivedIcon color={color} size={26} />,
     [AdminSitePaths.graduated]: <GraduatedIcon color={color} size={26} />,
     [AdminSitePaths.gaveUp]: <GaveUpIcon color={color} size={26} />,
-    [AdminSitePaths.payment]: <Pay />,
+    [AdminSitePaths.payment]: <Pay color={color} size={26} />,
   };
 
   return menuIcons[path];
@@ -66,6 +67,10 @@ const menuElements = [
   {
     label: 'Сдался',
     navigation: 'gave-page',
+  },
+  {
+    label: 'Оплатить',
+    navigation: 'payment-page',
   },
 ];
 
