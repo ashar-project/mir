@@ -21,6 +21,8 @@ export const AdminLayout = () => {
     /^\/admin\/worlds-page\/\d+\/worldRaiting$/,
     '/admin',
     '/admin/payment-page',
+    '/admin/worlds-page/adminInnerTablePage',
+    /^\/admin\/received-page\/\d+\/received-inner-page$/,
   ];
 
   useEffect(() => {

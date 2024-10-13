@@ -1,13 +1,16 @@
 import React from 'react';
 import { Card, Typography, styled, Avatar } from '@mui/material';
 
-export const Cards = ({ name, imageSrc }) => {
+export const Cards = ({ name, imageSrc, percentage }) => {
   return (
     <StyledCard>
       <StyledAvatar alt={name} src={imageSrc} />
-      <Typography textAlign={'center'} fontSize={14} variant="h6">
+      <TypographyStyledOne textAlign={'center'} fontSize={14} variant="h6">
         {name}
-      </Typography>
+      </TypographyStyledOne>
+      <TypographyMoney textAlign={'center'} fontSize={14} variant="h6">
+        {percentage}
+      </TypographyMoney>
     </StyledCard>
   );
 };
@@ -22,14 +25,12 @@ const StyledCard = styled(Card)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'column',
+  wordBreak: 'break-word', // Добавляем сюда для общей гибкости
 
   [theme.breakpoints.down('sm')]: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
     width: '150px',
     height: '200px',
+    padding: '5px',
   },
 }));
 
@@ -37,4 +38,27 @@ const StyledAvatar = styled(Avatar)(() => ({
   width: '56px',
   height: '56px',
   marginBottom: '10px',
+}));
+
+const TypographyStyledOne = styled(Typography)(({ theme }) => ({
+  textAlign: 'center',
+  fontWeight: 500,
+  wordBreak: 'break-word', // перенос слов
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '14px',
+    fontWeight: '900',
+  },
+}));
+
+const TypographyMoney = styled(Typography)(({ theme }) => ({
+  fontWeight: '600',
+  wordBreak: 'break-word',
+  whiteSpace: 'normal', // Разрешаем перенос строк
+  textAlign: 'center', // Выравниваем по центру
+  [theme.breakpoints.down('sm')]: {
+    marginTop: '10px',
+    fontSize: '15px',
+    fontWeight: '600',
+    wordBreak: 'break-word',
+  },
 }));

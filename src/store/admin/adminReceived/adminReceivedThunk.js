@@ -12,3 +12,17 @@ export const getAdminReceived = createAsyncThunk(
     }
   }
 );
+
+export const getReceivedUser = createAsyncThunk(
+  'adminReceived/getReceivedUser',
+  async ({ id, navigate }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`/api/users/receivedUser/${id}`);
+      navigate(`${id}/received-inner-page`);
+      console.log(data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);

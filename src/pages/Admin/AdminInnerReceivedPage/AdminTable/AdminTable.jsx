@@ -12,14 +12,14 @@ import {
   styled,
 } from '@mui/material';
 
-export const PaymentTable = ({ onClick, variants, value }) => {
+export const AdminPaymentTable = ({ onClick, variants, value }) => {
   const translateValue = {
     PAID: 'Оплачено',
     WAITING: 'Ожидание',
     MISSED: 'Пропущено',
   };
 
-  const StatusText = styled('span')(({ status }) => ({
+  const StatusText = styled('td')(({ status }) => ({
     color:
       status === 'PAID'
         ? 'green'
@@ -29,7 +29,6 @@ export const PaymentTable = ({ onClick, variants, value }) => {
             ? 'orange'
             : 'inherit',
   }));
-  console.log(value);
 
   return (
     <Box>
@@ -69,8 +68,8 @@ export const PaymentTable = ({ onClick, variants, value }) => {
               </TableRowStyled>
             </TableHead>
             <TableBody sx={{ position: 'relative' }}>
-              {value.payment.length > 0 ? (
-                value.payment.map((row, index) => (
+              {value?.payment?.length > 0 ? (
+                value?.payment?.map((row, index) => (
                   <TableRowStyled key={row.id || index}>
                     <TableCellStyled>{index + 1}</TableCellStyled>
                     <TableCellStyled>{row.date}</TableCellStyled>
@@ -83,9 +82,13 @@ export const PaymentTable = ({ onClick, variants, value }) => {
                   </TableRowStyled>
                 ))
               ) : (
-                <Typography fontFamily={'Montserrat, sans-serif'}>
-                  Упс данных пока нету
-                </Typography>
+                <TableRowStyled>
+                  <TableCell colSpan={4}>
+                    <NoDataText fontFamily={'Montserrat, sans-serif'}>
+                      Упс, данных пока нету
+                    </NoDataText>
+                  </TableCell>
+                </TableRowStyled>
               )}
             </TableBody>
           </Table>

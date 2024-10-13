@@ -10,18 +10,26 @@ import {
 import { Cards } from '@/components';
 import { cardsData } from '@/modules/GaveUp/components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAdminReceived } from '@/store/admin/adminReceived/adminReceivedThunk';
+import {
+  getAdminReceived,
+  getReceivedUser,
+} from '@/store/admin/adminReceived/adminReceivedThunk';
 import { Spinner } from '@/components/Spinner/Spinner';
+import { useNavigate } from 'react-router-dom';
 
 export const AdminReceivedPage = () => {
   const dispatch = useDispatch();
   const { adminReceived, isLoading } = useSelector(
     state => state.adminReceived
   );
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getAdminReceived());
   }, []);
-  console.log(adminReceived);
+
+  const handlerClick = id => {
+    dispatch(getReceivedUser({ id, navigate }));
+  };
 
   return (
     <Wrapper>
@@ -30,10 +38,13 @@ export const AdminReceivedPage = () => {
         <StyledDiv />
         <StyledBox>
           {adminReceived.map(card => (
-            <StyledContainerCart key={card.id}>
+            <StyledContainerCart
+              key={card.id}
+              onClick={() => handlerClick(card.id)}
+            >
               <Cards
-                name={card.name}
-                percentage={card.percentage}
+                name={card.userName}
+                percentage={card.totalSum}
                 imageSrc={card.imageSrc}
               />
             </StyledContainerCart>

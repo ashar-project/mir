@@ -1,8 +1,9 @@
 import { Girl } from '@/assets/image';
 import { Button, Input, ReusableModal, Select } from '@/components';
-import { PaymentTable } from '@/modules/User';
 import { Box, styled, Typography, InputLabel } from '@mui/material';
 import { useState } from 'react';
+import { AdminPaymentTable } from './AdminTable/AdminTable';
+import { useSelector } from 'react-redux';
 const options = [
   {
     value: 'Оплачено.',
@@ -20,9 +21,12 @@ const options = [
 export const AdminInnerReceivePage = () => {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('Ожидание');
-  const handleChange = event => {
-    setStatus(event.target.value);
-  };
+  const { receivedUser } = useSelector(state => state.adminReceived);
+
+  const handleChange = event => setStatus(event.target.value);
+
+  console.log(receivedUser);
+
   const openModal = () => setOpen(prev => !prev);
 
   return (
@@ -45,7 +49,7 @@ export const AdminInnerReceivePage = () => {
         </BlockOne>
         <BlockTwo>
           <TableInfo>
-            <PaymentTable variants={'admin'} onClick={openModal} />
+            <AdminPaymentTable variants={'admin'} onClick={openModal} />
           </TableInfo>
         </BlockTwo>
       </Container>

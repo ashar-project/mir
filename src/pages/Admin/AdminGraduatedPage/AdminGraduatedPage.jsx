@@ -23,12 +23,12 @@ export const AdminGraduatedPage = () => {
       <ContentWrapper>
         <StyledDiv />
         <StyledBox>
-          {adminGraudated?.map(card => (
+          {adminGraudated.map(card => (
             <StyledContainerCart key={card.id}>
               <Cards
-                name={card.name}
-                percentage={card.percentage}
-                imageSrc={card.imageSrc}
+                name={card.userName}
+                percentage={card.totalSum}
+                imageSrc={card.photoUrl}
               />
             </StyledContainerCart>
           ))}

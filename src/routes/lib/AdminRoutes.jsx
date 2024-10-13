@@ -1,4 +1,3 @@
-
 import { AdminPaymentPage } from '@/pages/Admin/AdminPaymentPage/AdminPaymentPage';
 import {
   AdminGaveUpPage,
@@ -9,6 +8,7 @@ import {
   TotalAmout,
 } from '@/pages/Admin';
 import RatingPage from '@/pages/RatingPage';
+import { AdminInnerTablePage } from '@/pages/Admin/AdminWorldPage';
 
 export const ADMIN_ROUTER = [
   {
@@ -27,6 +27,10 @@ export const ADMIN_ROUTER = [
         path: ':id/worldRaiting',
         element: <RatingPage />,
       },
+      {
+        path: 'adminInnerTablePage',
+        element: <AdminInnerTablePage />,
+      },
     ],
   },
 
@@ -38,7 +42,7 @@ export const ADMIN_ROUTER = [
         element: <AdminReceivedPage />,
       },
       {
-        path: 'received-inner-page',
+        path: ':id/received-inner-page',
         element: <AdminInnerReceivePage />,
       },
     ],
