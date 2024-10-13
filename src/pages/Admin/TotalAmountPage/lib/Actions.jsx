@@ -8,7 +8,7 @@ export const ActionsImg = ({ row }) => {
         <Gogle />
       </div>
       <div className="text-container">
-        <p>{row.original.userName} </p>
+        <p>{row.original.userName}</p>
       </div>
     </div>
   );

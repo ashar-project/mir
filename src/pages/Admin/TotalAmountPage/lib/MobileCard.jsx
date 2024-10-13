@@ -1,16 +1,16 @@
-import { complete, Delete, Gogle } from '@/assets/icon';
+import { Delete } from '@/assets/icon';
 import { styled, Typography } from '@mui/material';
 import React from 'react';
 
 export const MobileCard = ({ item }) => {
   console.log(item);
-  return item.map(el => (
+  return item?.map(el => (
     <Card key={el}>
       <BlockAvatat>
         <Delete />
         <div>
           <Typography fontWeight={400} fontSize={'17px'}>
-            {el?.userName || 'Ахатджанов Даниел'}
+            {el.userName || 'Ахатджанов Даниел'}
           </Typography>
           <Typography color="#959393" fontWeight={400} fontSize={'13px'}>
             {el?.email || 'tanya.hill@example.com'}
@@ -25,13 +25,9 @@ export const MobileCard = ({ item }) => {
           lineHeight={20}
           fontFamily="'Nunito', sans-serif"
         >
-          {`${el?.goal} сом` || '1 000 000 сом'}
+          {`${el?.totalSum} сом` || '1 000 000 сом'}
         </Typography>
       </BlockPrice>
-      {/* <BlockActions>
-        <DeleteIcon src={Delete} alt="Delete" />
-        <CompleteIcon src={complete} alt="Complete" />
-      </BlockActions> */}
     </Card>
   ));
 };

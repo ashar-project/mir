@@ -1,30 +1,35 @@
-import React from 'react';
-import { Box, styled, TextField, Button } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import React, { useEffect } from 'react';
+import {
+  Box,
+  styled,
+  TextField,
+  Button,
+  useTheme,
+  Typography,
+} from '@mui/material';
 import { Cards } from '@/components';
 import { cardsData } from '@/modules/GaveUp/components';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAdminReceived } from '@/store/admin/adminReceived/adminReceivedThunk';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 export const AdminReceivedPage = () => {
+  const dispatch = useDispatch();
+  const { adminReceived, isLoading } = useSelector(
+    state => state.adminReceived
+  );
+  useEffect(() => {
+    dispatch(getAdminReceived());
+  }, []);
+  console.log(adminReceived);
+
   return (
     <Wrapper>
+      {isLoading && <Spinner />}
       <ContentWrapper>
-        <SearchContainer>
-          <StyledTextField
-            size="small"
-            placeholder=" Search"
-            variant="outlined"
-          />
-          <ClearButton
-            variant="contained"
-            color="error"
-            endIcon={<DeleteIcon />}
-          >
-            Очистить
-          </ClearButton>
-        </SearchContainer>
         <StyledDiv />
         <StyledBox>
-          {cardsData.map(card => (
+          {adminReceived.map(card => (
             <StyledContainerCart key={card.id}>
               <Cards
                 name={card.name}
@@ -33,6 +38,9 @@ export const AdminReceivedPage = () => {
               />
             </StyledContainerCart>
           ))}
+          {!adminReceived.length && (
+            <Typography>Пока что нет данных</Typography>
+          )}
         </StyledBox>
       </ContentWrapper>
     </Wrapper>
@@ -43,19 +51,11 @@ const Wrapper = styled(Box)(({ theme }) => ({
   width: '100%',
   display: 'flex',
   justifyContent: 'center',
-  [theme.breakpoints.down('sm')]: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'start',
-  },
 }));
 
 const ContentWrapper = styled(Box)(({ theme }) => ({
   width: '100%',
   padding: '0 10px',
-  [theme.breakpoints.down('sm')]: {
-    width: '100%',
-  },
 }));
 
 const SearchContainer = styled(Box)(({ theme }) => ({
@@ -71,20 +71,24 @@ const SearchContainer = styled(Box)(({ theme }) => ({
   backgroundColor: 'white',
 
   [theme.breakpoints.down('sm')]: {
-    width: '100%',
-    position: 'sticky',
-    top: 0,
-    zIndex: 1000,
     justifyContent: 'center',
-    alignItems: 'center',
     padding: '10px 0',
+  },
+}));
+
+const HamburgerIcon = styled('div')(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.down('sm')]: {
+    display: 'block',
+    position: 'absolute',
+    left: '5px',
+    top: '14px',
   },
 }));
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   width: '256px',
   height: '42px',
-  marginLeft: '440px',
   marginTop: '20px',
   '& .MuiOutlinedInput-root': {
     borderRadius: '8px',
@@ -97,14 +101,8 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     width: '180px',
     marginTop: '5px',
-    marginLeft: '0px',
     '& .MuiOutlinedInput-root': {
-      borderRadius: '8px',
       height: '35px',
-      border: '1px solid #000000',
-    },
-    '& .MuiInputBase-input': {
-      padding: '10px 14px',
     },
   },
 }));
@@ -113,17 +111,14 @@ const ClearButton = styled(Button)(({ theme }) => ({
   height: '42px',
   width: '150px',
   backgroundColor: '#FF0000',
-  marginLeft: '290px',
-  marginTop: '20px',
   borderRadius: '8px',
   '&:hover': {
     backgroundColor: '#D50000',
   },
   [theme.breakpoints.down('sm')]: {
-    width: '150px',
+    width: '50px',
     height: '36px',
     fontSize: '0.8rem',
-    marginTop: '-2px',
     marginLeft: '10px',
   },
 }));
@@ -135,19 +130,17 @@ const StyledBox = styled(Box)(({ theme }) => ({
   padding: '20px 0',
   margin: '0 auto',
   [theme.breakpoints.down('sm')]: {
-    gridTemplateColumns: 'repeat(2, 2fr)',
+    gridTemplateColumns: 'repeat(2, 1fr)',
     gap: '2px',
     padding: '0',
-    margin: '0 auto',
   },
 }));
 
-const StyledContainerCart = styled('div')(({ theme }) => ({
+const StyledContainerCart = styled('div')({
   display: 'flex',
   justifyContent: 'center',
   padding: '5px',
-  [theme.breakpoints.down('sm')]: {},
-}));
+});
 
 const StyledDiv = styled('div')(({ theme }) => ({
   marginLeft: '10px',
@@ -157,7 +150,6 @@ const StyledDiv = styled('div')(({ theme }) => ({
   position: 'absolute',
   top: '82px',
   [theme.breakpoints.down('sm')]: {
-    marginLeft: '10px',
     width: '90%',
     top: '67px',
   },

@@ -71,7 +71,6 @@ export const MenuList = () => {
       <ReusableModal open={open} onClose={handlerOpenModal}>
         <BoxStyled>
           <Typography fontWeight={800} fontSize={20}>
-            {' '}
             Вы точна хотите выйти ?
           </Typography>
           <div style={{ display: 'flex', gap: '20px' }}>
@@ -86,7 +85,6 @@ export const MenuList = () => {
 
 const BoxStyled = styled(Box)(() => ({
   width: '400px',
-  border: '1px solid black',
   height: '80px',
   display: 'flex',
   flexDirection: 'column',

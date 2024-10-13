@@ -19,7 +19,6 @@ import { Button, ReusableModal } from '@/components';
 import { useDispatch } from 'react-redux';
 import { logout } from '@/store/slice/auth/authSlice';
 import { useState } from 'react';
-import zIndex from '@mui/material/styles/zIndex';
 
 export const MobileSidebar = () => {
   const { open, setOpen } = useSidebar();

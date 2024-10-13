@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 
 import { useSidebar } from '@/modules/Sidebar';
-import { LogoDesktop, LogoMobile } from '@/assets/icon';
+import { AboutAs, LogoDesktop, LogoMobile, Pay } from '@/assets/icon';
 import { Drawer } from '@/modules/Sidebar/components';
 import { useCheckClient } from '@/helpers';
 
@@ -28,12 +28,14 @@ import {
   PiTrayArrowDown as ReceivedIcon,
   PiFlagBold as GaveUpIcon,
 } from 'react-icons/pi';
+import { Button } from '@/components';
 
-const AdminSitePaths = {
+export const AdminSitePaths = {
   world: 'worlds-page',
   received: 'received-page',
   graduated: 'graduated-page',
   gaveUp: 'gave-page',
+  payment: 'payment-page',
 };
 
 export const AdminMenuIcons = ({ path, color = 'grey' }) => {
@@ -42,6 +44,7 @@ export const AdminMenuIcons = ({ path, color = 'grey' }) => {
     [AdminSitePaths.received]: <ReceivedIcon color={color} size={26} />,
     [AdminSitePaths.graduated]: <GraduatedIcon color={color} size={26} />,
     [AdminSitePaths.gaveUp]: <GaveUpIcon color={color} size={26} />,
+    [AdminSitePaths.payment]: <Pay />,
   };
 
   return menuIcons[path];
@@ -74,7 +77,7 @@ const AdminDesktopSidebar = () => {
     <Drawer open={true} variant="permanent">
       <Stack alignItems="center" spacing={2.5}>
         <LogoDesktop />
-        <UserCard isAdmin={true} />
+        <UserCard />
       </Stack>
 
       <List>
@@ -119,7 +122,7 @@ const AdminDesktopSidebar = () => {
   );
 };
 
-const AdminMobileSidebar = () => {
+export const AdminMobileSidebar = () => {
   const { open, setOpen } = useSidebar();
   const navigate = useNavigate();
 
@@ -134,32 +137,34 @@ const AdminMobileSidebar = () => {
         <LogoMobile />
       </Stack>
 
-      <List>
-        <ListItem onClick={() => navigate(AdminSitePaths.graduated)}>
-          <ListItemButton>
-            <ListItemIcon>
-              <AdminMenuIcons path={AdminSitePaths.graduated} color="#818093" />
-            </ListItemIcon>
-            <ListItemText>Закончившие</ListItemText>
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem onClick={() => navigate(AdminSitePaths.about)}>
-          <ListItemButton>
-            <ListItemIcon>
-              <AdminMenuIcons path={AdminSitePaths.about} color="#818093" />
-            </ListItemIcon>
-            <ListItemText>О нас</ListItemText>
-          </ListItemButton>
-        </ListItem>
-      </List>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <List>
+          <ListItem onClick={() => navigate(AdminSitePaths.payment)}>
+            <ListItemButton>
+              <ListItemIcon>
+                <AdminMenuIcons path={AdminSitePaths.payment} color="#818093" />
+              </ListItemIcon>
+              <ListItemText>Оплатить</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </div>
+      <div style={{ position: 'absolute', bottom: 30, left: 20 }}>
+        <Button>Выйти</Button>
+      </div>
     </DrawerMUI>
   );
 };
 
 export const AdminSidebar = () => {
   const { isMobile } = useCheckClient();
-
   return isMobile ? <AdminMobileSidebar /> : <AdminDesktopSidebar />;
 };
 

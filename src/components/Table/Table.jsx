@@ -15,7 +15,7 @@ export const Table = ({ data, columns, variant, onClickItem }) => {
   });
 
   const patientInfoPage = id => {
-    if (variant === 'patients') {
+    if (variant === 'admin') {
       onClickItem(id);
     }
   };
@@ -70,7 +70,7 @@ const TableStyled = styled('table')({
     textAlign: 'left',
     fontSize: '15px',
   },
-  '& thead th:first-child': {
+  '& thead th:first-of-type': {
     width: '200px',
   },
   '& tbody td': {
@@ -87,7 +87,8 @@ const TableStyled = styled('table')({
   '& tbody tr:hover': {
     backgroundColor: '#f1f1f1',
   },
-  '& tbody td:first-child, & tbody td:nth-child(2)': {
+  // Измените это на `:first-of-type` для улучшения безопасности SSR
+  '& tbody td:first-of-type, & tbody td:nth-of-type(2)': {
     textAlign: 'left',
     paddingLeft: '5px',
   },

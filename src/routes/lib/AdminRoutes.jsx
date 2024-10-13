@@ -1,9 +1,14 @@
-import { lazy } from 'react';
-import { AdminPaymentPage } from '@/pages/Admin/AdminPaymentPage/AdminPaymentPage';
-import { AdminGaveUpPage, AdminGraduatedPage, AdminInnerReceivePage, AdminReceivedPage, TotalAmout } from '@/pages/Admin';
 
-const WorldPage = lazy(() => import('@/pages/WorldPage'));
-const RatingPage = lazy(() => import('@/pages/RatingPage'));
+import { AdminPaymentPage } from '@/pages/Admin/AdminPaymentPage/AdminPaymentPage';
+import {
+  AdminGaveUpPage,
+  AdminGraduatedPage,
+  AdminInnerReceivePage,
+  AdminReceivedPage,
+  AdminWorldPage,
+  TotalAmout,
+} from '@/pages/Admin';
+import RatingPage from '@/pages/RatingPage';
 
 export const ADMIN_ROUTER = [
   {
@@ -16,11 +21,10 @@ export const ADMIN_ROUTER = [
     children: [
       {
         index: true,
-        element: <WorldPage />,
+        element: <AdminWorldPage />,
       },
-
       {
-        path: ':id',
+        path: ':id/worldRaiting',
         element: <RatingPage />,
       },
     ],

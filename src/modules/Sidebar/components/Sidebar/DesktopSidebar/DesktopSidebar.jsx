@@ -5,7 +5,6 @@ import { UserCard, Drawer, MenuList } from '../..';
 
 export const DesktopSidebar = () => {
   const { role } = useSelector(state => state.auth);
-  console.log(role);
 
   return (
     <Drawer open={true} variant="permanent">
@@ -15,7 +14,7 @@ export const DesktopSidebar = () => {
   );
 };
 
-const SidebarTop = () => {
+const SidebarTop = ({ role }) => {
   return (
     <Stack alignItems="center" spacing={2.5}>
       <LogoDesktop />

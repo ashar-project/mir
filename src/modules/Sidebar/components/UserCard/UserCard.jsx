@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 export const UserCard = ({ imageUrl, userName = 'No name' }) => {
   const navigate = useNavigate();
   const { role } = useSelector(state => state.auth);
+  
   const handleClick = () => {
     if (role === 'USER') {
       role && navigate(SitePaths.userProfilePage);

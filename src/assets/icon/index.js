@@ -13,11 +13,11 @@ export { default as TelegramLogo } from './telegram.svg';
 export { default as upload } from './upload.svg';
 export { default as Delete } from './Delete.svg';
 export { default as complete } from './complete.svg';
-
+export { default as AboutAs } from './AboutAs.svg';
 export { default as WorldPageicon } from './WorldIcon.svg';
 export { default as ReceivedIcon } from './ReceivedIcon.svg';
 export { default as GaveUpIcon } from './GaveUpIcon.svg';
 export { default as FinichedIcon } from './FinichedIcon.svg';
-
+export { default as Pay } from './Pay.svg';
 export { LogoDesktop } from './logo-desktop';
 export { LogoMobile } from './logo-mobile';

@@ -1,19 +1,17 @@
-import { Box, styled, TextField, Typography } from '@mui/material';
+import { Box, styled, Typography } from '@mui/material';
 import React from 'react';
-import IconButton from '@mui/material/IconButton';
-import { IoMenu as MenuIcon } from 'react-icons/io5';
-import { useSidebar } from '@/modules/Sidebar';
 import { FiEdit } from 'react-icons/fi';
 import { Button } from '@/components';
-import { Actions } from '@/components/Table/Actions';
-import { tableData } from '@/helpers/tableConstants';
 import { ActionsImg } from './lib/Actions';
 import { Table } from '@/components/Table';
 import { MobileCard } from '..';
+import { useDispatch, useSelector } from 'react-redux';
+import { RxHamburgerMenu } from 'react-icons/rx';
+import { toggleOpen } from '@/modules/Sidebar/store';
 
 export const TotalAmout = () => {
-  const { open, toggleOpen } = useSidebar();
-
+  const { user } = useSelector(state => state.user);
+  const dispatch = useDispatch();
   const columns = [
     {
       accessorKey: 'ddf',
@@ -33,17 +31,15 @@ export const TotalAmout = () => {
       accessorKey: '',
       header: 'Cумма',
       cell: ({ row }) => (
-        <div style={{ marginLeft: '20px' }}>{row.original.total}</div>
+        <div style={{ marginLeft: '20px' }}>{row.original.totalSum}</div>
       ),
-    },
-    {
-      accessorKey: ' ',
-      header: ' ',
-      cell: ({ row }) => <Actions {...row} />,
     },
   ];
   return (
     <>
+      <div style={{ position: 'absolute', top: 14, left: 5 }}>
+        <RxHamburgerMenu onClick={() => dispatch(toggleOpen())} size={30} />
+      </div>
       <Main>
         <BlockOne>
           <TypographyStyled
@@ -80,11 +76,11 @@ export const TotalAmout = () => {
             Запросы на добавления
           </Typography>
         </BlockOne>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(item => (
-          <MobileCard item={item} />
+        {user?.map(item => (
+          <MobileCard key={item} item={[item]} />
         ))}
         <Div>
-          <Table data={tableData} columns={columns} />
+          <Table data={user} columns={columns} />
         </Div>
       </Main>
     </>

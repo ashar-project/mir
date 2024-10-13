@@ -1,34 +1,35 @@
-import React from 'react';
-import { Box, styled, TextField, Button } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import React, { useEffect } from 'react';
+import { Box, styled, TextField, Button, Typography } from '@mui/material';
 import { Cards } from '@/components';
 import { cardsData } from '@/modules/GaveUp/components';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAdminGaveUp } from '@/store/admin/adminGaveUp/adminGaveUpTjunk';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 export const AdminGaveUpPage = () => {
+  const dispatch = useDispatch();
+  const { adminGaveUp, isLoading } = useSelector(state => state.adminGaveUp);
+  useEffect(() => {
+    dispatch(getAdminGaveUp());
+  }, []);
+
+
   return (
     <Wrapper>
+      {isLoading && <Spinner />}
       <ContentWrapper>
-        <SearchContainer>
-          <StyledTextField placeholder="Поиск" variant="outlined" />
-          <ClearButton
-            variant="contained"
-            color="error"
-            endIcon={<DeleteIcon />}
-          >
-            Очистить
-          </ClearButton>
-        </SearchContainer>
         <StyledDiv />
         <StyledBox>
-          {cardsData.map(card => (
+          {adminGaveUp?.map(card => (
             <StyledContainerCart key={card.id}>
               <Cards
-                name={card.name}
+                name={card.userName}
                 percentage={card.percentage}
                 imageSrc={card.imageSrc}
               />
             </StyledContainerCart>
           ))}
+          {!adminGaveUp.length && <Typography>Пока что нет данных</Typography>}
         </StyledBox>
       </ContentWrapper>
     </Wrapper>
@@ -115,7 +116,7 @@ const ClearButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#D50000',
   },
   [theme.breakpoints.down('sm')]: {
-    width: '150px',
+    width: '50px',
     height: '36px',
     fontSize: '0.8rem',
     marginTop: '-2px',

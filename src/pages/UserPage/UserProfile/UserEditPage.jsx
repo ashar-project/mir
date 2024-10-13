@@ -3,9 +3,17 @@ import { upload as Upload } from '@/assets/icon';
 import { Button, Input } from '@/components';
 import { Box, styled, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useDropzone } from 'react-dropzone';
 
 export const UserEditPage = () => {
   const navigate = useNavigate();
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: acceptedFiles => {
+      const selectedFile = acceptedFiles[0];
+      console.log(selectedFile);
+    },
+  });
+
   return (
     <>
       <Button style={{ margin: '10px' }} onClick={() => navigate(-1)}>
@@ -13,9 +21,10 @@ export const UserEditPage = () => {
       </Button>
       <Main>
         <Container>
-          <BlockOne>
+          <BlockOne {...getRootProps()}>
             <Div>
               <Upload />
+              <input {...getInputProps()} />
             </Div>
             <Img src={Negr} alt="Negr" />
           </BlockOne>
