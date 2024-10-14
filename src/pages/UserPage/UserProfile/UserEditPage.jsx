@@ -4,9 +4,12 @@ import { Button, Input } from '@/components';
 import { Box, styled, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
+import { useSelector } from 'react-redux';
 
 export const UserEditPage = () => {
   const navigate = useNavigate();
+  const { profile, isLoading } = useSelector(state => state.profile);
+  
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: acceptedFiles => {
       const selectedFile = acceptedFiles[0];

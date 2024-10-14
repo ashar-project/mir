@@ -10,10 +10,20 @@ import {
   Link,
 } from '@mui/material';
 import { Button } from '@/components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Negr } from '@/assets/image';
+import { addDebtUser } from '@/store/admin/adminWorld/adminWorldThunk';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 export const AdminInnerTablePage = () => {
   const [open, setOpen] = useState(false);
-
+  const { userInfo, isLoading } = useSelector(state => state.userAdmin);
+  const [amount, setAmount] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  console.log(userInfo)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -22,16 +32,59 @@ export const AdminInnerTablePage = () => {
     setOpen(false);
   };
 
+  const cleanedAmount = Number(amount.replace(/\s+/g, '')) || 0;
+  const debt = cleanedAmount - userInfo.userTotalSum;
+
+  const employees = 0.03;
+  const insurance = 0.02;
+  const programRate = 0.01;
+
+  const commission = debt * employees;
+  const service = debt * insurance;
+  const program = debt * programRate;
+  const total = commission + service + program;
+
+  const price = new Intl.NumberFormat('ru-RU').format(total);
+  const allTotal = new Intl.NumberFormat('ru-RU').format(debt + total);
+
+  const handleAmountChange = e => {
+    const input = e.target.value.replace(/\s+/g, '');
+    const inputAmount = Number(input);
+
+    if (inputAmount <= userInfo.userTotalSum) {
+      setErrorMessage('Сумма должна быть выше текущего счета');
+    } else {
+      setErrorMessage('');
+    }
+
+    setAmount(input);
+  };
+
+  const formatAmount = value => {
+    if (!value) return '';
+    return new Intl.NumberFormat('ru-RU').format(Number(value));
+  };
+
+  const handlerSubmitValue = () => {
+    dispatch(addDebtUser({ userId: userInfo.id, debtSum: allTotal }));
+    setAmount('');
+  };
+
   return (
     <>
+      {isLoading && <Spinner />}
+      <Boxing>
+        <Button onClick={() => navigate(-1)}>Назад</Button>
+      </Boxing>
       <StyledProfile>
-        <StyledAvatar
-          alt="William Damian"
-          src="https://i.pinimg.com/originals/5d/31/20/5d3120c5b8d0d6be5d9371521f369482.jpg"
-        />
-        <StyledName variant="h6">William Damian</StyledName>
-        <StyledGoal variant="body1">Цель: 1 000 000 сом</StyledGoal>
-        <StyledPaid variant="body1">Оплатил: 95 000 сом</StyledPaid>
+        <StyledAvatar alt="William Damian" src={userInfo.photoUrl || Negr} />
+        <StyledName variant="h6">
+          {userInfo.userName || 'Admin Adminov'}
+        </StyledName>
+        <StyledGoal variant="body1">Цель: {userInfo.userGoal} сом</StyledGoal>
+        <StyledPaid variant="body1">
+          Текущий счет: {userInfo.userTotalSum} сом
+        </StyledPaid>
         <StyledButton variant="contained" onClick={handleClickOpen}>
           Далее
         </StyledButton>
@@ -42,6 +95,7 @@ export const AdminInnerTablePage = () => {
           <p>Введите сумму</p>
           <StyledDialogContent>
             <StyledTextField
+              onChange={handleAmountChange}
               size="small"
               autoFocus
               margin="dense"
@@ -49,32 +103,70 @@ export const AdminInnerTablePage = () => {
               fullWidth
               variant="outlined"
               placeholder="Введите сумму"
-              defaultValue="900 000(+54 000) сом"
+              value={formatAmount(amount)}
+              error={!!errorMessage}
+              helperText={errorMessage}
             />
             <StyledLinkBox>
-              <StyledLinkTypographyBlue>
-                <StyledLinkBlue href="#">Сотрудники</StyledLinkBlue> 3% ={' '}
-                <StyledSpan>27 000 сом</StyledSpan>
-              </StyledLinkTypographyBlue>
-              <StyledLinkTypographyGreen>
-                <StyledLinkGreen href="#">Страховка</StyledLinkGreen> 2% ={' '}
-                <StyledSpan>18 000 сом</StyledSpan>
-              </StyledLinkTypographyGreen>
-              <StyledLinkTypographyOrange>
-                <StyledLinkOrange href="#">Программа</StyledLinkOrange> 1% ={' '}
-                <StyledSpan>9 000 сом</StyledSpan>
-              </StyledLinkTypographyOrange>
+              <div>
+                Текущий счет:
+                <StyledSpan>
+                  <span style={{ color: 'green', margin: '0 5px 0 5px' }}>
+                    {userInfo.userTotalSum}
+                  </span>
+                </StyledSpan>
+                сом
+              </div>
+
+              {!errorMessage && debt > 0 && (
+                <>
+                  <div>
+                    Общая сумма комисси: <StyledSpan>{price}</StyledSpan> сом
+                  </div>
+
+                  <div>
+                    Долг{' '}
+                    <span style={{ fontWeight: '600' }}>
+                      {userInfo.userName}
+                    </span>{' '}
+                    составит:
+                    <StyledSpan> {allTotal}</StyledSpan> сом
+                  </div>
+
+                  <StyledLinkTypographyBlue>
+                    <StyledLinkBlue href="#">Сотрудники</StyledLinkBlue> 3% =
+                    <StyledSpan> {commission.toLocaleString()} сом</StyledSpan>
+                  </StyledLinkTypographyBlue>
+                  <StyledLinkTypographyGreen>
+                    <StyledLinkGreen href="#">Страховка</StyledLinkGreen> 2% =
+                    <StyledSpan> {service.toLocaleString()} сом</StyledSpan>
+                  </StyledLinkTypographyGreen>
+                  <StyledLinkTypographyOrange>
+                    <StyledLinkOrange href="#">Программа</StyledLinkOrange> 1% =
+                    <StyledSpan> {program.toLocaleString()} сом</StyledSpan>
+                  </StyledLinkTypographyOrange>
+                  <div>
+                    Долг без комисси:{' '}
+                    <StyledSpan>
+                      {new Intl.NumberFormat('ru-Ru').format(
+                        amount - userInfo.userTotalSum
+                      )}
+                    </StyledSpan>{' '}
+                    сом
+                  </div>
+                </>
+              )}
             </StyledLinkBox>
           </StyledDialogContent>
           <StyledDivActions>
-            <ModalButton onClick={handleClose} variant="outlined">
-              Отменить
-            </ModalButton>
             <ModalButton
               onClick={handleClose}
-              // variant="contained"
-              // color="primary"
+              variant="outlined"
+              disabled={!!errorMessage}
             >
+              Отменить
+            </ModalButton>
+            <ModalButton onClick={handlerSubmitValue} disabled={!!errorMessage}>
               Подтвердить
             </ModalButton>
           </StyledDivActions>
@@ -84,6 +176,7 @@ export const AdminInnerTablePage = () => {
   );
 };
 
+// Стили
 const StyledProfile = styled(Box)(({ theme }) => ({
   width: '500px',
   backgroundColor: '#fff',
@@ -92,9 +185,19 @@ const StyledProfile = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   borderRadius: '14px',
   margin: '66px auto',
+
   [theme.breakpoints.down('sm')]: {
     width: '300px',
     margin: '100px auto',
+  },
+}));
+
+const Boxing = styled('div')(({ theme }) => ({
+  display: 'none',
+
+  [theme.breakpoints.down('sm')]: {
+    display: 'block',
+    margin: 20,
   },
 }));
 

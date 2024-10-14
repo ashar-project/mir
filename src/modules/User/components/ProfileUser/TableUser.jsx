@@ -40,7 +40,7 @@ export const PaymentTable = ({ onClick, variants, value }) => {
               Основной долг: {value?.principalDebt} сом
             </DebtInfo>
             <DebtInfo variant="body1" style={{ color: 'green' }}>
-              Оплатил: {value?.totalSum} сом
+              Оплатил: {value?.payDebt} сом
             </DebtInfo>
             <DebtInfo variant="body1" style={{ color: 'orange' }}>
               Остаток: {value?.remainingAmount} сом
@@ -69,7 +69,7 @@ export const PaymentTable = ({ onClick, variants, value }) => {
               </TableRowStyled>
             </TableHead>
             <TableBody sx={{ position: 'relative' }}>
-              {value.payment.length > 0 ? (
+              {value?.payment?.length > 0 ? (
                 value.payment.map((row, index) => (
                   <TableRowStyled key={row.id || index}>
                     <TableCellStyled>{index + 1}</TableCellStyled>

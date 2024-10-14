@@ -1,15 +1,21 @@
 import { Negr } from '@/assets/image';
 import { Button, ReusableModal } from '@/components';
-import { getProfileUser } from '@/store/slice/profileSlice/profileThunk';
+import { Spinner } from '@/components/Spinner/Spinner';
+import {
+  gaveUser,
+  getProfileUser,
+} from '@/store/slice/profileSlice/profileThunk';
 import { Box, styled, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export const UserProfilePage = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { profile, isLoading } = useSelector(state => state.profile);
+  console.log(profile);
 
   useEffect(() => {
     dispatch(getProfileUser());
@@ -21,28 +27,30 @@ export const UserProfilePage = () => {
 
   const openModal = () => setOpen(prev => !prev);
 
+  const gaveUpButton = () => {
+    dispatch(gaveUser(navigate));
+    openModal();
+  };
+
   return (
     <>
+      {isLoading && <Spinner />}
       <Main>
         <TypographyStyledUser>Профиль</TypographyStyledUser>
         <Container>
           <BlockOne>
-            <Img src={Negr} alt="Negr" />
+            <Img src={profile.photoUrl || Negr} alt="Negr" />
           </BlockOne>
           <BlockTwo>
             <Block>
               <TypographyStyled>Имя:</TypographyStyled>
-              <TypographyStyledTwo>Nurles Nazirbaev</TypographyStyledTwo>
-            </Block>
-            {/* <Block>
-              <TypographyStyled>Email:</TypographyStyled>
               <TypographyStyledTwo>
-                nurlesnazirbaev@gmail.com
+                {profile.name || 'User user'}
               </TypographyStyledTwo>
-            </Block> */}
+            </Block>
             <Block>
               <TypographyStyled>Цель:</TypographyStyled>
-              <TypographyStyledTwo>+996709590511</TypographyStyledTwo>
+              <TypographyStyledTwo>{profile.goal}</TypographyStyledTwo>
             </Block>
           </BlockTwo>
         </Container>
@@ -72,7 +80,7 @@ export const UserProfilePage = () => {
           </Typography>
           <BoxButton>
             <Button
-              onClick={openModal}
+              onClick={gaveUpButton}
               style={{ borderRadius: '10px' }}
               variant="outlined"
               fullWidth

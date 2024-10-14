@@ -10,7 +10,7 @@ export const ReceivedPage = () => {
   const dispatch = useDispatch();
   const { received } = useSelector(state => state.received);
   const navigate = useNavigate();
-
+  console.log(received)
   useEffect(() => {
     dispatch(getReceived());
   }, []);
@@ -21,7 +21,7 @@ export const ReceivedPage = () => {
 
   return (
     <Box height="100vh" width="100%">
-      {received.lenght ? (
+      {!received.lenght ? (
         <GraduatedTable data={received} goInnerPage={navigateFn} />
       ) : (
         <div style={{ width: '100%', height: '100%' }}>

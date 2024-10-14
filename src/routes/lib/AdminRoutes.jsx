@@ -9,6 +9,7 @@ import {
 } from '@/pages/Admin';
 import RatingPage from '@/pages/RatingPage';
 import { AdminInnerTablePage } from '@/pages/Admin/AdminWorldPage';
+import { AdminReturnPay } from '@/pages/Admin/AdminReturnPay/AdminReturnPay';
 
 export const ADMIN_ROUTER = [
   {
@@ -28,7 +29,7 @@ export const ADMIN_ROUTER = [
         element: <RatingPage />,
       },
       {
-        path: 'adminInnerTablePage',
+        path: ':userId/adminInnerTablePage',
         element: <AdminInnerTablePage />,
       },
     ],
@@ -61,5 +62,9 @@ export const ADMIN_ROUTER = [
   {
     path: 'payment-page',
     element: <AdminPaymentPage />,
+  },
+  {
+    path: 'return-pay',
+    element: <AdminReturnPay />,
   },
 ];

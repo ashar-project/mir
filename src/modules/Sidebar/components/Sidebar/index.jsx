@@ -8,13 +8,15 @@ import {
   ListItemIcon,
   ListItemText,
   Drawer as DrawerMUI,
+  Box,
 } from '@mui/material';
 import { MdOutlineAttachMoney as Pay } from 'react-icons/md';
 
 import { useSidebar } from '@/modules/Sidebar';
-import { AboutAs, LogoDesktop, LogoMobile } from '@/assets/icon';
+import { LogoDesktop, LogoMobile } from '@/assets/icon';
 import { Drawer } from '@/modules/Sidebar/components';
 import { useCheckClient } from '@/helpers';
+import { MdOutlineMoneyOffCsred } from 'react-icons/md';
 
 import { MobileSidebar } from './MobileSidebar';
 import { DesktopSidebar } from './DesktopSidebar';
@@ -29,7 +31,10 @@ import {
   PiTrayArrowDown as ReceivedIcon,
   PiFlagBold as GaveUpIcon,
 } from 'react-icons/pi';
-import { Button } from '@/components';
+import { Button, ReusableModal } from '@/components';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '@/store/slice/auth/authSlice';
+import { useState } from 'react';
 
 export const AdminSitePaths = {
   world: 'worlds-page',
@@ -37,6 +42,7 @@ export const AdminSitePaths = {
   graduated: 'graduated-page',
   gaveUp: 'gave-page',
   payment: 'payment-page',
+  return: 'return-pay',
 };
 
 export const AdminMenuIcons = ({ path, color = 'grey' }) => {
@@ -46,6 +52,7 @@ export const AdminMenuIcons = ({ path, color = 'grey' }) => {
     [AdminSitePaths.graduated]: <GraduatedIcon color={color} size={26} />,
     [AdminSitePaths.gaveUp]: <GaveUpIcon color={color} size={26} />,
     [AdminSitePaths.payment]: <Pay color={color} size={26} />,
+    [AdminSitePaths.return]: <MdOutlineMoneyOffCsred color={color} size={26} />,
   };
 
   return menuIcons[path];
@@ -72,20 +79,31 @@ const menuElements = [
     label: 'Оплатить',
     navigation: 'payment-page',
   },
+  {
+    label: 'Вернуть Оплату',
+    navigation: 'return-pay',
+  },
 ];
 
 const AdminDesktopSidebar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
+  const { role } = useSelector(state => state.auth);
+  const [openModal, setOpen] = useState(false);
+
+  const handlerModal = () => setOpen(prev => !prev);
 
   return (
     <Drawer open={true} variant="permanent">
       <Stack alignItems="center" spacing={2.5}>
-        <LogoDesktop />
-        <UserCard />
+        <div onClick={() => navigate('/admin')}>
+          <LogoDesktop />
+        </div>
+        {role === 'USER' && <UserCard />}
       </Stack>
 
-      <List>
+      <List sx={{ borderTop: '1px solid grey', marginTop: '10px' }}>
         {menuElements.map(({ label, navigation }) => {
           const isSelectedPage = `/admin/${navigation}` === pathname;
 
@@ -123,6 +141,18 @@ const AdminDesktopSidebar = () => {
           );
         })}
       </List>
+      <div style={{ position: 'absolute', bottom: 50, left: 30 }}>
+        <Button onClick={handlerModal}>Выйти</Button>
+      </div>
+      <ReusableModal open={openModal} onClose={handlerModal}>
+        <Box sx={{ display: 'flex', gap: '30px', flexDirection: 'column' }}>
+          Вы точна хотите выйти
+          <div style={{ display: 'flex', gap: '20px' }}>
+            <Button onClick={handlerModal}>Отмена</Button>
+            <Button onClick={() => dispatch(logout())}>Да</Button>
+          </div>
+        </Box>
+      </ReusableModal>
     </Drawer>
   );
 };
@@ -130,6 +160,10 @@ const AdminDesktopSidebar = () => {
 export const AdminMobileSidebar = () => {
   const { open, setOpen } = useSidebar();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [openModal, setOpens] = useState(false);
+
+  const handlerModal = () => setOpens(prev => !prev);
 
   return (
     <DrawerMUI open={open} onClose={() => setOpen(false)}>
@@ -156,14 +190,33 @@ export const AdminMobileSidebar = () => {
               <ListItemIcon>
                 <AdminMenuIcons path={AdminSitePaths.payment} color="#818093" />
               </ListItemIcon>
-              <ListItemText>Оплатить</ListItemText>
+              <ListItemText>Добавить сумму </ListItemText>
+            </ListItemButton>
+          </ListItem>
+        </List>
+        <List>
+          <ListItem onClick={() => navigate(AdminSitePaths.return)}>
+            <ListItemButton>
+              <ListItemIcon>
+                <AdminMenuIcons path={AdminSitePaths.return} color="#818093" />
+              </ListItemIcon>
+              <ListItemText>Вернуть  сумму</ListItemText>
             </ListItemButton>
           </ListItem>
         </List>
       </div>
       <div style={{ position: 'absolute', bottom: 30, left: 20 }}>
-        <Button>Выйти</Button>
+        <Button onClick={handlerModal}>Выйти</Button>
       </div>
+      <ReusableModal open={openModal} onClose={handlerModal}>
+        <Box sx={{ display: 'flex', gap: '30px', flexDirection: 'column' }}>
+          Вы точна хотите выйти
+          <div style={{ display: 'flex', gap: '20px' }}>
+            <Button onClick={handlerModal}>Отмена</Button>
+            <Button onClick={() => dispatch(logout)}>Да</Button>
+          </div>
+        </Box>
+      </ReusableModal>
     </DrawerMUI>
   );
 };

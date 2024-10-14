@@ -1,13 +1,20 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { Box, IconButton, styled, TextField } from '@mui/material';
-
+import {
+  Box,
+  Button as MuiButton,
+  IconButton,
+  styled,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { AiOutlineDelete } from 'react-icons/ai';
 import { AdminSidebar, useSidebar } from '@/modules/Sidebar';
 import { AdminMobileNavBar } from '@/modules/Navbar/components/AdminMobailNavBar';
 import { useDispatch } from 'react-redux';
-import { toggleOpen } from '@/modules/Sidebar/store';
 import { useCheckClient } from '@/helpers';
 import { IoMenu as MenuIcon } from 'react-icons/io5';
 import { useEffect, useState } from 'react';
+import { Button, ReusableModal } from '..';
 
 export const AdminLayout = () => {
   const { open, setOpen } = useSidebar();
@@ -15,14 +22,22 @@ export const AdminLayout = () => {
   const [status, setStatus] = useState(true);
   const { isMobile } = useCheckClient();
   const { pathname } = useLocation();
+  const [path, setPath] = useState(false);
+  const pathVisiblity = ['/admin/gave-page', '/admin/graduated-page'];
+  const [openModal, setOpenModal] = useState(false);
+  const modal = () => setOpenModal(prev => !prev);
+  useEffect(() => {
+    setPath(pathVisiblity.includes(pathname));
+  }, [pathname]);
 
   const hiddenPaths = [
     '/tech-support',
     /^\/admin\/worlds-page\/\d+\/worldRaiting$/,
     '/admin',
     '/admin/payment-page',
-    '/admin/worlds-page/adminInnerTablePage',
+    /^\/admin\/worlds-page\/\d+\/adminInnerTablePage$/,
     /^\/admin\/received-page\/\d+\/received-inner-page$/,
+    '/admin/return-pay',
   ];
 
   useEffect(() => {
@@ -33,9 +48,6 @@ export const AdminLayout = () => {
     );
   }, [pathname]);
 
-  const clicker = () => {
-    dispatch(toggleOpen());
-  };
   return (
     <Container>
       <LayoutContainer>
@@ -63,6 +75,45 @@ export const AdminLayout = () => {
                 </IconButton>
               )}
               <Input size="small" placeholder="Поиск" />
+              {path && (
+                <div style={{ margin: '0 10px' }}>
+                  <MuiButton
+                    onClick={modal}
+                    sx={{ backgroundColor: 'red', color: 'white' }}
+                  >
+                    <AiOutlineDelete color="white" size={26} />
+                  </MuiButton>
+                </div>
+              )}
+              <ReusableModal open={openModal} onClose={modal}>
+                <BoxStyled>
+                  {pathname === '/admin/gave-page' ? (
+                    <>
+                      <TypographyStyled textAlign={'center'}>
+                        Вы точна хотите удалить всех сдавшихся участников ?
+                      </TypographyStyled>
+                      <div style={{ display: 'flex', gap: '10px' }}>
+                        <Button variant="outlined" onClick={modal}>
+                          Отмена
+                        </Button>
+                        <Button>Да</Button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <TypographyStyled textAlign={'center'}>
+                        Вы точна хотите удалить всех закончившихся участников ?
+                      </TypographyStyled>
+                      <div style={{ display: 'flex', gap: '10px' }}>
+                        <Button variant="outlined" onClick={modal}>
+                          Отмена
+                        </Button>
+                        <Button>Да</Button>
+                      </div>
+                    </>
+                  )}
+                </BoxStyled>
+              </ReusableModal>
             </HeaderInput>
           )}
           <Outlet />
@@ -103,7 +154,34 @@ const LayoutContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   height: '100%',
   display: 'flex',
-  // paddingBottom: '50px',
+  paddingBottom: '50px',
+}));
+
+const BoxStyled = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '20px',
+  wordBreak: 'break-word',
+  padding:"20px",
+  [theme.breakpoints.down('sm')]: {
+    border: '1px solid black',
+    width: '90%',
+    height: '90%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '20px',
+  },
+}));
+
+const TypographyStyled = styled(Typography)(({ theme }) => ({
+  fontSize: '20px',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '15px',
+  },
 }));
 
 const OutletBox = styled(Box)(({ theme }) => ({
@@ -111,10 +189,7 @@ const OutletBox = styled(Box)(({ theme }) => ({
   height: '100%',
   backgroundColor: 'white',
   overflow: 'auto',
-  //   width: '100%',
-  //   height: '100%',
-  //   backgroundColor: 'white',
-  //   overflow: 'auto',
+  flexGrow: 1,
 }));
 
 const HeaderInput = styled('header')(({ theme }) => ({

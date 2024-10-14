@@ -1,12 +1,15 @@
 import { Button } from '@/components';
 import { Spinner } from '@/components/Spinner/Spinner';
-import { postPayment } from '@/store/admin/adminPayment/adminPaymentThunk';
+import {
+  postPayment,
+  returnPayUser,
+} from '@/store/admin/adminPayment/adminPaymentThunk';
 import { Box, styled, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-export const AdminPaymentPage = () => {
+export const AdminReturnPay = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [sum, setSum] = useState('');
@@ -45,7 +48,7 @@ export const AdminPaymentPage = () => {
         sum,
       };
       console.log(value);
-      dispatch(postPayment({ value, navigate }));
+      dispatch(returnPayUser({ value, navigate }));
       setEmail('');
       setSum('');
     }
@@ -58,7 +61,7 @@ export const AdminPaymentPage = () => {
         <Button onClick={() => navigate(-1)}>Назад</Button>
       </Boxing>
       <Block>
-        <TypographyStyled fontWeight={600}>Оплатить</TypographyStyled>
+        <TypographyStyled fontWeight={600}>Вернуть оплату</TypographyStyled>
         <Main>
           <Div>
             <label style={{ fontWeight: '500', color: '#818093' }}>

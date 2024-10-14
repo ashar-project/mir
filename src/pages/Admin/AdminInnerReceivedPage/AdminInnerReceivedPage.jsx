@@ -1,43 +1,46 @@
 import { Girl } from '@/assets/image';
 import { Button, Input, ReusableModal, Select } from '@/components';
 import { Box, styled, Typography, InputLabel } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { AdminPaymentTable } from './AdminTable/AdminTable';
-import { useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { postReceivedUserPayment } from '@/store/admin/adminReceived/adminReceivedThunk';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 const options = [
-  { value: 'Оплачено.', label: 'Оплачено.' },
-  { value: 'Пропущено.', label: 'Пропущено.' },
-  { value: 'Ожидание.', label: 'Ожидание.' }, // Обратите внимание на точку в конце
+  { value: 'PAID.', label: 'Оплачено.' },
+  { value: 'MISSED.', label: 'Пропущено.' },
+  { value: 'WAITING.', label: 'Ожидание.' }, // Обратите внимание на точку в конце
 ];
 
 export const AdminInnerReceivePage = () => {
+  const { id } = useParams();
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('Ожидание.'); // Добавлена точка в конце
   const receivedUser = useSelector(state => state.adminReceived.receivedUser);
-
+  const isLoading = useSelector(state => state.adminReceived.isLoading);
+  const [text, setText] = useState('');
+  const dispatch = useDispatch();
   const handleChange = event => setStatus(event.target.value);
   const openModal = () => setOpen(prev => !prev);
 
-  const {
-    register,
-    setValue,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm();
+  console.log(id);
 
-  useEffect(() => {
-    setValue('status', status);
-  }, [status, setValue]); // Добавление useEffect для установки значения
-
-  const handlerSubmitValue = data => {
-    console.log(data);
+  const hanlder = e => {
+    e.preventDefault();
+    const value = {
+      status,
+      sum: text,
+    };
+    dispatch(postReceivedUserPayment({ userId: id, value }));
+    setStatus('Ожидание.');
+    setText('');
   };
 
   return (
     <>
+      {isLoading && <Spinner />}
       <Container>
         <BlockOne>
           <ImgBlock>
@@ -65,22 +68,16 @@ export const AdminInnerReceivePage = () => {
         </BlockTwo>
       </Container>
       <ReusableModal open={open} onClose={openModal}>
-        <ModalBox onSubmit={handleSubmit(handlerSubmitValue)}>
+        <ModalBox>
           <TypographyStyled variant="h4">Введите сумму</TypographyStyled>
           <BlockS>
             <InputLabelStyled fullWidth htmlFor="amount">
               Сумма
               <Input
-                {...register('sum', { required: true })}
-                error={!!errors.sum}
+                onChange={e => setText(e.target.value)}
                 size="small"
                 fullWidth
               />
-              {errors.sum && (
-                <TypographyStyled color="error">
-                  Это поле обязательно для заполнения.
-                </TypographyStyled>
-              )}
             </InputLabelStyled>
             <Select
               style={{ width: '100%' }}
@@ -95,7 +92,9 @@ export const AdminInnerReceivePage = () => {
             <Button onClick={openModal} variant="outlined">
               Отменить
             </Button>
-            <Button type="submit">Подтвердить</Button>
+            <Button type="submit" onClick={hanlder}>
+              Подтвердить
+            </Button>
           </Class>
         </ModalBox>
       </ReusableModal>

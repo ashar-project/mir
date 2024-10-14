@@ -1,11 +1,9 @@
 import { Stack } from '@mui/material';
-import { useSelector } from 'react-redux';
 import { LogoDesktop } from '@/assets/icon';
 import { UserCard, Drawer, MenuList } from '../..';
+import { useNavigate } from 'react-router-dom';
 
 export const DesktopSidebar = () => {
-  const { role } = useSelector(state => state.auth);
-
   return (
     <Drawer open={true} variant="permanent">
       <SidebarTop />
@@ -14,10 +12,13 @@ export const DesktopSidebar = () => {
   );
 };
 
-const SidebarTop = ({ role }) => {
+const SidebarTop = () => {
+  const navigate = useNavigate();
   return (
     <Stack alignItems="center" spacing={2.5}>
-      <LogoDesktop />
+      <div onClick={() => navigate('/')}>
+        <LogoDesktop />
+      </div>
       <UserCard />
     </Stack>
   );

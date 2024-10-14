@@ -39,7 +39,7 @@ export const AdminPaymentTable = ({ onClick, variants, value }) => {
               Основной долг: {value?.principalDebt} сом
             </DebtInfo>
             <DebtInfo variant="body1" style={{ color: 'green' }}>
-              Оплатил: {value?.totalSum} сом
+              Оплатил: {value?.payDebt} сом
             </DebtInfo>
             <DebtInfo variant="body1" style={{ color: 'orange' }}>
               Остаток: {value?.remainingAmount} сом

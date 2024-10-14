@@ -3,12 +3,12 @@ import { FaArrowLeft as BackIcon } from 'react-icons/fa6';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './test.module.css';
 import { Table } from '@/components/Table';
-import { Actions } from '@/components/Table/Actions';
-import { tableData } from '@/helpers/tableConstants';
 import { ActionsImg } from '@/pages/Admin/TotalAmountPage/lib/Actions';
 import { data } from '@/modules/World/helpers/mock-data';
 import { MobileCard } from '../Admin';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getByIdWorldInfo } from '@/store/admin/adminWorld/adminWorldThunk';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 const columns = [
   {
@@ -36,16 +36,29 @@ const columns = [
 
 export const RatingPage = () => {
   const { id: ratingID } = useParams();
-  const { user } = useSelector(state => state.userAdmin);
+  const { user, isLoading } = useSelector(state => state.userAdmin);
   const navigate = useNavigate();
   const value = data.find(item => item.id === +ratingID);
+  const dispatch = useDispatch();
 
-  const onClickTableItem = id => {
-    console.log('Selected ID:', id);
+  const onClickTableItem = userId => {
+    console.log(userId);
+    // dispatch(getByIdWorldInfo({ userId }))
+    //   .then(result => {
+    //     if (result.meta.requestStatus === 'fulfilled') {
+    //       navigate(`/admin/worlds-page/${userId}/adminInnerTablePage`);
+    //     } else {
+    //       console.error('Ошибка при получении данных:', result.error.message);
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.error('Произошла ошибка:', error);
+    //   });
   };
 
   return (
     <div className={styles.container}>
+      {isLoading && <Spinner />}
       <Button
         variant="outlined"
         className={styles.backButton}
@@ -70,7 +83,12 @@ export const RatingPage = () => {
           onClickItem={onClickTableItem}
         />
       </TableInfo>
-      <MobileCard item={user} />
+      <div>
+        <MobileCard
+          item={Array.isArray(user) ? user : []}
+          handlerId={onClickTableItem}
+        />
+      </div>
       {!user.length > 0 && (
         <NoDataMessage>Нет данных для отображения.</NoDataMessage>
       )}

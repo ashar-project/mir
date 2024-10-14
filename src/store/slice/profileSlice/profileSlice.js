@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getProfileUser } from './profileThunk';
+import { gaveUser, getProfileUser } from './profileThunk';
 
 export const profileSlice = createSlice({
   name: 'profile',
@@ -19,6 +19,15 @@ export const profileSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getProfileUser.rejected, state => {
+        state.isLoading = false;
+      })
+      .addCase(gaveUser.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(gaveUser.fulfilled, state => {
+        state.isLoading = false;
+      })
+      .addCase(gaveUser.rejected, state => {
         state.isLoading = false;
       });
   },

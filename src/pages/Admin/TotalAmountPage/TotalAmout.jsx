@@ -62,10 +62,10 @@ export const TotalAmout = () => {
               </Typography>
             </KrugBlockMini>
           </KrugBlock>
-          <ButtonStyled className="butoon">
+          {/* <ButtonStyled className="butoon">
             <Typography>Изменить</Typography>
             <FiEdit sx={{ marginBottom: '5px' }} />
-          </ButtonStyled>
+          </ButtonStyled> */}
           <Typography
             fontSize={'24px'}
             textAlign={'center'}

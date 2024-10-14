@@ -1,3 +1,4 @@
+import { toastifyMessage } from '@/components/Toastify/Toastify';
 import { axiosInstance } from '@/config/axiosInstans';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
@@ -34,8 +35,18 @@ export const postReceivedUserPayment = createAsyncThunk(
         `/api/payments/${userId}/addPayment`,
         value
       );
+      toastifyMessage({
+        message: 'Успешно',
+        status: 'success',
+        duration: 1500,
+      });
       return data;
     } catch (error) {
+      toastifyMessage({
+        message: 'Упс что то пошло не так попробуйте еще раз',
+        status: 'error',
+        duration: 1500,
+      });
       return rejectWithValue(error);
     }
   }

@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 export const UserCard = ({ imageUrl, userName = 'No name' }) => {
   const navigate = useNavigate();
   const { role } = useSelector(state => state.auth);
-  
+  const { profile } = useSelector(state => state.profile);
+
   const handleClick = () => {
     if (role === 'USER') {
       role && navigate(SitePaths.userProfilePage);
@@ -31,7 +32,7 @@ export const UserCard = ({ imageUrl, userName = 'No name' }) => {
       }}
     >
       <Avatar
-        src={imageUrl}
+        src={profile.photoUrl || imageUrl}
         sx={{
           width: '50px',
           height: '50px',
@@ -42,7 +43,7 @@ export const UserCard = ({ imageUrl, userName = 'No name' }) => {
         <Typography color="#949494" fontSize={12} lineHeight={1.5}>
           Добрый день
         </Typography>
-        <Typography fontWeight={600}>{userName}</Typography>
+        <Typography fontWeight={600}>{profile.name || 'Syimyk'}</Typography>
       </Stack>
     </Stack>
   );

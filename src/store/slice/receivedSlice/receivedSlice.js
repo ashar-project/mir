@@ -18,11 +18,7 @@ export const receivedSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getReceived.fulfilled, (state, { payload }) => {
-        state.received = payload.map(item => ({
-          name: item.userName,
-          id: item.id,
-          imageSrc: item.photoUrl,
-        }));
+        state.received = payload;
         state.isLoading = false;
 
         state.receivedBig = [...payload];

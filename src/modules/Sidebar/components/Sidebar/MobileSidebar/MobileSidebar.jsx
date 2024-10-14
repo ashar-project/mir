@@ -62,15 +62,6 @@ export const MobileSidebar = () => {
           </ListItemButton>
         </ListItem>
 
-        <ListItem onClick={() => navigate(SitePaths.about)}>
-          <ListItemButton>
-            <ListItemIcon>
-              <MenuIcon path={SitePaths.about} color="#818093" />
-            </ListItemIcon>
-            <ListItemText>О нас</ListItemText>
-          </ListItemButton>
-        </ListItem>
-
         <ListItem onClick={() => navigate(SitePaths.techSupport)}>
           <ListItemButton>
             <ListItemIcon>

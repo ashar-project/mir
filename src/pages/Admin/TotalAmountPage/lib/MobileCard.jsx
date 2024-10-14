@@ -2,10 +2,10 @@ import { Delete } from '@/assets/icon';
 import { styled, Typography } from '@mui/material';
 import React from 'react';
 
-export const MobileCard = ({ item }) => {
+export const MobileCard = ({ item, handlerId }) => {
   console.log(item);
   return item?.map(el => (
-    <Card key={el}>
+    <Card key={el.id} onClick={() => handlerId(el.id)}>
       <BlockAvatat>
         <Delete />
         <div>

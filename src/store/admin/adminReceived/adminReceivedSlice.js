@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAdminReceived, getReceivedUser } from './adminReceivedThunk';
+import {
+  getAdminReceived,
+  getReceivedUser,
+  postReceivedUserPayment,
+} from './adminReceivedThunk';
 
 export const adminReceivedSlice = createSlice({
   name: 'adminReceived',
@@ -32,6 +36,15 @@ export const adminReceivedSlice = createSlice({
       .addCase(getReceivedUser.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
+      })
+      .addCase(postReceivedUserPayment.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(postReceivedUserPayment.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+      })
+      .addCase(postReceivedUserPayment.rejected, state => {
+        state.isLoading = false;
       });
   },
 });
