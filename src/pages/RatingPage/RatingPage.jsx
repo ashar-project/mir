@@ -43,18 +43,19 @@ export const RatingPage = () => {
 
   const onClickTableItem = userId => {
     console.log(userId);
-    // dispatch(getByIdWorldInfo({ userId }))
-    //   .then(result => {
-    //     if (result.meta.requestStatus === 'fulfilled') {
-    //       navigate(`/admin/worlds-page/${userId}/adminInnerTablePage`);
-    //     } else {
-    //       console.error('Ошибка при получении данных:', result.error.message);
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.error('Произошла ошибка:', error);
-    //   });
+    dispatch(getByIdWorldInfo({ userId }))
+      .then(result => {
+        if (result.meta.requestStatus === 'fulfilled') {
+          navigate(`/admin/worlds-page/${userId}/adminInnerTablePage`);
+        } else {
+          console.error('Ошибка при получении данных:', result.error.message);
+        }
+      })
+      .catch(error => {
+        console.error('Произошла ошибка:', error);
+      });
   };
+  console.log(user)
 
   return (
     <div className={styles.container}>

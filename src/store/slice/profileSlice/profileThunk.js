@@ -15,7 +15,7 @@ export const getProfileUser = createAsyncThunk(
 );
 
 export const gaveUser = createAsyncThunk(
-  'gave/gaveUser',
+  'profile/gaveUser',
   async (navigate, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.patch('/api/users/status/submitted');
@@ -36,3 +36,29 @@ export const gaveUser = createAsyncThunk(
     }
   }
 );
+
+export const updateProfile = createAsyncThunk(
+  'profile/updateProfile',
+  async (value, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.put(
+        `/api/users/updateProfile`,
+        value
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+// export const addFileAWS3 = createAsyncThunk(
+//   'profile/addFileAWS3',
+//   async()=>{
+//     try {
+      
+//     } catch (error) {
+      
+//     }
+//   }
+// )

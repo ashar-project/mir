@@ -1,48 +1,104 @@
 import { Negr } from '@/assets/image';
 import { upload as Upload } from '@/assets/icon';
 import { Button, Input } from '@/components';
-import { Box, styled, Typography } from '@mui/material';
+import { Box, styled, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import { useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
 
 export const UserEditPage = () => {
   const navigate = useNavigate();
   const { profile, isLoading } = useSelector(state => state.profile);
-  
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop: acceptedFiles => {
-      const selectedFile = acceptedFiles[0];
-      console.log(selectedFile);
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: profile?.name || '',
+      goal: profile?.goal || '',
+      phoneNumber: profile?.phoneNumber || '',
     },
   });
+
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  useEffect(() => {
+    reset(profile);
+  }, [profile]);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: 'image/*',
+    onDrop: acceptedFiles => {
+      const file = acceptedFiles[0];
+      if (file) {
+        setSelectedFile(URL.createObjectURL(file)); 
+      }
+    },
+  });
+
+  const handlerSubmitValue = data => {
+    console.log(data);
+  };
 
   return (
     <>
       <Button style={{ margin: '10px' }} onClick={() => navigate(-1)}>
         Назад
       </Button>
-      <Main>
+      <Main onSubmit={handleSubmit(handlerSubmitValue)}>
         <Container>
           <BlockOne {...getRootProps()}>
             <Div>
               <Upload />
               <input {...getInputProps()} />
             </Div>
-            <Img src={Negr} alt="Negr" />
+            <Img src={selectedFile || profile.photoUrl || Negr} alt="Profile" />
           </BlockOne>
           <BlockTwo>
             <Block>
-              <TypographyStyled>Имя:</TypographyStyled>
-              <Input fullWidth size="small" />
+              <TypographyStyled>ФИО:</TypographyStyled>
+              <TextField
+                fullWidth
+                size="small"
+                {...register('name', {
+                  required: 'Имя обязательно для заполнения',
+                })}
+                error={!!errors.name}
+                helperText={errors.name?.message}
+              />
             </Block>
             <Block>
-              <TypographyStyled>Email:</TypographyStyled>
-              <Input fullWidth size="small" />
+              <TypographyStyled>Цель:</TypographyStyled>
+              <TextField
+                fullWidth
+                size="small"
+                {...register('goal', {
+                  required: 'Цель обязательна для заполнения',
+                })}
+                error={!!errors.goal}
+                helperText={errors.goal?.message}
+              />
             </Block>
             <Block>
               <TypographyStyled>Номер:</TypographyStyled>
-              <Input fullWidth size="small" />
+              <TextField
+                fullWidth
+                size="small"
+                {...register('phoneNumber', {
+                  required: 'Номер телефона обязателен для заполнения',
+                  pattern: {
+                    value: /^[\d\+]{10,15}$/,
+                    message: 'Введите корректный номер телефона',
+                  },
+                })}
+                error={!!errors.phoneNumber}
+                helperText={errors.phoneNumber?.message}
+              />
             </Block>
           </BlockTwo>
         </Container>
@@ -55,7 +111,7 @@ export const UserEditPage = () => {
           >
             Назад
           </Button>
-          <Button style={{ borderRadius: '10px' }} fullWidth>
+          <Button style={{ borderRadius: '10px' }} fullWidth type="submit">
             Изменить
           </Button>
         </ButtonBlock>
@@ -87,7 +143,7 @@ const Container = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Main = styled(Box)(({ theme }) => ({
+const Main = styled('form')(({ theme }) => ({
   width: '1000px',
   height: '610px',
   display: 'flex',
@@ -120,53 +176,6 @@ const ButtonBlock = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Progress = styled(Box)(({ theme }) => ({
-  width: '100%',
-  height: '44px',
-  borderRadius: '10px',
-  backgroundColor: '#E5E5E5',
-  position: 'relative',
-  display: 'none',
-  [theme.breakpoints.down('sm')]: {
-    display: 'block',
-    position: 'relative',
-    width: '100%',
-    height: '44px',
-  },
-}));
-
-const CircularProgress = styled(Box)(({ theme }) => ({
-  width: '67%',
-  height: '100%',
-  backgroundColor: '#637e7e',
-  borderRadius: '10px 10px 10px 10px',
-
-  [theme.breakpoints.down('sm')]: {
-    width: '67%',
-    height: '100%',
-    backgroundColor: '#637e7e',
-    borderRadius: '10px 10px 10px 10px',
-  },
-}));
-
-const Procent = styled(Box)(({ theme }) => ({
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  fontSize: '1.5em',
-  color: 'white',
-
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '16px',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    color: 'white',
-  },
-}));
-
 const BlockOne = styled(Box)(({ theme }) => ({
   width: '80%',
   height: '18.75em',
@@ -192,6 +201,7 @@ const Div = styled('div')(({ theme }) => ({
 const Img = styled('img')(({ theme }) => ({
   width: '100%',
   height: '100%',
+  objectFit: 'cover',
 
   [theme.breakpoints.down('sm')]: {
     width: '100%',

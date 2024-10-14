@@ -213,7 +213,7 @@ export const AdminMobileSidebar = () => {
           Вы точна хотите выйти
           <div style={{ display: 'flex', gap: '20px' }}>
             <Button onClick={handlerModal}>Отмена</Button>
-            <Button onClick={() => dispatch(logout)}>Да</Button>
+            <Button onClick={() => dispatch(logout())}>Да</Button>
           </div>
         </Box>
       </ReusableModal>

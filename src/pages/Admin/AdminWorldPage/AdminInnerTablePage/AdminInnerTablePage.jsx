@@ -176,7 +176,6 @@ export const AdminInnerTablePage = () => {
   );
 };
 
-// Стили
 const StyledProfile = styled(Box)(({ theme }) => ({
   width: '500px',
   backgroundColor: '#fff',

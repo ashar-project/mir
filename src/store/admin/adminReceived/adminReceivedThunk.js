@@ -29,25 +29,38 @@ export const getReceivedUser = createAsyncThunk(
 
 export const postReceivedUserPayment = createAsyncThunk(
   'adminReceived/postReceivedUserPayment',
-  async ({ userId, value }, { rejectWithValue }) => {
+  async ({ userId, value }, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await axiosInstance.post(
         `/api/payments/${userId}/addPayment`,
-        value
+        {
+          sum: value.sum,
+          status: value.status,
+        }
       );
+      
       toastifyMessage({
         message: 'Успешно',
         status: 'success',
         duration: 1500,
       });
+
+      let id = userId;
+      dispatch(getReceivedUser({id}));
+      dispatch(getAdminReceived());
+
       return data;
     } catch (error) {
+      const simplifiedError = {
+        message: error.response?.data?.message || 'Что-то пошло не так',
+        statusCode: error.response?.status || 500,
+      };
       toastifyMessage({
-        message: 'Упс что то пошло не так попробуйте еще раз',
+        message: 'Упс что-то пошло не так, попробуйте еще раз',
         status: 'error',
         duration: 1500,
       });
-      return rejectWithValue(error);
+      return rejectWithValue(simplifiedError);
     }
   }
 );

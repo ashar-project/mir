@@ -4,32 +4,37 @@ import React from 'react';
 
 export const MobileCard = ({ item, handlerId }) => {
   console.log(item);
-  return item?.map(el => (
-    <Card key={el.id} onClick={() => handlerId(el.id)}>
-      <BlockAvatat>
-        <Delete />
-        <div>
-          <Typography fontWeight={400} fontSize={'17px'}>
-            {el.userName || 'Ахатджанов Даниел'}
-          </Typography>
-          <Typography color="#959393" fontWeight={400} fontSize={'13px'}>
-            {el?.email || 'tanya.hill@example.com'}
-          </Typography>
-        </div>
-      </BlockAvatat>
-      <BlockPrice>
-        <Typography
-          color="#959393"
-          fontWeight={400}
-          fontSize={'32px'}
-          lineHeight={20}
-          fontFamily="'Nunito', sans-serif"
-        >
-          {`${el?.totalSum} сом` || '1 000 000 сом'}
-        </Typography>
-      </BlockPrice>
-    </Card>
-  ));
+
+  return (
+    <>
+      {item?.map(el => (
+        <Card key={el.id} onClick={() => handlerId(el.id)}>
+          <BlockAvatat>
+            <Delete />
+            <div>
+              <Typography fontWeight={400} fontSize={'17px'}>
+                {el.userName || 'Ахатджанов Даниел'}
+              </Typography>
+              <Typography color="#959393" fontWeight={400} fontSize={'13px'}>
+                {el?.email || 'tanya.hill@example.com'}
+              </Typography>
+            </div>
+          </BlockAvatat>
+          <BlockPrice>
+            <Typography
+              color="#959393"
+              fontWeight={400}
+              fontSize={'32px'}
+              lineHeight={20}
+              fontFamily="'Nunito', sans-serif"
+            >
+              {`${el?.totalSum} сом` || '1 000 000 сом'}
+            </Typography>
+          </BlockPrice>
+        </Card>
+      ))}
+    </>
+  );
 };
 
 const Card = styled('div')(({ theme }) => ({

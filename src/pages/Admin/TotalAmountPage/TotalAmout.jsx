@@ -62,10 +62,6 @@ export const TotalAmout = () => {
               </Typography>
             </KrugBlockMini>
           </KrugBlock>
-          {/* <ButtonStyled className="butoon">
-            <Typography>Изменить</Typography>
-            <FiEdit sx={{ marginBottom: '5px' }} />
-          </ButtonStyled> */}
           <Typography
             fontSize={'24px'}
             textAlign={'center'}
@@ -76,9 +72,8 @@ export const TotalAmout = () => {
             Запросы на добавления
           </Typography>
         </BlockOne>
-        {user?.map(item => (
-          <MobileCard key={item} item={[item]} />
-        ))}
+
+        <MobileCard item={user} />
         <Div>
           <Table data={user} columns={columns} />
         </Div>

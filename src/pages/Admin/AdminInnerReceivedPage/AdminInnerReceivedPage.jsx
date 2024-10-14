@@ -9,31 +9,31 @@ import { postReceivedUserPayment } from '@/store/admin/adminReceived/adminReceiv
 import { Spinner } from '@/components/Spinner/Spinner';
 
 const options = [
-  { value: 'PAID.', label: 'Оплачено.' },
-  { value: 'MISSED.', label: 'Пропущено.' },
-  { value: 'WAITING.', label: 'Ожидание.' }, // Обратите внимание на точку в конце
+  { value: 'PAID', label: 'Оплачено.' },
+  { value: 'MISSED', label: 'Пропущено.' },
+  { value: 'WAITING', label: 'Ожидание.' },
 ];
 
 export const AdminInnerReceivePage = () => {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState('Ожидание.'); // Добавлена точка в конце
+  const [status, setStatus] = useState('Ожидание.');
   const receivedUser = useSelector(state => state.adminReceived.receivedUser);
   const isLoading = useSelector(state => state.adminReceived.isLoading);
-  const [text, setText] = useState('');
+  const [sum, setText] = useState('');
   const dispatch = useDispatch();
   const handleChange = event => setStatus(event.target.value);
   const openModal = () => setOpen(prev => !prev);
 
-  console.log(id);
-
   const hanlder = e => {
     e.preventDefault();
     const value = {
+      sum,
       status,
-      sum: text,
     };
-    dispatch(postReceivedUserPayment({ userId: id, value }));
+    dispatch(postReceivedUserPayment({ userId: id, value })).then(() => {
+      openModal();
+    });
     setStatus('Ожидание.');
     setText('');
   };
@@ -77,6 +77,7 @@ export const AdminInnerReceivePage = () => {
                 onChange={e => setText(e.target.value)}
                 size="small"
                 fullWidth
+                value={sum}
               />
             </InputLabelStyled>
             <Select
