@@ -14,7 +14,7 @@ export const GraduatedPage = () => {
 
   return (
     <Box height="100vh" width="100%">
-      {!graduatad.lenght ? (
+      {graduatad.lenght ? (
         <GraduatedInfo data={graduatad} />
       ) : (
         <div style={{ width: '100%', height: '100%' }}>

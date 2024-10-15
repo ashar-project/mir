@@ -21,7 +21,7 @@ export const ReceivedPage = () => {
 
   return (
     <Box height="100vh" width="100%">
-      {!received.lenght ? (
+      {received.lenght ? (
         <GraduatedTable data={received} goInnerPage={navigateFn} />
       ) : (
         <div style={{ width: '100%', height: '100%' }}>

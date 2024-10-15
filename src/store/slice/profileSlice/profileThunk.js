@@ -41,13 +41,24 @@ export const gaveUser = createAsyncThunk(
 export const updateProfile = createAsyncThunk(
   'profile/updateProfile',
   async (value, { rejectWithValue }) => {
+    console.log(value);
     try {
       const { data } = await axiosInstance.put(
         `/api/users/updateProfile`,
         value
       );
+      toastifyMessage({
+        message: 'Профиль успешно изменен ',
+        duration: 2500,
+        status: 'success',
+      });
       return data;
     } catch (error) {
+      toastifyMessage({
+        message: 'Упс, что-то пошло не так. Попробуйте еще раз.',
+        duration: 2500,
+        status: 'error',
+      });
       return rejectWithValue(error);
     }
   }
@@ -56,13 +67,17 @@ export const updateProfile = createAsyncThunk(
 export const addFileAWS3 = createAsyncThunk(
   'profile/addFileAWS3',
   async (file, { rejectWithValue }) => {
-    const formData = new FormData();
-    if (file) {
-      formData.append('file', file);
-    }
     try {
+      const formData = new FormData();
+      if (file && file instanceof File) {
+        formData.append('file', file);
+        console.log('FormData содержит файл:', formData.get('file'));
+      } else {
+        console.error('Передан некорректный файл:', file);
+      }
+
       const { data } = await axiosInstanceFile.post(
-        `/api/awsS3/upload`,
+        '/api/awsS3/upload',
         formData
       );
       toastifyMessage({
@@ -72,12 +87,15 @@ export const addFileAWS3 = createAsyncThunk(
       });
       return data;
     } catch (error) {
+      const errorMessage =
+        error.response?.data?.message ||
+        'Упс, что-то пошло не так. Попробуйте еще раз.';
       toastifyMessage({
-        message: 'Упс что то пошло не так попробуйте еще раз',
+        message: errorMessage,
         duration: 2500,
         status: 'error',
       });
-      return rejectWithValue(error);
+      return rejectWithValue({ message: errorMessage }); // Возвращаем простое сообщение об ошибке
     }
   }
 );

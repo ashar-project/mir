@@ -18,10 +18,10 @@ export const fileInjectStore = _store => {
 axiosInstanceFile.interceptors.request.use(
   function (config) {
     const updateConfig = { ...config };
-    const token = store.getState();
-
+    const token = store.getState().auth;
+    console.log(token.token);
     if (token) {
-      updateConfig.headers.Authorization = `Bearer ${token}`;
+      updateConfig.headers.Authorization = `Bearer ${token.token}`;
     }
 
     return config;

@@ -21,9 +21,16 @@ export const profileSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getProfileUser.fulfilled, (state, { payload }) => {
-        state.profile = payload;
+        state.profile = {
+          goal: payload.goal,
+          name: payload.name,
+          phoneNumber: payload.number,
+          photoUrl: payload.photoUrl,
+          id: payload.id,
+        };
         state.isLoading = false;
       })
+
       .addCase(getProfileUser.rejected, state => {
         state.isLoading = false;
       })

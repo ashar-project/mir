@@ -7,12 +7,20 @@ import { useDropzone } from 'react-dropzone';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { addFileAWS3 } from '@/store/slice/profileSlice/profileThunk';
+import {
+  addFileAWS3,
+  updateProfile,
+} from '@/store/slice/profileSlice/profileThunk';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 export const UserEditPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { profile, isLoading } = useSelector(state => state.profile);
+  const {
+    profile,
+    isLoading,
+    file: Files,
+  } = useSelector(state => state.profile);
   const {
     register,
     handleSubmit,
@@ -32,10 +40,10 @@ export const UserEditPage = () => {
 
   useEffect(() => {
     reset(profile);
+    setValue('photoUrl', Files.link);
   }, [profile]);
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: 'image/*',
     onDrop: acceptedFiles => {
       const file = acceptedFiles[0];
       if (file) {
@@ -66,12 +74,14 @@ export const UserEditPage = () => {
 
   const handlerSubmitValue = data => {
     console.log(data);
-  };
+    const { id, ...value } = data;
 
-  console.log(errors);
+    dispatch(updateProfile(value));
+  };
 
   return (
     <>
+      {isLoading && <Spinner />}
       <Button style={{ margin: '10px' }} onClick={() => navigate(-1)}>
         Назад
       </Button>
@@ -79,10 +89,14 @@ export const UserEditPage = () => {
         <Container>
           <BlockOne {...getRootProps()}>
             <Div>
-              <Upload />
+              {!Files && <Upload />}
               <input {...getInputProps()} />
             </Div>
-            <Img src={selectedFile || profile.photoUrl || Negr} alt="Profile" />
+            {Files ? (
+              <Img src={Files.link} />
+            ) : (
+              <Img src={profile.photoUrl || Negr} alt="Profile" />
+            )}
           </BlockOne>
           <BlockTwo>
             <Block>

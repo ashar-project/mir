@@ -52,6 +52,10 @@ export const UserProfilePage = () => {
               <TypographyStyled>Цель:</TypographyStyled>
               <TypographyStyledTwo>{profile.goal}</TypographyStyledTwo>
             </Block>
+            <Block>
+              <TypographyStyled>Номер:</TypographyStyled>
+              <TypographyStyledTwo>{profile.phoneNumber}</TypographyStyledTwo>
+            </Block>
           </BlockTwo>
         </Container>
 
