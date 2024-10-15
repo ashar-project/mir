@@ -10,11 +10,18 @@ import {
 import { AiOutlineDelete } from 'react-icons/ai';
 import { AdminSidebar, useSidebar } from '@/modules/Sidebar';
 import { AdminMobileNavBar } from '@/modules/Navbar/components/AdminMobailNavBar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useCheckClient } from '@/helpers';
 import { IoMenu as MenuIcon } from 'react-icons/io5';
 import { useEffect, useState } from 'react';
 import { Button, ReusableModal } from '..';
+import { deleteGraduatedUsers } from '@/store/admin/adminGraduated/adminGraduatedThunk';
+import { getReceivedUser } from '@/store/admin/adminReceived/adminReceivedThunk';
+import { Spinner } from '../Spinner/Spinner';
+import {
+  deleteGaveUpdUsers,
+  getAdminGaveUp,
+} from '@/store/admin/adminGaveUp/adminGaveUpTjunk';
 
 export const AdminLayout = () => {
   const { open, setOpen } = useSidebar();
@@ -25,7 +32,11 @@ export const AdminLayout = () => {
   const [path, setPath] = useState(false);
   const pathVisiblity = ['/admin/gave-page', '/admin/graduated-page'];
   const [openModal, setOpenModal] = useState(false);
+  const { isLoading: graduatedLoadiing } = useSelector(
+    state => state.adminGraduated
+  );
   const modal = () => setOpenModal(prev => !prev);
+
   useEffect(() => {
     setPath(pathVisiblity.includes(pathname));
   }, [pathname]);
@@ -33,7 +44,6 @@ export const AdminLayout = () => {
   const hiddenPaths = [
     '/tech-support',
     /^\/admin\/worlds-page\/\d+\/worldRaiting$/,
-    '/admin',
     '/admin/payment-page',
     /^\/admin\/worlds-page\/\d+\/adminInnerTablePage$/,
     /^\/admin\/received-page\/\d+\/received-inner-page$/,
@@ -48,11 +58,20 @@ export const AdminLayout = () => {
     );
   }, [pathname]);
 
+  const deleteReceivedUsers = async () => {
+    await dispatch(deleteGraduatedUsers());
+    await dispatch(getReceivedUser());
+  };
+  const deleteGaveUpdUserss = async () => {
+    await dispatch(getAdminGaveUp());
+    await dispatch(deleteGaveUpdUsers());
+  };
+
   return (
     <Container>
       <LayoutContainer>
         <AdminSidebar />
-
+        {graduatedLoadiing && <Spinner />}
         <OutletBox>
           {status && (
             <HeaderInput>
@@ -74,7 +93,10 @@ export const AdminLayout = () => {
                   <MenuIcon />
                 </IconButton>
               )}
-              <Input size="small" placeholder="Поиск" />
+              {pathname !== '/admin' && (
+                <Input size="small" placeholder="Поиск" />
+              )}
+
               {path && (
                 <div style={{ margin: '0 10px' }}>
                   <MuiButton
@@ -96,7 +118,7 @@ export const AdminLayout = () => {
                         <Button variant="outlined" onClick={modal}>
                           Отмена
                         </Button>
-                        <Button>Да</Button>
+                        <Button onClick={deleteGaveUpdUserss}>Да</Button>
                       </div>
                     </>
                   ) : (
@@ -108,7 +130,7 @@ export const AdminLayout = () => {
                         <Button variant="outlined" onClick={modal}>
                           Отмена
                         </Button>
-                        <Button>Да</Button>
+                        <Button onClick={deleteReceivedUsers}>Да</Button>
                       </div>
                     </>
                   )}
@@ -164,7 +186,7 @@ const BoxStyled = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   gap: '20px',
   wordBreak: 'break-word',
-  padding:"20px",
+  padding: '20px',
   [theme.breakpoints.down('sm')]: {
     border: '1px solid black',
     width: '90%',

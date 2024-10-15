@@ -7,7 +7,7 @@ export const postPayment = createAsyncThunk(
   async ({ value, navigate }, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.post('/api/payments/addSum', value);
-      navigate('worlds-page');
+      navigate('/admin/worlds-page');
       toastifyMessage({
         message: 'Успешно',
         status: 'success',
@@ -39,7 +39,7 @@ export const returnPayUser = createAsyncThunk(
         status: 'success',
         duration: 1500,
       });
-      navigate('worlds-page');
+      navigate('/admin/worlds-page');
       return data;
     } catch (error) {
       toastifyMessage({

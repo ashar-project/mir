@@ -55,7 +55,7 @@ export const RatingPage = () => {
         console.error('Произошла ошибка:', error);
       });
   };
-  console.log(user)
+  console.log(user);
 
   return (
     <div className={styles.container}>
@@ -64,7 +64,7 @@ export const RatingPage = () => {
         variant="outlined"
         className={styles.backButton}
         startIcon={<BackIcon />}
-        onClick={() => navigate(-2)}
+        onClick={() => navigate(-1)}
       >
         Назад
       </Button>

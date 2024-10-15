@@ -1,5 +1,4 @@
-import { Box, Grid2 as Grid, styled } from '@mui/material';
-
+import { Grid2 as Grid } from '@mui/material';
 import { CustomGrid } from '@/components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

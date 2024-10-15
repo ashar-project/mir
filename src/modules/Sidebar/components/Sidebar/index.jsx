@@ -21,7 +21,7 @@ import { MdOutlineMoneyOffCsred } from 'react-icons/md';
 import { MobileSidebar } from './MobileSidebar';
 import { DesktopSidebar } from './DesktopSidebar';
 import { UserCard } from '../UserCard';
-
+import { HiUserAdd } from 'react-icons/hi';
 import {
   TbWorld as WorldIcon,
   TbUserCheck as GraduatedIcon,
@@ -43,6 +43,7 @@ export const AdminSitePaths = {
   gaveUp: 'gave-page',
   payment: 'payment-page',
   return: 'return-pay',
+  addUser: 'sign-up',
 };
 
 export const AdminMenuIcons = ({ path, color = 'grey' }) => {
@@ -53,6 +54,7 @@ export const AdminMenuIcons = ({ path, color = 'grey' }) => {
     [AdminSitePaths.gaveUp]: <GaveUpIcon color={color} size={26} />,
     [AdminSitePaths.payment]: <Pay color={color} size={26} />,
     [AdminSitePaths.return]: <MdOutlineMoneyOffCsred color={color} size={26} />,
+    [AdminSitePaths.addUser]: <HiUserAdd color={color} size={26} />,
   };
 
   return menuIcons[path];
@@ -82,6 +84,10 @@ const menuElements = [
   {
     label: 'Вернуть Оплату',
     navigation: 'return-pay',
+  },
+  {
+    label: 'Добавить пользователя',
+    navigation: '/sign-up',
   },
 ];
 
@@ -190,7 +196,9 @@ export const AdminMobileSidebar = () => {
               <ListItemIcon>
                 <AdminMenuIcons path={AdminSitePaths.payment} color="#818093" />
               </ListItemIcon>
-              <ListItemText>Добавить сумму </ListItemText>
+              <ListItemText sx={{ marginRight: '40px' }}>
+                Оплатить{' '}
+              </ListItemText>
             </ListItemButton>
           </ListItem>
         </List>
@@ -200,7 +208,7 @@ export const AdminMobileSidebar = () => {
               <ListItemIcon>
                 <AdminMenuIcons path={AdminSitePaths.return} color="#818093" />
               </ListItemIcon>
-              <ListItemText>Вернуть  сумму</ListItemText>
+              <ListItemText>Вернуть оплату</ListItemText>
             </ListItemButton>
           </ListItem>
         </List>

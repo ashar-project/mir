@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAdminGaveUp } from './adminGaveUpTjunk';
+import { deleteGaveUpdUsers, getAdminGaveUp } from './adminGaveUpTjunk';
 
 export const adminGaveUpSlice = createSlice({
   name: 'adminGaveUp',
@@ -19,6 +19,15 @@ export const adminGaveUpSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getAdminGaveUp.rejected, state => {
+        state.isLoading = false;
+      })
+      .addCase(deleteGaveUpdUsers.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(deleteGaveUpdUsers.fulfilled, state => {
+        state.isLoading = false;
+      })
+      .addCase(deleteGaveUpdUsers.rejected, state => {
         state.isLoading = false;
       });
   },

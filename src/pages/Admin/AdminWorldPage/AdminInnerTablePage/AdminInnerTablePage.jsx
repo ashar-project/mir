@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { Negr } from '@/assets/image';
 import { addDebtUser } from '@/store/admin/adminWorld/adminWorldThunk';
 import { Spinner } from '@/components/Spinner/Spinner';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 export const AdminInnerTablePage = () => {
   const [open, setOpen] = useState(false);
@@ -23,7 +24,7 @@ export const AdminInnerTablePage = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(userInfo)
+  console.log(userInfo);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -66,7 +67,15 @@ export const AdminInnerTablePage = () => {
   };
 
   const handlerSubmitValue = () => {
-    dispatch(addDebtUser({ userId: userInfo.id, debtSum: allTotal }));
+    dispatch(addDebtUser({ userId: userInfo.id, debtSum: allTotal }))
+      .then(unwrapResult)
+      .then(() => {
+        handleClose();
+      })
+      .catch(error => {
+        console.error('Error adding debt:', error);
+      });
+
     setAmount('');
   };
 
@@ -98,7 +107,6 @@ export const AdminInnerTablePage = () => {
               onChange={handleAmountChange}
               size="small"
               autoFocus
-              margin="dense"
               type="text"
               fullWidth
               variant="outlined"

@@ -37,19 +37,21 @@ export const addDebtUser = createAsyncThunk(
     try {
       const { data } = await axiosInstance.post(
         `/api/payments/${userId}/giveDebt`,
-        debtSum
+        {
+          debtSum: debtSum,
+        }
       );
       toastifyMessage({
-        message: 'Успешно',
+        message: data.message,
         status: 'success',
-        duration: 1500,
+        duration: 2500,
       });
       return data;
     } catch (error) {
       toastifyMessage({
         message: 'Упс что то пошло не так попробуйте еще раз',
         status: 'error',
-        duration: 1500,
+        duration: 2500,
       });
       return rejectWithValue(error);
     }

@@ -4,12 +4,14 @@ import { Button, Input } from '@/components';
 import { Box, styled, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
+import { addFileAWS3 } from '@/store/slice/profileSlice/profileThunk';
 
 export const UserEditPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { profile, isLoading } = useSelector(state => state.profile);
   const {
     register,
@@ -22,6 +24,7 @@ export const UserEditPage = () => {
       name: profile?.name || '',
       goal: profile?.goal || '',
       phoneNumber: profile?.phoneNumber || '',
+      photoUrl: profile?.photoUrl || '',
     },
   });
 
@@ -36,14 +39,36 @@ export const UserEditPage = () => {
     onDrop: acceptedFiles => {
       const file = acceptedFiles[0];
       if (file) {
-        setSelectedFile(URL.createObjectURL(file)); 
+        const objectUrl = URL.createObjectURL(file);
+        setSelectedFile(objectUrl);
+
+        dispatch(addFileAWS3(file))
+          .unwrap()
+          .then(uploadedFile => {
+            const { link } = uploadedFile;
+            setValue('photoUrl', link);
+          })
+          .catch(error => {
+            console.error('Ошибка загрузки файла:', error);
+            URL.revokeObjectURL(objectUrl);
+          });
       }
     },
   });
 
+  useEffect(() => {
+    return () => {
+      if (selectedFile) {
+        URL.revokeObjectURL(selectedFile);
+      }
+    };
+  }, [selectedFile]);
+
   const handlerSubmitValue = data => {
     console.log(data);
   };
+
+  console.log(errors);
 
   return (
     <>
@@ -161,7 +186,7 @@ const Main = styled('form')(({ theme }) => ({
   },
 }));
 
-const ButtonBlock = styled(Box)(({ theme }) => ({
+const ButtonBlock = styled('div')(({ theme }) => ({
   width: '60%',
   display: 'flex',
   gap: '20px',

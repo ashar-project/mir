@@ -1,19 +1,8 @@
 import { useTheme } from '@emotion/react';
 import { Typography, Stack } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 export const RatingCard = ({ minAmount, maxAmount, rating }) => {
   const theme = useTheme();
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-
-  const isAdmin = pathname === '/admin/worlds-page';
-
-  const handleClick = () => {
-    if (isAdmin) {
-      navigate(String(rating));
-    }
-  };
 
   return (
     <Stack
@@ -34,7 +23,6 @@ export const RatingCard = ({ minAmount, maxAmount, rating }) => {
         },
         cursor: 'pointer',
       }}
-      onClick={handleClick}
     >
       <Typography lineHeight={1.15} fontSize={96} fontWeight={500}>
         {rating}

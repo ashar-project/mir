@@ -12,6 +12,7 @@ import { adminGraduatedSlice } from './admin/adminGraduated/adminGraduatedSlice'
 import { adminGaveUpSlice } from './admin/adminGaveUp/adminGaveUpSlice';
 import { profileSlice } from './slice/profileSlice/profileSlice';
 import { adminPaymentSlice } from './admin/adminPayment/adminPaymentSlice';
+import { adminMainSlice } from './admin/adminMain/adminMainSlice';
 
 export const rootReducer = combineReducers({
   sidebar: sidebarReducer,
@@ -26,4 +27,5 @@ export const rootReducer = combineReducers({
   adminGaveUp: adminGaveUpSlice.reducer,
   profile: profileSlice.reducer,
   pay: adminPaymentSlice.reducer,
+  adminMain: adminMainSlice.reducer,
 });

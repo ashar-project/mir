@@ -1,6 +1,5 @@
 import { Box, styled, Typography } from '@mui/material';
-import React from 'react';
-import { FiEdit } from 'react-icons/fi';
+import React, { useEffect } from 'react';
 import { Button } from '@/components';
 import { ActionsImg } from './lib/Actions';
 import { Table } from '@/components/Table';
@@ -8,10 +7,18 @@ import { MobileCard } from '..';
 import { useDispatch, useSelector } from 'react-redux';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { toggleOpen } from '@/modules/Sidebar/store';
+import { getMainData } from '@/store/admin/adminMain/adminMainThunk';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 export const TotalAmout = () => {
-  const { user } = useSelector(state => state.user);
+  const { main, isLoading } = useSelector(state => state.adminMain);
+  console.log(main);
+
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMainData());
+  }, []);
+
   const columns = [
     {
       accessorKey: 'ddf',
@@ -37,9 +44,7 @@ export const TotalAmout = () => {
   ];
   return (
     <>
-      <div style={{ position: 'absolute', top: 14, left: 5 }}>
-        <RxHamburgerMenu onClick={() => dispatch(toggleOpen())} size={30} />
-      </div>
+      {isLoading && <Spinner />}
       <Main>
         <BlockOne>
           <TypographyStyled
@@ -58,7 +63,8 @@ export const TotalAmout = () => {
                 fontWeight={700}
                 color="#37D3D3"
               >
-                9 000 000 000
+                {new Intl.NumberFormat('ru-RU').format(main.globalSum)}
+                <span> сом</span>
               </Typography>
             </KrugBlockMini>
           </KrugBlock>
@@ -73,9 +79,9 @@ export const TotalAmout = () => {
           </Typography>
         </BlockOne>
 
-        <MobileCard item={user} />
+        <MobileCard item={main.users} />
         <Div>
-          <Table data={user} columns={columns} />
+          <Table data={main.users} columns={columns} />
         </Div>
       </Main>
     </>

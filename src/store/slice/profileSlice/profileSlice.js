@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { gaveUser, getProfileUser, updateProfile } from './profileThunk';
+import {
+  addFileAWS3,
+  gaveUser,
+  getProfileUser,
+  updateProfile,
+} from './profileThunk';
 
 export const profileSlice = createSlice({
   name: 'profile',
@@ -38,6 +43,16 @@ export const profileSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(updateProfile.rejected, state => {
+        state.isLoading = false;
+      })
+      .addCase(addFileAWS3.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(addFileAWS3.fulfilled, (state, { payload }) => {
+        state.file = payload;
+        state.isLoading = false;
+      })
+      .addCase(addFileAWS3.rejected, state => {
         state.isLoading = false;
       });
   },

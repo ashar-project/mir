@@ -5,7 +5,10 @@ import { useState } from 'react';
 import { AdminPaymentTable } from './AdminTable/AdminTable';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { postReceivedUserPayment } from '@/store/admin/adminReceived/adminReceivedThunk';
+import {
+  getReceivedUser,
+  postReceivedUserPayment,
+} from '@/store/admin/adminReceived/adminReceivedThunk';
 import { Spinner } from '@/components/Spinner/Spinner';
 
 const options = [
@@ -18,9 +21,9 @@ export const AdminInnerReceivePage = () => {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('Ожидание.');
-  const receivedUser = useSelector(state => state.adminReceived.receivedUser);
-  const isLoading = useSelector(state => state.adminReceived.isLoading);
+  const { receivedUser, isLoading } = useSelector(state => state.adminReceived);
   const [sum, setText] = useState('');
+
   const dispatch = useDispatch();
   const handleChange = event => setStatus(event.target.value);
   const openModal = () => setOpen(prev => !prev);
@@ -33,10 +36,12 @@ export const AdminInnerReceivePage = () => {
     };
     dispatch(postReceivedUserPayment({ userId: id, value })).then(() => {
       openModal();
+      dispatch(getReceivedUser());
     });
     setStatus('Ожидание.');
     setText('');
   };
+  console.log(receivedUser);
 
   return (
     <>
@@ -44,16 +49,13 @@ export const AdminInnerReceivePage = () => {
       <Container>
         <BlockOne>
           <ImgBlock>
-            <Img src={Girl} alt="Profile" />
+            <Img src={receivedUser.photoUrl || Girl} alt="Profile" />
             <TypographyStyled
               variant="h5"
               fontFamily={'Montserrat,sans-serif'}
               fontWeight={400}
             >
-              John Doe
-            </TypographyStyled>
-            <TypographyStyled variant="h4" fontFamily={'Montserrat,sans-serif'}>
-              50%
+              {receivedUser.userName}
             </TypographyStyled>
           </ImgBlock>
         </BlockOne>

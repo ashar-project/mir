@@ -19,17 +19,14 @@ export const authSlice = createSlice({
       state.token = '';
     },
   },
+
   extraReducers(builder) {
     builder
       .addCase(signUp.pending, state => {
         state.isLoading = true;
       })
-      .addCase(signUp.fulfilled, (state, { payload }) => {
-        console.log(payload);
-        state.isAuth = true;
+      .addCase(signUp.fulfilled, state => {
         state.isLoading = false;
-        state.role = payload.role;
-        state.token = payload.token;
       })
       .addCase(signUp.rejected, state => {
         state.isLoading = false;
