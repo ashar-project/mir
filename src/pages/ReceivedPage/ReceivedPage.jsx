@@ -10,7 +10,7 @@ export const ReceivedPage = () => {
   const dispatch = useDispatch();
   const { received } = useSelector(state => state.received);
   const navigate = useNavigate();
-
+  console.log(received)
   useEffect(() => {
     dispatch(getReceived());
   }, []);

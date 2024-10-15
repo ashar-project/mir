@@ -12,3 +12,5 @@ export const getGaveUp = createAsyncThunk(
     }
   }
 );
+
+

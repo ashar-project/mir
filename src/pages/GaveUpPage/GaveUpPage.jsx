@@ -15,7 +15,7 @@ export const GaveUpPage = () => {
 
   return (
     <Box height="100vh" width="100%">
-      {gaveUp.lenght ? (
+      {!gaveUp.lenght ? (
         <GraduatedTable data={gaveUp} />
       ) : (
         <div style={{ width: '100%', height: '100%' }}>

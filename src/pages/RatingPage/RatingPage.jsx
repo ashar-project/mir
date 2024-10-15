@@ -1,13 +1,14 @@
-import { Button } from '@mui/material';
+import { Button, styled } from '@mui/material';
 import { FaArrowLeft as BackIcon } from 'react-icons/fa6';
-
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './test.module.css';
-
 import { Table } from '@/components/Table';
-import { Actions } from '@/components/Table/Actions';
-import { tableData } from '@/helpers/tableConstants';
 import { ActionsImg } from '@/pages/Admin/TotalAmountPage/lib/Actions';
+import { data } from '@/modules/World/helpers/mock-data';
+import { MobileCard } from '../Admin';
+import { useDispatch, useSelector } from 'react-redux';
+import { getByIdWorldInfo } from '@/store/admin/adminWorld/adminWorldThunk';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 const columns = [
   {
@@ -28,30 +29,37 @@ const columns = [
     accessorKey: '',
     header: 'Cумма',
     cell: ({ row }) => (
-      <div style={{ marginLeft: '20px' }}>{row.original.total}</div>
+      <div style={{ marginLeft: '20px' }}>{row.original.totalSum}</div>
     ),
-  },
-  {
-    accessorKey: 'action',
-    header: null,
-    cell: ({ row }) => <Actions {...row} />,
   },
 ];
 
 export const RatingPage = () => {
   const { id: ratingID } = useParams();
+  const { user, isLoading } = useSelector(state => state.userAdmin);
   const navigate = useNavigate();
+  const value = data.find(item => item.id === +ratingID);
+  const dispatch = useDispatch();
 
-  // Доделать функцию для перехода на страницу пользователя
   const onClickTableItem = userId => {
-    // navigate(String(userId), {
-    //   replace: false,
-    // });
     console.log(userId);
+    dispatch(getByIdWorldInfo({ userId }))
+      .then(result => {
+        if (result.meta.requestStatus === 'fulfilled') {
+          navigate(`/admin/worlds-page/${userId}/adminInnerTablePage`);
+        } else {
+          console.error('Ошибка при получении данных:', result.error.message);
+        }
+      })
+      .catch(error => {
+        console.error('Произошла ошибка:', error);
+      });
   };
+  console.log(user);
 
   return (
     <div className={styles.container}>
+      {isLoading && <Spinner />}
       <Button
         variant="outlined"
         className={styles.backButton}
@@ -63,15 +71,42 @@ export const RatingPage = () => {
 
       <div className={styles.ratingBox}>
         <div className={styles.ratingItem}>{ratingID}</div>
-        <div className={styles.ratingAmount}>1000-1000</div>
+        <div className={styles.ratingAmount}>
+          {value.from} - {value.to}
+        </div>
       </div>
 
-      <Table
-        columns={columns}
-        data={tableData}
-        variant="patients"
-        onClickItem={onClickTableItem}
-      />
+      <TableInfo>
+        <Table
+          columns={columns}
+          data={user}
+          variant="admin"
+          onClickItem={onClickTableItem}
+        />
+      </TableInfo>
+      <div>
+        <MobileCard
+          item={Array.isArray(user) ? user : []}
+          handlerId={onClickTableItem}
+        />
+      </div>
+      {!user.length > 0 && (
+        <NoDataMessage>Нет данных для отображения.</NoDataMessage>
+      )}
     </div>
   );
 };
+
+const TableInfo = styled('div')(({ theme }) => ({
+  cursor: 'pointer',
+  [theme.breakpoints.down('sm')]: {
+    display: 'none',
+  },
+}));
+
+const NoDataMessage = styled('div')(({ theme }) => ({
+  marginTop: '20px',
+  fontSize: '16px',
+  color: theme.palette.text.secondary,
+  textAlign: 'center',
+}));

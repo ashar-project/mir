@@ -15,15 +15,15 @@ import { ResetPassword } from '@/pages/RegistrationPage/ResetPassword/ResetPassw
 import { Roles } from './lib/rout';
 
 export const Routing = () => {
-  const { isAuth } = useSelector(state => state.auth);
+  const { isAuth, role } = useSelector(state => state.auth);
   const router = createBrowserRouter([
     {
       path: '/',
       element: (
         <ProtectedRouter
           isAuth={isAuth}
-          roles={Roles.USER}
-          fallbackPath={'/admin'}
+          roles={[Roles.USER]}
+          fallbackPath={'/sign-in'}
         >
           <Suspense fallback={<Spinner />}>
             <Layout />
@@ -35,7 +35,11 @@ export const Routing = () => {
     {
       path: '/admin',
       element: (
-        <ProtectedRouter fallbackPath={'/sign-in'} isAuth={isAuth} roles={Roles.ADMIN}>
+        <ProtectedRouter
+          isAuth={isAuth}
+          roles={[Roles.ADMIN]}
+          fallbackPath={'/sign-in'}
+        >
           <Suspense fallback={<Spinner />}>
             <AdminLayout />
           </Suspense>
@@ -46,15 +50,9 @@ export const Routing = () => {
     {
       path: '/sign-up',
       element: (
-        <ProtectedRouter
-          isAuth={!isAuth}
-          fallbackPath={'/'}
-          roles={Roles.ADMIN}
-        >
-          <Suspense fallback={<Spinner />}>
-            <SignUp />
-          </Suspense>
-        </ProtectedRouter>
+        <Suspense fallback={<Spinner />}>
+          <SignUp />
+        </Suspense>
       ),
     },
     {
@@ -62,8 +60,8 @@ export const Routing = () => {
       element: (
         <ProtectedRouter
           isAuth={!isAuth}
+          roles={[Roles.GUEST]}
           fallbackPath={'/'}
-          roles={Roles.GUEST}
         >
           <Suspense fallback={<Spinner />}>
             <SignIn />
@@ -76,7 +74,7 @@ export const Routing = () => {
       element: (
         <ProtectedRouter
           isAuth={!isAuth}
-          roles={Roles.GUEST}
+          roles={[Roles.GUEST]}
           fallbackPath={'/'}
         >
           <Suspense fallback={<Spinner />}>
@@ -90,7 +88,7 @@ export const Routing = () => {
       element: (
         <ProtectedRouter
           isAuth={!isAuth}
-          roles={Roles.GUEST}
+          roles={[Roles.GUEST]}
           fallbackPath={'/'}
         >
           <Suspense fallback={<Spinner />}>

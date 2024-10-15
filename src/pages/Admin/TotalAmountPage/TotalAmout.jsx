@@ -1,18 +1,23 @@
-import { Box, styled, TextField, Typography } from '@mui/material';
-import React from 'react';
-import IconButton from '@mui/material/IconButton';
-import { IoMenu as MenuIcon } from 'react-icons/io5';
-import { useSidebar } from '@/modules/Sidebar';
-import { FiEdit } from 'react-icons/fi';
+import { Box, styled, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
 import { Button } from '@/components';
-import { Actions } from '@/components/Table/Actions';
-import { tableData } from '@/helpers/tableConstants';
 import { ActionsImg } from './lib/Actions';
 import { Table } from '@/components/Table';
 import { MobileCard } from '..';
+import { useDispatch, useSelector } from 'react-redux';
+import { RxHamburgerMenu } from 'react-icons/rx';
+import { toggleOpen } from '@/modules/Sidebar/store';
+import { getMainData } from '@/store/admin/adminMain/adminMainThunk';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 export const TotalAmout = () => {
-  const { open, toggleOpen } = useSidebar();
+  const { main, isLoading } = useSelector(state => state.adminMain);
+  console.log(main);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMainData());
+  }, []);
 
   const columns = [
     {
@@ -33,17 +38,13 @@ export const TotalAmout = () => {
       accessorKey: '',
       header: 'Cумма',
       cell: ({ row }) => (
-        <div style={{ marginLeft: '20px' }}>{row.original.total}</div>
+        <div style={{ marginLeft: '20px' }}>{row.original.totalSum}</div>
       ),
-    },
-    {
-      accessorKey: ' ',
-      header: ' ',
-      cell: ({ row }) => <Actions {...row} />,
     },
   ];
   return (
     <>
+      {isLoading && <Spinner />}
       <Main>
         <BlockOne>
           <TypographyStyled
@@ -62,14 +63,11 @@ export const TotalAmout = () => {
                 fontWeight={700}
                 color="#37D3D3"
               >
-                9 000 000 000
+                {new Intl.NumberFormat('ru-RU').format(main.globalSum)}
+                <span> сом</span>
               </Typography>
             </KrugBlockMini>
           </KrugBlock>
-          <ButtonStyled className="butoon">
-            <Typography>Изменить</Typography>
-            <FiEdit sx={{ marginBottom: '5px' }} />
-          </ButtonStyled>
           <Typography
             fontSize={'24px'}
             textAlign={'center'}
@@ -80,11 +78,10 @@ export const TotalAmout = () => {
             Запросы на добавления
           </Typography>
         </BlockOne>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(item => (
-          <MobileCard item={item} />
-        ))}
+
+        <MobileCard item={main.users} />
         <Div>
-          <Table data={tableData} columns={columns} />
+          <Table data={main.users} columns={columns} />
         </Div>
       </Main>
     </>

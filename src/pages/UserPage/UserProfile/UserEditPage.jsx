@@ -1,42 +1,161 @@
 import { Negr } from '@/assets/image';
 import { upload as Upload } from '@/assets/icon';
 import { Button, Input } from '@/components';
-import { Box, styled, Typography } from '@mui/material';
+import { Box, styled, TextField, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useDropzone } from 'react-dropzone';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import {
+  addFileAWS3,
+  updateProfile,
+} from '@/store/slice/profileSlice/profileThunk';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 export const UserEditPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {
+    profile,
+    isLoading,
+    file: Files,
+  } = useSelector(state => state.profile);
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: profile?.name || '',
+      goal: profile?.goal || '',
+      phoneNumber: profile?.phoneNumber || '',
+      photoUrl: profile?.photoUrl || '',
+    },
+  });
+
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  useEffect(() => {
+    reset(profile);
+    setValue('photoUrl', Files.link);
+  }, [profile]);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: acceptedFiles => {
+      const file = acceptedFiles[0];
+      if (file) {
+        const objectUrl = URL.createObjectURL(file);
+        setSelectedFile(objectUrl);
+
+        dispatch(addFileAWS3(file))
+          .unwrap()
+          .then(uploadedFile => {
+            const { link } = uploadedFile;
+            setValue('photoUrl', link);
+          })
+          .catch(error => {
+            console.error('Ошибка загрузки файла:', error);
+            URL.revokeObjectURL(objectUrl);
+          });
+      }
+    },
+  });
+
+  useEffect(() => {
+    return () => {
+      if (selectedFile) {
+        URL.revokeObjectURL(selectedFile);
+      }
+    };
+  }, [selectedFile]);
+
+  const handlerSubmitValue = data => {
+    console.log(data);
+    const { id, ...value } = data;
+
+    dispatch(updateProfile(value));
+  };
+
   return (
-    <Main>
-      <Container>
-        <BlockOne>
-          <Div>
-            <Upload />
-          </Div>
-          <Img src={Negr} alt="Negr" />
-        </BlockOne>
-        <BlockTwo>
-          <Block>
-            <TypographyStyled>Имя:</TypographyStyled>
-            <Input fullWidth size="small" />
-          </Block>
-          <Block>
-            <TypographyStyled>Email:</TypographyStyled>
-            <Input fullWidth size="small" />
-          </Block>
-          <Block>
-            <TypographyStyled>Номер:</TypographyStyled>
-            <Input fullWidth size="small" />
-          </Block>
-        </BlockTwo>
-      </Container>
-      <ButtonBlock>
-        <Button variant="outlined" style={{ borderRadius: '10px' }} fullWidth>
-          Назад
-        </Button>
-        <Button style={{ borderRadius: '10px' }} fullWidth>
-          Изменить
-        </Button>
-      </ButtonBlock>
-    </Main>
+    <>
+      {isLoading && <Spinner />}
+      <Button style={{ margin: '10px' }} onClick={() => navigate(-1)}>
+        Назад
+      </Button>
+      <Main onSubmit={handleSubmit(handlerSubmitValue)}>
+        <Container>
+          <BlockOne {...getRootProps()}>
+            <Div>
+              {!Files && <Upload />}
+              <input {...getInputProps()} />
+            </Div>
+            {Files ? (
+              <Img src={Files.link} />
+            ) : (
+              <Img src={profile.photoUrl || Negr} alt="Profile" />
+            )}
+          </BlockOne>
+          <BlockTwo>
+            <Block>
+              <TypographyStyled>ФИО:</TypographyStyled>
+              <TextField
+                fullWidth
+                size="small"
+                {...register('name', {
+                  required: 'Имя обязательно для заполнения',
+                })}
+                error={!!errors.name}
+                helperText={errors.name?.message}
+              />
+            </Block>
+            <Block>
+              <TypographyStyled>Цель:</TypographyStyled>
+              <TextField
+                fullWidth
+                size="small"
+                {...register('goal', {
+                  required: 'Цель обязательна для заполнения',
+                })}
+                error={!!errors.goal}
+                helperText={errors.goal?.message}
+              />
+            </Block>
+            <Block>
+              <TypographyStyled>Номер:</TypographyStyled>
+              <TextField
+                fullWidth
+                size="small"
+                {...register('phoneNumber', {
+                  required: 'Номер телефона обязателен для заполнения',
+                  pattern: {
+                    value: /^[\d\+]{10,15}$/,
+                    message: 'Введите корректный номер телефона',
+                  },
+                })}
+                error={!!errors.phoneNumber}
+                helperText={errors.phoneNumber?.message}
+              />
+            </Block>
+          </BlockTwo>
+        </Container>
+        <ButtonBlock>
+          <Button
+            variant="outlined"
+            style={{ borderRadius: '10px' }}
+            onClick={() => navigate(-1)}
+            fullWidth
+          >
+            Назад
+          </Button>
+          <Button style={{ borderRadius: '10px' }} fullWidth type="submit">
+            Изменить
+          </Button>
+        </ButtonBlock>
+      </Main>
+    </>
   );
 };
 
@@ -63,7 +182,7 @@ const Container = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Main = styled(Box)(({ theme }) => ({
+const Main = styled('form')(({ theme }) => ({
   width: '1000px',
   height: '610px',
   display: 'flex',
@@ -81,7 +200,7 @@ const Main = styled(Box)(({ theme }) => ({
   },
 }));
 
-const ButtonBlock = styled(Box)(({ theme }) => ({
+const ButtonBlock = styled('div')(({ theme }) => ({
   width: '60%',
   display: 'flex',
   gap: '20px',
@@ -93,53 +212,6 @@ const ButtonBlock = styled(Box)(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'center',
     gap: '10px',
-  },
-}));
-
-const Progress = styled(Box)(({ theme }) => ({
-  width: '100%',
-  height: '44px',
-  borderRadius: '10px',
-  backgroundColor: '#E5E5E5',
-  position: 'relative',
-  display: 'none',
-  [theme.breakpoints.down('sm')]: {
-    display: 'block',
-    position: 'relative',
-    width: '100%',
-    height: '44px',
-  },
-}));
-
-const CircularProgress = styled(Box)(({ theme }) => ({
-  width: '67%',
-  height: '100%',
-  backgroundColor: '#637e7e',
-  borderRadius: '10px 10px 10px 10px',
-
-  [theme.breakpoints.down('sm')]: {
-    width: '67%',
-    height: '100%',
-    backgroundColor: '#637e7e',
-    borderRadius: '10px 10px 10px 10px',
-  },
-}));
-
-const Procent = styled(Box)(({ theme }) => ({
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  fontSize: '1.5em',
-  color: 'white',
-
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '16px',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    color: 'white',
   },
 }));
 
@@ -168,6 +240,7 @@ const Div = styled('div')(({ theme }) => ({
 const Img = styled('img')(({ theme }) => ({
   width: '100%',
   height: '100%',
+  objectFit: 'cover',
 
   [theme.breakpoints.down('sm')]: {
     width: '100%',

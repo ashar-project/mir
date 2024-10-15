@@ -1,7 +1,7 @@
-import { log, log as LogoOne, LogoTwo } from '@/assets/icon';
+import { log as LogoOne, LogoTwo } from '@/assets/icon';
 import {
   Box,
-  Button,
+  Button as MuiButton,
   InputAdornment,
   styled,
   TextField,
@@ -19,11 +19,14 @@ import { FaRegUser as UserIcon } from 'react-icons/fa';
 import { useCheckClient } from '@/helpers';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from '@/store/slice/auth/authThunk';
+import { Button } from '@/components';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 export const SignUp = () => {
   const { isMobile } = useCheckClient();
+  const { role, isLoading } = useSelector(state => state.auth);
   const navigate = useNavigate();
   const signInPage = () => {
     navigate('/sign-in');
@@ -38,85 +41,95 @@ export const SignUp = () => {
   const handlerSubmit = data => {
     console.log(data);
     dispatch(signUp(data));
+    reset();
   };
+
   return (
-    <Container>
-      <Logo>
-        {isMobile ? <LogoTwo /> : <LogoOne />}
-        <TypographyStyled>Добро пожаловать</TypographyStyled>
-      </Logo>
-      <Block onSubmit={handleSubmit(handlerSubmit)}>
-        <BlockOne>Регистрация</BlockOne>
-        <BlockTwo>
-          <Input
-            {...register('userName', {
-              required: true,
-            })}
-            error={!!errors.userName}
-            helperText={errors.userName?.message}
-            InputProps={{
-              endAdornment: (
-                <InputAdornmentStyled position="end">
-                  <UserIcon size={22} />
-                </InputAdornmentStyled>
-              ),
-            }}
-            placeholder="Full Name"
-          />
-          <Input
-            {...register('email', {
-              required: true,
-            })}
-            error={!!errors.email}
-            helperText={errors.email?.message}
-            InputProps={{
-              endAdornment: (
-                <InputAdornmentStyled position="end">
-                  <EmailIcon size={25} />
-                </InputAdornmentStyled>
-              ),
-            }}
-            placeholder="Email"
-          />
-          <Input
-            {...register('phoneNumber', {
-              required: true,
-            })}
-            error={!!errors.phoneNumber}
-            helperText={errors.phoneNumber?.message}
-            InputProps={{
-              endAdornment: (
-                <InputAdornmentStyled position="end">
-                  <IoMdCall size={25} />
-                </InputAdornmentStyled>
-              ),
-            }}
-            placeholder="Phone Number"
-          />
-          <Input
-            {...register('totalSum', {
-              required: true,
-            })}
-            error={!!errors.totalSum}
-            helperText={errors.totalSum?.message}
-            InputProps={{
-              endAdornment: (
-                <InputAdornmentStyled position="end">
-                  <TfiMoney size={25} />
-                </InputAdornmentStyled>
-              ),
-            }}
-            placeholder="Sum"
-          />
-        </BlockTwo>
-        <BlockThree>
-          <ButtonStyled type="submit" fullWidth>
-            Регистрация
-          </ButtonStyled>
-          <TypographyMui onClick={signInPage}>Войти</TypographyMui>
-        </BlockThree>
-      </Block>
-    </Container>
+    <>
+      {isLoading && <Spinner />}
+      <Container>
+        <Logo>
+          {isMobile ? <LogoTwo /> : <LogoOne />}
+          <TypographyStyled>Добро пожаловать</TypographyStyled>
+        </Logo>
+        <Block onSubmit={handleSubmit(handlerSubmit)}>
+          <Nazad>
+            <Button onClick={() => navigate(-1)}>Назад</Button>
+          </Nazad>
+          <BlockOne>Регистрация</BlockOne>
+          <BlockTwo>
+            <Input
+              {...register('userName', {
+                required: true,
+              })}
+              error={!!errors.userName}
+              helperText={errors.userName?.message}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornmentStyled position="end">
+                    <UserIcon size={22} />
+                  </InputAdornmentStyled>
+                ),
+              }}
+              placeholder="Full Name"
+            />
+            <Input
+              {...register('email', {
+                required: true,
+              })}
+              error={!!errors.email}
+              helperText={errors.email?.message}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornmentStyled position="end">
+                    <EmailIcon size={25} />
+                  </InputAdornmentStyled>
+                ),
+              }}
+              placeholder="Email"
+            />
+            <Input
+              {...register('phoneNumber', {
+                required: true,
+              })}
+              error={!!errors.phoneNumber}
+              helperText={errors.phoneNumber?.message}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornmentStyled position="end">
+                    <IoMdCall size={25} />
+                  </InputAdornmentStyled>
+                ),
+              }}
+              placeholder="Phone Number"
+            />
+            <Input
+              {...register('totalSum', {
+                required: true,
+              })}
+              error={!!errors.totalSum}
+              helperText={errors.totalSum?.message}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornmentStyled position="end">
+                    <TfiMoney size={25} />
+                  </InputAdornmentStyled>
+                ),
+              }}
+              placeholder="Sum"
+            />
+          </BlockTwo>
+          <BlockThree>
+            <ButtonStyled type="submit" fullWidth>
+              Регистрация
+            </ButtonStyled>
+            {!role === 'ADMIN' && (
+              <TypographyMui onClick={signInPage}>Войти</TypographyMui>
+            )}
+          </BlockThree>
+        </Block>
+      </Container>
+    </>
   );
 };
 
@@ -148,6 +161,15 @@ const InputAdornmentStyled = styled(InputAdornment)(({}) => ({
   },
 }));
 
+const Nazad = styled(Box)(({ theme }) => ({
+  marginLeft: '-470px',
+  marginTop: '5px',
+  [theme.breakpoints.down('sm')]: {
+    marginLeft: '-230px',
+    marginTop: '-10px',
+  },
+}));
+
 const Block = styled('form')(({ theme }) => ({
   width: '570px',
   height: '500px',
@@ -159,7 +181,6 @@ const Block = styled('form')(({ theme }) => ({
   alignItems: 'center',
   gap: '20px',
   borderRadius: '4px',
-
   [theme.breakpoints.down('sm')]: {
     backgroundColor: 'white',
     width: '20.625rem',
@@ -172,6 +193,7 @@ const Block = styled('form')(({ theme }) => ({
     justifyContent: 'center',
     gap: '.625rem',
     padding: '15px 0 0 0',
+    position: 'relative',
   },
 }));
 
@@ -258,7 +280,7 @@ const BlockThree = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: '20px',
   justifyContent: 'center',
-  marginTop: '10px',
+  marginTop: '80px',
 
   [theme.breakpoints.down('sm')]: {
     width: '15.6875rem',
@@ -323,7 +345,7 @@ const Input = styled(TextField)(({ theme }) => ({
   },
 }));
 
-const ButtonStyled = styled(Button)(({ theme }) => ({
+const ButtonStyled = styled(MuiButton)(({ theme }) => ({
   backgroundColor: '#37D3D3',
   padding: '13px',
   color: 'white',

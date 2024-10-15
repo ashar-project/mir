@@ -18,8 +18,9 @@ export const Layout = () => {
     '/tech-support',
     '/user-profile',
     /^\/received\/\d+\/received-profile$/,
-    /^\/\d+\/worldInfo$/, // Исправленное регулярное выражение
+    /^\/\d+\/worldInfo$/, 
     '/about',
+    '/user-profile/user-edit-page',
   ];
 
   useEffect(() => {

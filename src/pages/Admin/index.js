@@ -4,3 +4,4 @@ export { AdminGaveUpPage } from './AdminGaveUp/AdminGaveUp';
 export { AdminGraduatedPage } from './AdminGraduatedPage/AdminGraduatedPage';
 export { AdminReceivedPage } from './AdminReceivedPage/AdminReceivedPage';
 export { AdminInnerReceivePage } from './AdminInnerReceivedPage/AdminInnerReceivedPage';
+export { AdminWorldPage } from './AdminWorldPage/AdminWorldPage';

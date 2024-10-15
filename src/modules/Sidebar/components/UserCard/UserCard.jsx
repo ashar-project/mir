@@ -1,15 +1,19 @@
+import { SitePaths } from '@/routes/lib/UserRoutes';
 import { Stack, Avatar, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-export const UserCard = ({
-  imageUrl,
-  userName = 'No name',
-  isAdmin = false,
-}) => {
+export const UserCard = ({ imageUrl, userName = 'No name' }) => {
   const navigate = useNavigate();
+  const { role } = useSelector(state => state.auth);
+  const { profile } = useSelector(state => state.profile);
 
   const handleClick = () => {
-    isAdmin && navigate('/admin');
+    if (role === 'USER') {
+      role && navigate(SitePaths.userProfilePage);
+    } else {
+      navigate('/admin');
+    }
   };
 
   return (
@@ -28,7 +32,7 @@ export const UserCard = ({
       }}
     >
       <Avatar
-        src={imageUrl}
+        src={profile.photoUrl || imageUrl}
         sx={{
           width: '50px',
           height: '50px',
@@ -39,7 +43,7 @@ export const UserCard = ({
         <Typography color="#949494" fontSize={12} lineHeight={1.5}>
           Добрый день
         </Typography>
-        <Typography fontWeight={600}>{userName}</Typography>
+        <Typography fontWeight={600}>{profile.name || 'Syimyk'}</Typography>
       </Stack>
     </Stack>
   );

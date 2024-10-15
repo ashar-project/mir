@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
-
 import { LogoDesktop } from '@/assets/icon';
 import { UserCard, Drawer, MenuList } from '../..';
+import { useNavigate } from 'react-router-dom';
 
 export const DesktopSidebar = () => {
   return (
@@ -13,9 +13,12 @@ export const DesktopSidebar = () => {
 };
 
 const SidebarTop = () => {
+  const navigate = useNavigate();
   return (
     <Stack alignItems="center" spacing={2.5}>
-      <LogoDesktop />
+      <div onClick={() => navigate('/')}>
+        <LogoDesktop />
+      </div>
       <UserCard />
     </Stack>
   );

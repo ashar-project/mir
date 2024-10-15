@@ -1,9 +1,15 @@
-import { lazy } from 'react';
 import { AdminPaymentPage } from '@/pages/Admin/AdminPaymentPage/AdminPaymentPage';
-import { AdminGaveUpPage, AdminGraduatedPage, AdminInnerReceivePage, AdminReceivedPage, TotalAmout } from '@/pages/Admin';
-
-const WorldPage = lazy(() => import('@/pages/WorldPage'));
-const RatingPage = lazy(() => import('@/pages/RatingPage'));
+import {
+  AdminGaveUpPage,
+  AdminGraduatedPage,
+  AdminInnerReceivePage,
+  AdminReceivedPage,
+  AdminWorldPage,
+  TotalAmout,
+} from '@/pages/Admin';
+import RatingPage from '@/pages/RatingPage';
+import { AdminInnerTablePage } from '@/pages/Admin/AdminWorldPage';
+import { AdminReturnPay } from '@/pages/Admin/AdminReturnPay/AdminReturnPay';
 
 export const ADMIN_ROUTER = [
   {
@@ -16,12 +22,15 @@ export const ADMIN_ROUTER = [
     children: [
       {
         index: true,
-        element: <WorldPage />,
+        element: <AdminWorldPage />,
       },
-
       {
-        path: ':id',
+        path: ':id/worldRaiting',
         element: <RatingPage />,
+      },
+      {
+        path: ':userId/adminInnerTablePage',
+        element: <AdminInnerTablePage />,
       },
     ],
   },
@@ -34,7 +43,7 @@ export const ADMIN_ROUTER = [
         element: <AdminReceivedPage />,
       },
       {
-        path: 'received-inner-page',
+        path: ':id/received-inner-page',
         element: <AdminInnerReceivePage />,
       },
     ],
@@ -53,5 +62,9 @@ export const ADMIN_ROUTER = [
   {
     path: 'payment-page',
     element: <AdminPaymentPage />,
+  },
+  {
+    path: 'return-pay',
+    element: <AdminReturnPay />,
   },
 ];

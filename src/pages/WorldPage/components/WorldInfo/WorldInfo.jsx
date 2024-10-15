@@ -1,6 +1,5 @@
 import { Button } from '@/components';
 import { Table } from '@/components/Table';
-import { tableData } from '@/helpers/tableConstants';
 import { data } from '@/modules/World/helpers/mock-data';
 import { MobileCard } from '@/pages/Admin';
 import { ActionsImg } from '@/pages/Admin/TotalAmountPage/lib/Actions';
@@ -27,7 +26,10 @@ export const WorldInfo = () => {
     {
       accessorKey: 'userName',
       header: 'Имя, фамилия',
-      cell: ({ row }) => <ActionsImg row={row} />,
+      cell: ({ row }) => {
+        console.log(row.original);
+        return <ActionsImg row={row} />;
+      },
     },
     {
       accessorKey: 'email',

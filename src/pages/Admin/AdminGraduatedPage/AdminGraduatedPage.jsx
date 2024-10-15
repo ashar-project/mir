@@ -1,34 +1,40 @@
-import React from 'react';
-import { Box, styled, TextField, Button } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import React, { useEffect } from 'react';
+import { Box, styled, TextField, Button, Typography } from '@mui/material';
 import { Cards } from '@/components';
 import { cardsData } from '@/modules/GaveUp/components';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAdminGraduated } from '@/store/admin/adminGraduated/adminGraduatedThunk';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 export const AdminGraduatedPage = () => {
+  const dispatch = useDispatch();
+  const { adminGraudated, isLoading } = useSelector(
+    state => state.adminGraduated
+  );
+  useEffect(() => {
+    dispatch(getAdminGraduated());
+  }, []);
+
+  console.log(adminGraudated);
+
   return (
     <Wrapper>
+      {isLoading && <Spinner />}
       <ContentWrapper>
-        <SearchContainer>
-          <StyledTextField placeholder="Поиск" variant="outlined" />
-          <ClearButton
-            variant="contained"
-            color="error"
-            endIcon={<DeleteIcon />}
-          >
-            Очистить
-          </ClearButton>
-        </SearchContainer>
         <StyledDiv />
         <StyledBox>
-          {cardsData.map(card => (
+          {adminGraudated.map(card => (
             <StyledContainerCart key={card.id}>
               <Cards
-                name={card.name}
-                percentage={card.percentage}
-                imageSrc={card.imageSrc}
+                name={card.userName}
+                percentage={card.totalSum}
+                imageSrc={card.photoUrl}
               />
             </StyledContainerCart>
           ))}
+          {!adminGraudated?.length && (
+            <Typography>Пока что нет данных</Typography>
+          )}
         </StyledBox>
       </ContentWrapper>
     </Wrapper>
@@ -116,8 +122,8 @@ const ClearButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#D50000',
   },
   [theme.breakpoints.down('sm')]: {
-    width: "150px",
-    height:"36px",
+    width: '50px',
+    height: '36px',
     fontSize: '0.8rem',
     marginTop: '-2px',
     marginLeft: '10px',
