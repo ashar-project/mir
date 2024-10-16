@@ -43,7 +43,9 @@ export const WorldInfo = () => {
       accessorKey: 'totalSum',
       header: 'Cумма',
       cell: ({ row }) => (
-        <div style={{ marginLeft: '20px' }}>{row.original.totalSum}</div>
+        <div style={{ marginLeft: '20px' }}>
+          {new Intl.NumberFormat('ru-RU').format(row.original.totalSum)}
+        </div>
       ),
     },
   ];
@@ -82,7 +84,8 @@ export const WorldInfo = () => {
               },
             }}
           >
-            {value.from} - {value.to} Сом
+            {new Intl.NumberFormat('ru-RU').format(value.from)} -
+            {new Intl.NumberFormat('ru-RU').format(value.to)} Сом
           </Typography>
         </BlockSumm>
       </NavBox>

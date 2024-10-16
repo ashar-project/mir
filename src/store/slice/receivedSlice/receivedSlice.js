@@ -18,6 +18,7 @@ export const receivedSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getReceived.fulfilled, (state, { payload }) => {
+        state.receivedBig = payload;
         state.received = payload;
         state.isLoading = false;
         state.searches = payload;
@@ -40,7 +41,11 @@ export const receivedSlice = createSlice({
       })
       .addCase(searchReceived.fulfilled, (state, { payload }) => {
         state.isLoading = false;
+        state.receivedBig = payload;
         state.searches = payload;
+      })
+      .addCase(searchReceived.rejected, state => {
+        state.isLoading = false;
       });
   },
 });

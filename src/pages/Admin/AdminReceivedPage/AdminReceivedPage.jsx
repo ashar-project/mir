@@ -13,16 +13,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   getAdminReceived,
   getReceivedUser,
+  searchesReceived,
 } from '@/store/admin/adminReceived/adminReceivedThunk';
 import { Spinner } from '@/components/Spinner/Spinner';
 import { useNavigate } from 'react-router-dom';
 
 export const AdminReceivedPage = () => {
   const dispatch = useDispatch();
-  const { isLoading, searchesAll } = useSelector(state => state.adminReceived);
+  const { isLoading, searchesAll, all } = useSelector(
+    state => state.adminReceived
+  );
   const navigate = useNavigate();
+  const query = '';
   useEffect(() => {
     dispatch(getAdminReceived());
+    dispatch(searchesReceived(query));
   }, []);
 
   const handlerClick = id => {
@@ -35,7 +40,7 @@ export const AdminReceivedPage = () => {
       <ContentWrapper>
         <StyledDiv />
         <StyledBox>
-          {searchesAll?.map(card => (
+          {all?.map(card => (
             <StyledContainerCart
               key={card.id}
               onClick={() => handlerClick(card.id)}
@@ -47,7 +52,7 @@ export const AdminReceivedPage = () => {
               />
             </StyledContainerCart>
           ))}
-          {!searchesAll?.length && <Typography>Пока что нет данных</Typography>}
+          {!all?.length && <Typography>Пока что нет данных</Typography>}
         </StyledBox>
       </ContentWrapper>
     </Wrapper>
@@ -62,72 +67,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
 
 const ContentWrapper = styled(Box)(({ theme }) => ({
   width: '100%',
-  padding: '0 10px',
-}));
-
-const SearchContainer = styled(Box)(({ theme }) => ({
-  width: '100%',
-  display: 'flex',
-  justifyContent: 'space-around',
-  alignItems: 'center',
-  marginBottom: '10px',
-  position: 'sticky',
-  top: 0,
-  zIndex: 1000,
-  padding: '10px 0',
-  backgroundColor: 'white',
-
-  [theme.breakpoints.down('sm')]: {
-    justifyContent: 'center',
-    padding: '10px 0',
-  },
-}));
-
-const HamburgerIcon = styled('div')(({ theme }) => ({
-  display: 'none',
-  [theme.breakpoints.down('sm')]: {
-    display: 'block',
-    position: 'absolute',
-    left: '5px',
-    top: '14px',
-  },
-}));
-
-const StyledTextField = styled(TextField)(({ theme }) => ({
-  width: '256px',
-  height: '42px',
-  marginTop: '20px',
-  '& .MuiOutlinedInput-root': {
-    borderRadius: '8px',
-    height: '42px',
-    border: '1px solid #000000',
-  },
-  '& .MuiInputBase-input': {
-    padding: '10px 14px',
-  },
-  [theme.breakpoints.down('sm')]: {
-    width: '180px',
-    marginTop: '5px',
-    '& .MuiOutlinedInput-root': {
-      height: '35px',
-    },
-  },
-}));
-
-const ClearButton = styled(Button)(({ theme }) => ({
-  height: '42px',
-  width: '150px',
-  backgroundColor: '#FF0000',
-  borderRadius: '8px',
-  '&:hover': {
-    backgroundColor: '#D50000',
-  },
-  [theme.breakpoints.down('sm')]: {
-    width: '50px',
-    height: '36px',
-    fontSize: '0.8rem',
-    marginLeft: '10px',
-  },
+  padding: '0 7px',
 }));
 
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -146,7 +86,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
 const StyledContainerCart = styled('div')({
   display: 'flex',
   justifyContent: 'center',
-  padding: '5px',
+  padding: '15px',
 });
 
 const StyledDiv = styled('div')(({ theme }) => ({

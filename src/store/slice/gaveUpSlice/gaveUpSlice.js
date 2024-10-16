@@ -8,6 +8,7 @@ export const gaveUpSlice = createSlice({
     gaveUp: [],
     error: null,
     searchesAll: [],
+    all:[]
   },
   reducers: {},
   extraReducers: builder => {
@@ -16,6 +17,7 @@ export const gaveUpSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getGaveUp.fulfilled, (state, { payload }) => {
+        state.all = payload;
         state.gaveUp = payload;
         state.isLoading = false;
       })
@@ -27,6 +29,7 @@ export const gaveUpSlice = createSlice({
       })
       .addCase(searchesGaveUp.fulfilled, (state, { payload }) => {
         state.isLoading = false;
+        state.all = payload;
         state.searchesAll = payload;
       })
       .addCase(searchesGaveUp.rejected, state => {

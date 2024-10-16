@@ -1,4 +1,4 @@
-import { toastifyMessage } from '@/components/Toastify/Toastify';
+import { toast } from 'react-toastify';
 import { axiosInstance } from '@/config/axiosInstans';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
@@ -8,23 +8,34 @@ export const signUp = createAsyncThunk(
     try {
       const response = await axiosInstance.post('/api/auth/signUp', value);
 
-      toastifyMessage({
-        message: response.data.message,
-        status: 'success',
-        duration: 1500,
+      toast(response.data.message || 'Регистрация прошла успешно!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
       });
 
       return response.data;
     } catch (error) {
-      const errorMessage = error.response?.data?.exceptionMessage;
+      const errorMessage =
+        error.response?.data?.exceptionMessage ||
+        'Произошла ошибка при регистрации';
 
-      toastifyMessage({
-        message: errorMessage,
-        status: 'error',
-        duration: 2500,
+      toast(errorMessage, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
+        type: 'error',
       });
 
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(error.response?.data || errorMessage);
     }
   }
 );
@@ -34,19 +45,35 @@ export const signIn = createAsyncThunk(
   async (value, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.post('/api/auth/signIn', value);
-      toastifyMessage({
-        message: data.message,
-        status: 'success',
-        duration: 1500,
+
+      toast(data.message || 'Авторизация успешна!', {
+        position: 'top-right',
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
+        type: 'success',
       });
+
       return data;
     } catch (error) {
-      toastifyMessage({
-        message: 'Упс что то пощло не так	',
-        status: 'error',
-        duration: 1500,
+      const errorMessage =
+        error.response?.data?.exceptionMessage || 'Ошибка при авторизации';
+
+      toast(errorMessage, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
+        type: 'error',
       });
-      return rejectWithValue(error);
+
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -58,22 +85,36 @@ export const forgotPassword = createAsyncThunk(
       await axiosInstance.post(
         `/api/auth/forgot-password?email=${value.email}&link=${value.link}`
       );
-      toastifyMessage({
-        message:
-          'Проверьте электронную почту для получения инструкций по сбросу пароля.',
-        status: 'success',
-        duration: 2500,
-      });
+
+      toast(
+        'Проверьте электронную почту для получения инструкций по сбросу пароля.',
+        {
+          position: 'top-right',
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: 'light',
+          type: 'success',
+        }
+      );
     } catch (error) {
-      toastifyMessage({
-        message: 'Упс что то пощло не так	',
-        status: 'error',
-        duration: 1500,
+      toast('Упс, что-то пошло не так', {
+        position: 'top-right',
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
+        type: 'error',
       });
       return rejectWithValue(error);
     }
   }
 );
+
 export const resetPassword = createAsyncThunk(
   'auth/resetPassword',
   async ({ token, newPassword, reset }, { rejectWithValue }) => {
@@ -82,21 +123,33 @@ export const resetPassword = createAsyncThunk(
         newPassword,
         token,
       });
-      toastifyMessage({
-        message: 'Пароль успешно изменен',
-        status: 'success',
-        duration: 2500,
+
+      toast('Пароль успешно изменен', {
+        position: 'top-right',
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
+        type: 'success',
       });
+
       reset();
 
       setTimeout(() => {
         window.location.pathname = '/sign-in';
       }, 500);
     } catch (error) {
-      toastifyMessage({
-        message: 'Упс что то пощло не так	',
-        status: 'error',
-        duration: 1500,
+      toast('Упс, что-то пошло не так', {
+        position: 'top-right',
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
+        type: 'error',
       });
       return rejectWithValue(error);
     }

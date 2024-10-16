@@ -7,10 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
-import {
-  MdOutlineMarkEmailUnread as EmailIcon,
-  MdOutlinePassword as PasswordIcon,
-} from 'react-icons/md';
+import { MdOutlineMarkEmailUnread as EmailIcon } from 'react-icons/md';
 import { GoEyeClosed } from 'react-icons/go';
 import { GoEye } from 'react-icons/go';
 
@@ -24,7 +21,7 @@ import { Spinner } from '@/components/Spinner/Spinner';
 
 export const SignIn = () => {
   const { isMobile } = useCheckClient();
-  const { isLoading } = useSelector(state => state.auth);
+  const { isLoading, error } = useSelector(state => state.auth);
   const [open, setOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -33,7 +30,7 @@ export const SignIn = () => {
     formState: { errors },
     handleSubmit,
     register,
-  } = useForm();
+  } = useForm({ mode: 'onChange' });
 
   const forgotPage = () => {
     navigate('/forgot');
@@ -67,8 +64,15 @@ export const SignIn = () => {
             placeholder="Email"
           />
           <Input
-            {...register('password', { required: true })}
-            error={!!errors.password}
+            {...register('password', {
+              required: 'Пароль обязателен',
+              minLength: {
+                value: 8,
+                message: 'Пароль должен быть не менее 8 символов',
+              },
+            })}
+            error={!!error?.password}
+            helperText={errors?.password?.message}
             type={!open ? 'password' : 'text'}
             InputProps={{
               endAdornment: (
@@ -340,6 +344,7 @@ const TypographyMuiTwo = styled(Typography)(({ theme }) => ({
   bottom: '0px',
   textDecoration: 'underline',
   cursor: 'pointer',
+
   [theme.breakpoints.down('sm')]: {
     color: '#9A9A9A',
     fontFamily: 'Montserrat,sans-serif',
@@ -347,6 +352,6 @@ const TypographyMuiTwo = styled(Typography)(({ theme }) => ({
     textDecoration: 'underline',
     position: 'absolute',
     left: '0',
-    bottom: '-20px',
+    bottom: '-30px',
   },
 }));

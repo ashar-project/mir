@@ -45,9 +45,9 @@ export const adminGaveUpSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(searchGaveUp.fulfilled, (state, { payload }) => {
+        state.allGave = payload;
         state.searchesAll = payload;
         state.isLoading = false;
-        state.allGave = payload;
       })
       .addCase(searchGaveUp.rejected, state => {
         state.isLoading = false;

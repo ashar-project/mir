@@ -2,6 +2,7 @@ import { toastifyMessage } from '@/components/Toastify/Toastify';
 import { axiosInstance } from '@/config/axiosInstans';
 import { axiosInstanceFile } from '@/config/axiosInstansFile';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { getGaveUp } from '../gaveUpSlice/gaveUpThunk';
 
 export const getProfileUser = createAsyncThunk(
   'profile/getProfileUser',
@@ -17,7 +18,7 @@ export const getProfileUser = createAsyncThunk(
 
 export const gaveUser = createAsyncThunk(
   'profile/gaveUser',
-  async (navigate, { rejectWithValue }) => {
+  async (navigate, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await axiosInstance.patch('/api/users/status/submitted');
       toastifyMessage({
@@ -26,6 +27,7 @@ export const gaveUser = createAsyncThunk(
         status: 'success',
       });
       navigate('/gave-up');
+      dispatch(getGaveUp());
       return data;
     } catch (error) {
       toastifyMessage({

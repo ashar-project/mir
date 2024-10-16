@@ -10,7 +10,7 @@ export const GraduatedTable = ({ data, goInnerPage }) => {
       console.error('goInnerPage is not a function');
     }
   };
-
+  console.log(data)
   return (
     <CustomGrid>
       {data.map(({ userName, photoUrl, id }, index) => (

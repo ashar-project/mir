@@ -12,6 +12,7 @@ export const adminGraduatedSlice = createSlice({
     adminGraudated: [],
     error: null,
     searchAll: [],
+    all:[]
   },
   reducers: {},
   extraReducers: builder => {
@@ -20,6 +21,7 @@ export const adminGraduatedSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getAdminGraduated.fulfilled, (state, { payload }) => {
+        state.all = payload;
         state.adminGraudated = payload;
         state.isLoading = false;
       })
@@ -33,6 +35,7 @@ export const adminGraduatedSlice = createSlice({
         state.isLoading = false;
         state.adminGraudated = [];
         state.searchAll = [];
+        state.all = [];
       })
       .addCase(deleteGraduatedUsers.rejected, state => {
         state.isLoading = false;
@@ -41,6 +44,7 @@ export const adminGraduatedSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(searchesGraduated.fulfilled, (state, { payload }) => {
+        state.all = payload;
         state.searchAll = payload;
         state.isLoading = false;
       })

@@ -12,7 +12,7 @@ import {
 import { Button } from '@/components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Negr } from '@/assets/image';
+import { Avatar as MyAvatar } from '@/assets/image';
 import { addDebtUser } from '@/store/admin/adminWorld/adminWorldThunk';
 import { Spinner } from '@/components/Spinner/Spinner';
 import { unwrapResult } from '@reduxjs/toolkit';
@@ -69,11 +69,10 @@ export const AdminInnerTablePage = () => {
   };
 
   const handlerSubmitValue = () => {
-    dispatch(addDebtUser({ userId: userInfo.id, debtSum: tot }))
+    dispatch(addDebtUser({ userId: userInfo.id, debtSum: tot, navigate }))
       .then(unwrapResult)
       .then(() => {
         handleClose();
-        navigate(-1);
       })
       .catch(error => {
         console.error('Error adding debt:', error);
@@ -89,7 +88,10 @@ export const AdminInnerTablePage = () => {
         <Button onClick={() => navigate(-1)}>Назад</Button>
       </Boxing>
       <StyledProfile>
-        <StyledAvatar alt="William Damian" src={userInfo.photoUrl || Negr} />
+        <StyledAvatar
+          alt="William Damian"
+          src={userInfo.photoUrl || MyAvatar}
+        />
         <StyledName variant="h6">
           {userInfo.userName || 'Admin Adminov'}
         </StyledName>

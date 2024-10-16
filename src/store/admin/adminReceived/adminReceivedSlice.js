@@ -14,6 +14,7 @@ export const adminReceivedSlice = createSlice({
     receivedUser: null,
     error: null,
     searchesAll: [],
+    all: [],
   },
   reducers: {},
   extraReducers: builder => {
@@ -22,6 +23,7 @@ export const adminReceivedSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getAdminReceived.fulfilled, (state, { payload }) => {
+        state.all = payload;
         state.adminReceived = payload;
         state.isLoading = false;
       })
@@ -53,6 +55,7 @@ export const adminReceivedSlice = createSlice({
       })
       .addCase(searchesReceived.fulfilled, (state, { payload }) => {
         state.isLoading = false;
+        state.all = payload;
         state.searchesAll = payload;
       })
       .addCase(searchesReceived.rejected, state => {

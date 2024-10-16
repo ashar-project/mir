@@ -15,8 +15,9 @@ export const UserProfilePage = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { profile, isLoading,tabelProfile } = useSelector(state => state.profile);
-  console.log(profile);
+  const { profile, isLoading, tabelProfile } = useSelector(
+    state => state.profile
+  );
 
   useEffect(() => {
     dispatch(getProfileUser());
@@ -51,7 +52,9 @@ export const UserProfilePage = () => {
             </Block>
             <Block>
               <TypographyStyled>Цель:</TypographyStyled>
-              <TypographyStyledTwo>{profile.goal}</TypographyStyledTwo>
+              <TypographyStyledTwo>
+                {new Intl.NumberFormat('ru-RU').format(profile.goal)}
+              </TypographyStyledTwo>
             </Block>
             <Block>
               <TypographyStyled>Номер:</TypographyStyled>

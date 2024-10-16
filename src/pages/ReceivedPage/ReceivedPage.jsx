@@ -9,11 +9,8 @@ import { useNavigate } from 'react-router-dom';
 
 export const ReceivedPage = () => {
   const dispatch = useDispatch();
-  const { received, searches, isLoading } = useSelector(
-    state => state.received
-  );
+  const { isLoading, receivedBig } = useSelector(state => state.received);
   const navigate = useNavigate();
-  console.log(searches);
 
   useEffect(() => {
     dispatch(getReceived());
@@ -26,8 +23,8 @@ export const ReceivedPage = () => {
   return (
     <Box height="100vh" width="100%">
       {isLoading && <Spinner />}
-      {!received.lenght ? (
-        <GraduatedTable data={searches} goInnerPage={navigateFn} />
+      {receivedBig.length ? (
+        <GraduatedTable data={receivedBig} goInnerPage={navigateFn} />
       ) : (
         <div style={{ width: '100%', height: '100%' }}>
           <img style={{ width: '100%', height: '80%' }} src={NodFound} />

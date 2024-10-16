@@ -50,6 +50,7 @@ export const profileSlice = createSlice({
       })
       .addCase(updateProfile.fulfilled, state => {
         state.isLoading = false;
+        state.file = '';
       })
       .addCase(updateProfile.rejected, state => {
         state.isLoading = false;
