@@ -3,6 +3,7 @@ import { axiosInstance } from '@/config/axiosInstans';
 import { axiosInstanceFile } from '@/config/axiosInstansFile';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getGaveUp } from '../gaveUpSlice/gaveUpThunk';
+import { toast } from 'react-toastify';
 
 export const getProfileUser = createAsyncThunk(
   'profile/getProfileUser',
@@ -21,19 +22,29 @@ export const gaveUser = createAsyncThunk(
   async (navigate, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await axiosInstance.patch('/api/users/status/submitted');
-      toastifyMessage({
-        message: 'Успешно',
-        duration: 1500,
-        status: 'success',
+
+      toast(data.message || 'Успешно!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
       });
       navigate('/gave-up');
       dispatch(getGaveUp());
       return data;
     } catch (error) {
-      toastifyMessage({
-        message: 'Упс что то пошло не так попробуйте еще раз',
-        duration: 1500,
-        status: 'error',
+      toast('Упс что то пошло не так попробуйте еще раз', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
+        type: 'error',
       });
       return rejectWithValue(error);
     }
@@ -49,20 +60,30 @@ export const updateProfile = createAsyncThunk(
         `/api/users/updateProfile`,
         value
       );
-      toastifyMessage({
-        message: 'Профиль успешно изменен ',
-        duration: 2500,
-        status: 'success',
+
+      toast(data.message || 'Профиль успешно изменен!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
       });
 
       dispatch(getProfileUser());
       navigate(-1);
       return data;
     } catch (error) {
-      toastifyMessage({
-        message: 'Упс, что-то пошло не так. Попробуйте еще раз.',
-        duration: 2500,
-        status: 'error',
+      toast('Упс, что-то пошло не так. Попробуйте еще раз.', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
+        type: 'error',
       });
       return rejectWithValue(error);
     }
@@ -85,22 +106,33 @@ export const addFileAWS3 = createAsyncThunk(
         '/api/awsS3/upload',
         formData
       );
-      toastifyMessage({
-        message: 'Фото успешно загружен',
-        duration: 2500,
-        status: 'success',
+
+      toast(data.message || 'Фото успешно загружен!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
       });
       return data;
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
         'Упс, что-то пошло не так. Попробуйте еще раз.';
-      toastifyMessage({
-        message: errorMessage,
-        duration: 2500,
-        status: 'error',
+
+      toast(errorMessage, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
+        type: 'error',
       });
-      return rejectWithValue({ message: errorMessage }); // Возвращаем простое сообщение об ошибке
+      return rejectWithValue({ message: errorMessage });
     }
   }
 );

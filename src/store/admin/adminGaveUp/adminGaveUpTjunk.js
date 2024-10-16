@@ -1,5 +1,6 @@
 import { axiosInstance } from '@/config/axiosInstans';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 export const getAdminGaveUp = createAsyncThunk(
   'adminGaveUp/getAdminGaveUp',
@@ -40,19 +41,33 @@ export const deleteGaveUpdUsers = createAsyncThunk(
           params: { status: SUBMITTED },
         }
       );
-      toastifyMessage({
-        message: 'Успешно удалено все сдавшиеся участники',
-        status: 'success',
-        duration: 2500,
-      });
+
+      toast(
+        data.message || 'Успешно удалено все сдавшиеся участники',
+        {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: 'light',
+          type: 'success',
+        }
+      );
       dispatch(getAdminGaveUp());
 
       return data;
     } catch (error) {
-      toastifyMessage({
-        message: 'Упс что то пошло не так попробуйте еще раз',
-        status: 'error',
-        duration: 2500,
+      toast('Упс что то пошло не так попробуйте еще раз', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
+        type: 'error',
       });
       return rejectWithValue(error);
     }

@@ -2,6 +2,7 @@ import { toastifyMessage } from '@/components/Toastify/Toastify';
 import { axiosInstance } from '@/config/axiosInstans';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getAdminReceived } from '../adminReceived/adminReceivedThunk';
+import { toast } from 'react-toastify';
 
 export const getAdminWorld = createAsyncThunk(
   'user/getAdminWorld',
@@ -42,19 +43,29 @@ export const addDebtUser = createAsyncThunk(
           debtSum: debtSum,
         }
       );
-      toastifyMessage({
-        message: data.message,
-        status: 'success',
-        duration: 2500,
+
+      toast(data.message || 'Успешно!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
       });
       navigate('/admin/received-page');
       dispatch(getAdminReceived());
       return data;
     } catch (error) {
-      toastifyMessage({
-        message: 'Упс что то пошло не так попробуйте еще раз',
-        status: 'error',
-        duration: 2500,
+      toast('Упс что то пошло не так попробуйте еще раз', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
+        type: 'error',
       });
       return rejectWithValue(error);
     }
