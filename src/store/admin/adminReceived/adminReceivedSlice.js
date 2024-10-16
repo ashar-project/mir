@@ -3,6 +3,7 @@ import {
   getAdminReceived,
   getReceivedUser,
   postReceivedUserPayment,
+  searchesReceived,
 } from './adminReceivedThunk';
 
 export const adminReceivedSlice = createSlice({
@@ -12,6 +13,7 @@ export const adminReceivedSlice = createSlice({
     adminReceived: [],
     receivedUser: null,
     error: null,
+    searchesAll: [],
   },
   reducers: {},
   extraReducers: builder => {
@@ -44,6 +46,16 @@ export const adminReceivedSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(postReceivedUserPayment.rejected, state => {
+        state.isLoading = false;
+      })
+      .addCase(searchesReceived.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(searchesReceived.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.searchesAll = payload;
+      })
+      .addCase(searchesReceived.rejected, state => {
         state.isLoading = false;
       });
   },

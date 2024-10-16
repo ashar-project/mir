@@ -13,4 +13,16 @@ export const getGaveUp = createAsyncThunk(
   }
 );
 
-
+export const searchesGaveUp = createAsyncThunk(
+  'gave/searchesGaveUp',
+  async (query, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.get(
+        `/api/users/search/submittedUser?query=${query}`
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);

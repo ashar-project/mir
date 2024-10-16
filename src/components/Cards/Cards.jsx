@@ -25,7 +25,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'column',
-  wordBreak: 'break-word', // Добавляем сюда для общей гибкости
+  wordBreak: 'break-word',
 
   [theme.breakpoints.down('sm')]: {
     width: '150px',
@@ -38,6 +38,8 @@ const StyledAvatar = styled(Avatar)(() => ({
   width: '56px',
   height: '56px',
   marginBottom: '10px',
+  objectFit: 'cover',
+  borderRadius: '50%',
 }));
 
 const TypographyStyledOne = styled(Typography)(({ theme }) => ({

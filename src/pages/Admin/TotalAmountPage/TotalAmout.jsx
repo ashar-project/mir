@@ -11,13 +11,12 @@ import { getMainData } from '@/store/admin/adminMain/adminMainThunk';
 import { Spinner } from '@/components/Spinner/Spinner';
 
 export const TotalAmout = () => {
-  const { main, isLoading } = useSelector(state => state.adminMain);
-  console.log(main);
-
   const dispatch = useDispatch();
+  const { main, isLoading } = useSelector(state => state.adminMain);
+
   useEffect(() => {
     dispatch(getMainData());
-  }, []);
+  }, [dispatch]);
 
   const columns = [
     {
@@ -42,9 +41,11 @@ export const TotalAmout = () => {
       ),
     },
   ];
+
+  if (isLoading) return <Spinner />;
+
   return (
     <>
-      {isLoading && <Spinner />}
       <Main>
         <BlockOne>
           <TypographyStyled

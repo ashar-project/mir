@@ -85,10 +85,6 @@ const menuElements = [
     label: 'Вернуть Оплату',
     navigation: 'return-pay',
   },
-  {
-    label: 'Добавить пользователя',
-    navigation: '/sign-up',
-  },
 ];
 
 const AdminDesktopSidebar = () => {
@@ -147,6 +143,11 @@ const AdminDesktopSidebar = () => {
           );
         })}
       </List>
+      <div style={{ margin: '10px 15px 0 0 ' }}>
+        <Button variant="outlined" startIcon={<HiUserAdd />}>
+          <span style={{ fontSize: '12px' }}>Добавить пользователя</span>
+        </Button>
+      </div>
       <div style={{ position: 'absolute', bottom: 50, left: 30 }}>
         <Button onClick={handlerModal}>Выйти</Button>
       </div>
@@ -209,6 +210,16 @@ export const AdminMobileSidebar = () => {
                 <AdminMenuIcons path={AdminSitePaths.return} color="#818093" />
               </ListItemIcon>
               <ListItemText>Вернуть оплату</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        </List>
+        <List>
+          <ListItem onClick={() => navigate('/sign-up')}>
+            <ListItemButton>
+              <ListItemIcon>
+                <AdminMenuIcons path={AdminSitePaths.addUser} color="#818093" />
+              </ListItemIcon>
+              <ListItemText>Добавить уч-ка</ListItemText>
             </ListItemButton>
           </ListItem>
         </List>

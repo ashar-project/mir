@@ -8,11 +8,10 @@ import { Spinner } from '@/components/Spinner/Spinner';
 
 export const AdminGaveUpPage = () => {
   const dispatch = useDispatch();
-  const { adminGaveUp, isLoading } = useSelector(state => state.adminGaveUp);
+  const { isLoading, searchesAll } = useSelector(state => state.adminGaveUp);
   useEffect(() => {
     dispatch(getAdminGaveUp());
   }, []);
-
 
   return (
     <Wrapper>
@@ -20,7 +19,7 @@ export const AdminGaveUpPage = () => {
       <ContentWrapper>
         <StyledDiv />
         <StyledBox>
-          {adminGaveUp?.map(card => (
+          {searchesAll?.map(card => (
             <StyledContainerCart key={card.id}>
               <Cards
                 name={card.userName}
@@ -29,7 +28,7 @@ export const AdminGaveUpPage = () => {
               />
             </StyledContainerCart>
           ))}
-          {!adminGaveUp.length && <Typography>Пока что нет данных</Typography>}
+          {!searchesAll.length && <Typography>Пока что нет данных</Typography>}
         </StyledBox>
       </ContentWrapper>
     </Wrapper>

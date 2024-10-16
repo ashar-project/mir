@@ -7,18 +7,39 @@ import { useSidebar } from '@/modules/Sidebar';
 import { UserMobileNavBar } from '@/components';
 import { useCheckClient } from '@/helpers';
 import { useState, useEffect } from 'react';
+import { useDebounce } from 'use-debounce';
+import { searchReceived } from '@/store/slice/receivedSlice/receivedThunk';
+import { useDispatch } from 'react-redux';
+import { searchesGaveUp } from '@/store/slice/gaveUpSlice/gaveUpThunk';
+import { searchesGraduated } from '@/store/slice/graduatadSlice/graduatadThunk';
 
 export const Layout = () => {
   const { open, setOpen } = useSidebar();
   const [status, setStatus] = useState(true);
   const { isMobile } = useCheckClient();
   const { pathname } = useLocation();
+  const [text, setText] = useState('');
+  const dispatch = useDispatch();
 
+  const [debounce] = useDebounce(text, 1500);
+
+  useEffect(() => {
+    if (debounce !== undefined) {
+      if (pathname === '/received') {
+        dispatch(searchReceived(debounce));
+      } else if (pathname === '/gave-up') {
+        dispatch(searchesGaveUp(debounce));
+      } else {
+        dispatch(searchesGraduated(debounce));
+      }
+    }
+  }, [debounce]);
+  const noInput = ['/', '/worlds-page'];
   const hiddenPaths = [
     '/tech-support',
     '/user-profile',
     /^\/received\/\d+\/received-profile$/,
-    /^\/\d+\/worldInfo$/, 
+    /^\/\d+\/worldInfo$/,
     '/about',
     '/user-profile/user-edit-page',
   ];
@@ -57,7 +78,13 @@ export const Layout = () => {
                   <MenuIcon />
                 </IconButton>
               )}
-              {status && <Input size="small" placeholder="Поиск" />}
+              {!noInput.includes(pathname) && (
+                <Input
+                  onChange={e => setText(e.target.value)}
+                  size="small"
+                  placeholder="Поиск"
+                />
+              )}
             </HeaderInput>
           )}
 

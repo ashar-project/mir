@@ -24,12 +24,12 @@ export const UserMobileNavBar = () => {
       </Block>
       <Block>
         <StyledNavLink to={SitePaths.graduated}>
-          <GaveUpIcon />
+          <FinichedIcon />
         </StyledNavLink>
       </Block>
       <Block>
         <StyledNavLink to={SitePaths.gaveUp}>
-          <FinichedIcon />
+          <GaveUpIcon />
         </StyledNavLink>
       </Block>
       <Block>

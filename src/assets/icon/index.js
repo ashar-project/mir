@@ -19,5 +19,6 @@ export { default as ReceivedIcon } from './ReceivedIcon.svg';
 export { default as GaveUpIcon } from './GaveUpIcon.svg';
 export { default as FinichedIcon } from './FinichedIcon.svg';
 export { default as Pay } from './Pay.svg';
+export { default as Home } from './Home.svg';
 export { LogoDesktop } from './logo-desktop';
 export { LogoMobile } from './logo-mobile';

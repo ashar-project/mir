@@ -1,4 +1,4 @@
-import { Negr } from '@/assets/image';
+import { Avatar, Negr } from '@/assets/image';
 import { upload as Upload } from '@/assets/icon';
 import { Button, Input } from '@/components';
 import { Box, styled, TextField, Typography } from '@mui/material';
@@ -76,7 +76,7 @@ export const UserEditPage = () => {
     console.log(data);
     const { id, ...value } = data;
 
-    dispatch(updateProfile(value));
+    dispatch(updateProfile({value,navigate}))
   };
 
   return (
@@ -95,7 +95,7 @@ export const UserEditPage = () => {
             {Files ? (
               <Img src={Files.link} />
             ) : (
-              <Img src={profile.photoUrl || Negr} alt="Profile" />
+              <Img src={profile.photoUrl || Avatar} alt="Profile" />
             )}
           </BlockOne>
           <BlockTwo>

@@ -1,4 +1,4 @@
-import { Negr } from '@/assets/image';
+import { Avatar, Negr } from '@/assets/image';
 import { Button, ReusableModal } from '@/components';
 import { Spinner } from '@/components/Spinner/Spinner';
 import {
@@ -39,7 +39,7 @@ export const UserProfilePage = () => {
         <TypographyStyledUser>Профиль</TypographyStyledUser>
         <Container>
           <BlockOne>
-            <Img src={profile.photoUrl || Negr} alt="Negr" />
+            <Img src={profile.photoUrl || Avatar} alt="Negr" />
           </BlockOne>
           <BlockTwo>
             <Block>

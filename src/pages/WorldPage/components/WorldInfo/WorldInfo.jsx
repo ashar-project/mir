@@ -15,13 +15,6 @@ export const WorldInfo = () => {
   const { user } = useSelector(state => state.user);
   const value = data.find(item => item.id === +ratingID);
 
-  const onClickTableItem = userId => {
-    // navigate(String(userId), {
-    //   replace: false,
-    // });
-    console.log(userId);
-  };
-
   const columns = [
     {
       accessorKey: 'userName',
@@ -95,12 +88,7 @@ export const WorldInfo = () => {
       </NavBox>
 
       <TableInfo>
-        <Table
-          columns={columns}
-          data={user}
-          variant="patients"
-          onClickItem={onClickTableItem}
-        />
+        <Table columns={columns} data={user} variant="patients" />
       </TableInfo>
       <MobileCard item={user} />
       {user.length === 0 && <h1>Упс пока данных нет</h1>}

@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { deleteGaveUpdUsers, getAdminGaveUp } from './adminGaveUpTjunk';
+import {
+  deleteGaveUpdUsers,
+  getAdminGaveUp,
+  searchGaveUp,
+} from './adminGaveUpTjunk';
 
 export const adminGaveUpSlice = createSlice({
   name: 'adminGaveUp',
@@ -7,6 +11,7 @@ export const adminGaveUpSlice = createSlice({
     isLoading: false,
     adminGaveUp: [],
     error: null,
+    searchesAll: [],
   },
   reducers: {},
   extraReducers: builder => {
@@ -28,6 +33,16 @@ export const adminGaveUpSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(deleteGaveUpdUsers.rejected, state => {
+        state.isLoading = false;
+      })
+      .addCase(searchGaveUp.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(searchGaveUp.fulfilled, (state, { payload }) => {
+        state.searchesAll = payload;
+        state.isLoading = false;
+      })
+      .addCase(searchGaveUp.rejected, state => {
         state.isLoading = false;
       });
   },

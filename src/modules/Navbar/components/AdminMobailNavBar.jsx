@@ -1,6 +1,7 @@
 import {
   FinichedIcon,
   GaveUpIcon,
+  Home,
   ReceivedIcon,
   WorldPageicon,
 } from '@/assets/icon';
@@ -12,17 +13,17 @@ export const AdminMobileNavBar = () => {
     <MobileSideBarStyled>
       <Block>
         <StyledNavLink to={'/admin'}>
-          <WorldPageicon />
+          <Home />
         </StyledNavLink>
       </Block>
       <Block>
         <StyledNavLink to={'worlds-page'}>
-          <ReceivedIcon />
+          <WorldPageicon />
         </StyledNavLink>
       </Block>
       <Block>
         <StyledNavLink to={'received-page'}>
-          <GaveUpIcon />
+          <ReceivedIcon />
         </StyledNavLink>
       </Block>
       <Block>
@@ -32,7 +33,7 @@ export const AdminMobileNavBar = () => {
       </Block>
       <Block>
         <StyledNavLink to={'gave-page'}>
-          <WorldPageicon />
+          <GaveUpIcon />
         </StyledNavLink>
       </Block>
     </MobileSideBarStyled>

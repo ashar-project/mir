@@ -1,21 +1,16 @@
 import React, { useEffect } from 'react';
 import { Box, styled, TextField, Button, Typography } from '@mui/material';
 import { Cards } from '@/components';
-import { cardsData } from '@/modules/GaveUp/components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAdminGraduated } from '@/store/admin/adminGraduated/adminGraduatedThunk';
 import { Spinner } from '@/components/Spinner/Spinner';
 
 export const AdminGraduatedPage = () => {
   const dispatch = useDispatch();
-  const { adminGraudated, isLoading } = useSelector(
-    state => state.adminGraduated
-  );
+  const { isLoading, searchAll } = useSelector(state => state.adminGraduated);
   useEffect(() => {
     dispatch(getAdminGraduated());
   }, []);
-
-  console.log(adminGraudated);
 
   return (
     <Wrapper>
@@ -23,7 +18,7 @@ export const AdminGraduatedPage = () => {
       <ContentWrapper>
         <StyledDiv />
         <StyledBox>
-          {adminGraudated.map(card => (
+          {searchAll.map(card => (
             <StyledContainerCart key={card.id}>
               <Cards
                 name={card.userName}
@@ -32,9 +27,7 @@ export const AdminGraduatedPage = () => {
               />
             </StyledContainerCart>
           ))}
-          {!adminGraudated?.length && (
-            <Typography>Пока что нет данных</Typography>
-          )}
+          {!searchAll?.length && <Typography>Пока что нет данных</Typography>}
         </StyledBox>
       </ContentWrapper>
     </Wrapper>

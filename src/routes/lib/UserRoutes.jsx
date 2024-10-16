@@ -1,12 +1,15 @@
+import GaveUpPage from '@/pages/GaveUpPage';
+import GraduatedPage from '@/pages/GraduatedPage';
 import { ReceivedPage } from '@/pages/ReceivedPage';
+import Support from '@/pages/SupportPage';
 import { InnerUserPage, UserEditPage, UserProfilePage } from '@/pages/UserPage';
-import { WorldInfo } from '@/pages/WorldPage';
+import WorldPage, { WorldInfo } from '@/pages/WorldPage';
 import { Suspense, lazy } from 'react';
 
-const WorldPage = lazy(() => import('@/pages/WorldPage'));
-const Support = lazy(() => import('@/pages/SupportPage'));
-const GraduatedPage = lazy(() => import('@/pages/GraduatedPage'));
-const GaveUpPage = lazy(() => import('@/pages/GaveUpPage'));
+// const WorldPage = lazy(() => import('@/pages/WorldPage'));
+// const Support = lazy(() => import('@/pages/SupportPage'));
+// const GraduatedPage = lazy(() => import('@/pages/GraduatedPage'));
+// const GaveUpPage = lazy(() => import('@/pages/GaveUpPage'));
 
 export const SitePaths = {
   world: '/',
@@ -53,23 +56,11 @@ export const USER_ROUTES = [
   ,
   {
     path: SitePaths.graduated,
-    element: (
-      <Suspense>
-        <GraduatedPage />
-      </Suspense>
-    ),
+    element: <GraduatedPage />,
   },
   {
     path: SitePaths.gaveUp,
     element: <GaveUpPage />,
-  },
-  {
-    path: SitePaths.pay,
-    element: <h1>Pay</h1>,
-  },
-  {
-    path: SitePaths.about,
-    element: <h1>About Us</h1>,
   },
   {
     path: SitePaths.techSupport,

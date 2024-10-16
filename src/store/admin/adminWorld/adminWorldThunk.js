@@ -34,6 +34,8 @@ export const getByIdWorldInfo = createAsyncThunk(
 export const addDebtUser = createAsyncThunk(
   'user/addDebtUser',
   async ({ userId, debtSum }, { rejectWithValue }) => {
+    console.log(debtSum)
+    
     try {
       const { data } = await axiosInstance.post(
         `/api/payments/${userId}/giveDebt`,

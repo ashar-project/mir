@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getGaveUp } from './gaveUpThunk';
+import { getGaveUp, searchesGaveUp } from './gaveUpThunk';
 
 export const gaveUpSlice = createSlice({
   name: 'gave',
@@ -7,6 +7,7 @@ export const gaveUpSlice = createSlice({
     isLoading: false,
     gaveUp: [],
     error: null,
+    searchesAll: [],
   },
   reducers: {},
   extraReducers: builder => {
@@ -19,6 +20,16 @@ export const gaveUpSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getGaveUp.rejected, state => {
+        state.isLoading = false;
+      })
+      .addCase(searchesGaveUp.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(searchesGaveUp.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.searchesAll = payload;
+      })
+      .addCase(searchesGaveUp.rejected, state => {
         state.isLoading = false;
       });
   },
