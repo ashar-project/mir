@@ -58,7 +58,7 @@ export const AdminPaymentPage = () => {
         <Button onClick={() => navigate(-1)}>Назад</Button>
       </Boxing>
       <Block>
-        <TypographyStyled fontWeight={600}>Оплатить</TypographyStyled>
+        <TypographyStyled fontWeight={600}>Добавить сумму</TypographyStyled>
         <Main>
           <Div>
             <label style={{ fontWeight: '500', color: '#818093' }}>

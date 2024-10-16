@@ -36,16 +36,18 @@ export const SignUp = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm();
+
   const handlerSubmit = data => {
     console.log(data);
     dispatch(signUp(data));
-    reset();
   };
 
   return (
     <>
+      <Nazad>
+        <Button onClick={() => navigate(-1)}>Назад</Button>
+      </Nazad>
       {isLoading && <Spinner />}
       <Container>
         <Logo>
@@ -53,14 +55,15 @@ export const SignUp = () => {
           <TypographyStyled>Добро пожаловать</TypographyStyled>
         </Logo>
         <Block onSubmit={handleSubmit(handlerSubmit)}>
-          <Nazad>
-            <Button onClick={() => navigate(-1)}>Назад</Button>
-          </Nazad>
           <BlockOne>Регистрация</BlockOne>
           <BlockTwo>
             <Input
               {...register('userName', {
-                required: true,
+                required: 'Имя и фамилия обязательны для заполнения',
+                minLength: {
+                  value: 3,
+                  message: 'Имя и фамилия должны содержать не менее 3 символов',
+                },
               })}
               error={!!errors.userName}
               helperText={errors.userName?.message}
@@ -75,7 +78,11 @@ export const SignUp = () => {
             />
             <Input
               {...register('email', {
-                required: true,
+                required: 'Email обязателен для заполнения',
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
+                  message: 'Email должен заканчиваться на @gmail.com',
+                },
               })}
               error={!!errors.email}
               helperText={errors.email?.message}
@@ -89,8 +96,12 @@ export const SignUp = () => {
               placeholder="Email"
             />
             <Input
-              {...register('phoneNumber', {
-                required: true,
+              {...register('totalSum', {
+                required: 'Сумма обязательна для заполнения',
+                min: {
+                  value: 1,
+                  message: 'Сумма должна быть больше 0',
+                },
               })}
               error={!!errors.phoneNumber}
               helperText={errors.phoneNumber?.message}
@@ -104,8 +115,12 @@ export const SignUp = () => {
               placeholder="Phone Number"
             />
             <Input
-              {...register('totalSum', {
-                required: true,
+              {...register('phoneNumber', {
+                required: 'Номер телефона обязателен для заполнения',
+                pattern: {
+                  value: /^[0-9]+$/,
+                  message: 'Номер телефона должен содержать только цифры',
+                },
               })}
               error={!!errors.totalSum}
               helperText={errors.totalSum?.message}
@@ -162,37 +177,37 @@ const InputAdornmentStyled = styled(InputAdornment)(({}) => ({
 }));
 
 const Nazad = styled(Box)(({ theme }) => ({
-  marginLeft: '-470px',
-  marginTop: '5px',
+  margin: '5px',
   [theme.breakpoints.down('sm')]: {
-    marginLeft: '-230px',
-    marginTop: '-10px',
+    margin: '5px',
   },
 }));
 
 const Block = styled('form')(({ theme }) => ({
   width: '570px',
-  height: '500px',
+  minHeight: '400px',
   margin: '0 auto',
-  boxShadow: ' 0rem 0rem 1.1875rem .1875rem rgba(34, 60, 80, 0.2)',
+  boxShadow: '0rem 0rem 1.1875rem .1875rem rgba(34, 60, 80, 0.2)',
   display: 'flex',
   justifyContent: 'start',
-  flexDirection: ' column',
+  flexDirection: 'column',
   alignItems: 'center',
   gap: '20px',
   borderRadius: '4px',
+  padding: '20px',
+
   [theme.breakpoints.down('sm')]: {
     backgroundColor: 'white',
-    width: '20.625rem',
-    height: '24.375rem',
-    boxShadow: ' 0rem 0rem 1.1875rem .1875rem rgba(34, 60, 80, 0.2)',
+    width: '90%',
+    minHeight: '400px',
+    boxShadow: '0rem 0rem 1.1875rem .1875rem rgba(34, 60, 80, 0.2)',
     margin: '0 auto',
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    justifyContent: 'center',
-    gap: '.625rem',
-    padding: '15px 0 0 0',
+    justifyContent: 'start',
+    gap: '1rem',
+    padding: '15px',
     position: 'relative',
   },
 }));
@@ -209,7 +224,7 @@ const Logo = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     width: '12.5rem',
     height: '6.25rem',
-    margin: '2.5rem auto',
+    margin: '1rem auto',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -280,7 +295,6 @@ const BlockThree = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: '20px',
   justifyContent: 'center',
-  marginTop: '80px',
 
   [theme.breakpoints.down('sm')]: {
     width: '15.6875rem',
@@ -320,6 +334,14 @@ const Input = styled(TextField)(({ theme }) => ({
     },
   },
 
+  // Стили для текста ошибок
+  '& .MuiFormHelperText-root': {
+    display: 'block', // По умолчанию показывать текст ошибки
+    [theme.breakpoints.down('sm')]: {
+      display: 'none', // Скрыть текст ошибки на мобильных устройствах
+    },
+  },
+
   [theme.breakpoints.down('sm')]: {
     '& .MuiOutlinedInput-root': {
       height: '1.5625rem',
@@ -353,6 +375,7 @@ const ButtonStyled = styled(MuiButton)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     backgroundColor: '#37D3D3',
     color: 'white',
+    border: '1px solid black',
   },
 }));
 

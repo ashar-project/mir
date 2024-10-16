@@ -7,20 +7,24 @@ export const signUp = createAsyncThunk(
   async (value, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post('/api/auth/signUp', value);
+
       toastifyMessage({
-        message: 'Вы успешно зарегистрериловас',
+        message: response.data.message,
         status: 'success',
         duration: 1500,
       });
 
       return response.data;
     } catch (error) {
+      const errorMessage = error.response?.data?.exceptionMessage;
+
       toastifyMessage({
-        message: 'Упс что то пощло не так	',
+        message: errorMessage,
         status: 'error',
-        duration: 1500,
+        duration: 2500,
       });
-      return rejectWithValue(error);
+
+      return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
@@ -31,7 +35,7 @@ export const signIn = createAsyncThunk(
     try {
       const { data } = await axiosInstance.post('/api/auth/signIn', value);
       toastifyMessage({
-        message: 'Вы успешно вошли',
+        message: data.message,
         status: 'success',
         duration: 1500,
       });

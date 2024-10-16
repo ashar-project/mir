@@ -13,6 +13,7 @@ export const adminGaveUpSlice = createSlice({
     error: null,
     searchesAll: [],
   },
+
   reducers: {},
   extraReducers: builder => {
     builder
@@ -31,6 +32,8 @@ export const adminGaveUpSlice = createSlice({
       })
       .addCase(deleteGaveUpdUsers.fulfilled, state => {
         state.isLoading = false;
+        state.adminGaveUp = [];
+        state.searchesAll = [];
       })
       .addCase(deleteGaveUpdUsers.rejected, state => {
         state.isLoading = false;

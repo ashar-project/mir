@@ -10,11 +10,11 @@ export const GaveUpPage = () => {
   const { searchesAll, isLoading } = useSelector(state => state.gaveUp);
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getGaveUp());
-  }, []);
-
-  return (
+  // useEffect(() => {
+  //   dispatch(getGaveUp());
+  // }, []);
+  console.log(searchesAll,'ssss')
+  return (  
     <Box height="100vh" width="100%">
       {isLoading && <Spinner />}
       {!searchesAll.lenght ? (

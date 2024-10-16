@@ -27,7 +27,6 @@ export const TotalAmout = () => {
     {
       accessorKey: 'email',
       header: 'Email',
-      cell: info => info.getValue(),
     },
     {
       accessorKey: 'phoneNumber',
@@ -43,6 +42,10 @@ export const TotalAmout = () => {
   ];
 
   if (isLoading) return <Spinner />;
+
+  if (!main || !main.users || main.users.length === 0) {
+    return <div>No data available</div>;
+  }
 
   return (
     <>
@@ -80,9 +83,9 @@ export const TotalAmout = () => {
           </Typography>
         </BlockOne>
 
-        <MobileCard item={main.users} />
+        <MobileCard item={main.users || []} />
         <Div>
-          <Table data={main.users} columns={columns} />
+          <Table data={main.users || []} columns={columns} />
         </Div>
       </Main>
     </>

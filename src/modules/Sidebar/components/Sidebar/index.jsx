@@ -78,11 +78,11 @@ const menuElements = [
     navigation: 'gave-page',
   },
   {
-    label: 'Оплатить',
+    label: 'Добавить сумму',
     navigation: 'payment-page',
   },
   {
-    label: 'Вернуть Оплату',
+    label: 'Вернуть сумму',
     navigation: 'return-pay',
   },
 ];
@@ -144,7 +144,11 @@ const AdminDesktopSidebar = () => {
         })}
       </List>
       <div style={{ margin: '10px 15px 0 0 ' }}>
-        <Button variant="outlined" startIcon={<HiUserAdd />}>
+        <Button
+          onClick={() => navigate('/sign-up')}
+          variant="outlined"
+          startIcon={<HiUserAdd />}
+        >
           <span style={{ fontSize: '12px' }}>Добавить пользователя</span>
         </Button>
       </div>
