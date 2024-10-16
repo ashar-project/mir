@@ -19,9 +19,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const AdminReceivedPage = () => {
   const dispatch = useDispatch();
-  const { adminReceived, isLoading } = useSelector(
-    state => state.adminReceived
-  );
+  const { isLoading, searchesAll } = useSelector(state => state.adminReceived);
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(getAdminReceived());
@@ -37,7 +35,7 @@ export const AdminReceivedPage = () => {
       <ContentWrapper>
         <StyledDiv />
         <StyledBox>
-          {adminReceived.map(card => (
+          {searchesAll?.map(card => (
             <StyledContainerCart
               key={card.id}
               onClick={() => handlerClick(card.id)}
@@ -45,13 +43,11 @@ export const AdminReceivedPage = () => {
               <Cards
                 name={card.userName}
                 percentage={card.totalSum}
-                imageSrc={card.imageSrc}
+                imageSrc={card.photoUrl}
               />
             </StyledContainerCart>
           ))}
-          {!adminReceived.length && (
-            <Typography>Пока что нет данных</Typography>
-          )}
+          {!searchesAll?.length && <Typography>Пока что нет данных</Typography>}
         </StyledBox>
       </ContentWrapper>
     </Wrapper>

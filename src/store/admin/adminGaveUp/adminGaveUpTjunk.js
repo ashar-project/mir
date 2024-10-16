@@ -13,9 +13,25 @@ export const getAdminGaveUp = createAsyncThunk(
   }
 );
 
+export const searchGaveUp = createAsyncThunk(
+  'adminGaveUp/searchGaveUp',
+  async (query, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await axiosInstance.get(
+        `/api/users/search/submittedUser?query=${query}`
+      );
+      dispatch(getAdminGaveUp());
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const deleteGaveUpdUsers = createAsyncThunk(
-  'adminGraduated/deleteGaveUpdUsers',
-  async (_, { rejectWithValue }) => {
+  'adminGaveUp/deleteGaveUpdUsers',
+  async (_, { rejectWithValue, dispatch }) => {
     const SUBMITTED = 'SUBMITTED';
     try {
       const { data } = await axiosInstance.delete(
@@ -29,6 +45,8 @@ export const deleteGaveUpdUsers = createAsyncThunk(
         status: 'success',
         duration: 2500,
       });
+      dispatch(getAdminGaveUp());
+
       return data;
     } catch (error) {
       toastifyMessage({

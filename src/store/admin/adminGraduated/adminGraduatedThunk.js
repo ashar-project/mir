@@ -16,15 +16,29 @@ export const getAdminGraduated = createAsyncThunk(
   }
 );
 
+export const searchesGraduated = createAsyncThunk(
+  'adminGraduated/searchesGraduated',
+  async (query, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.get(
+        `/api/users/search/finishedUser?query=${query}`
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const deleteGraduatedUsers = createAsyncThunk(
   'adminGraduated/deleteGraduatedUsers',
   async (_, { rejectWithValue }) => {
-    const RECEIVED = 'RECEIVED';
+    const FINISHED = 'FINISHED';
     try {
       const { data } = await axiosInstance.delete(
         `/api/users/clearUserByStatus`,
         {
-          params: { status: RECEIVED },
+          params: { status: FINISHED },
         }
       );
       toastifyMessage({

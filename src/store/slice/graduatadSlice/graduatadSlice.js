@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { graduatadThunk } from './graduatadThunk';
+import { graduatadThunk, searchesGraduated } from './graduatadThunk';
 
 export const graduatadSlice = createSlice({
   name: 'graduatad',
@@ -7,6 +7,7 @@ export const graduatadSlice = createSlice({
     isLoading: false,
     error: null,
     graduatad: [],
+    searchesAll: [],
   },
   reducers: {},
   extraReducers: builder => {
@@ -19,6 +20,16 @@ export const graduatadSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(graduatadThunk.rejected, state => {
+        state.isLoading = false;
+      })
+      .addCase(searchesGraduated.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(searchesGraduated.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.searchesAll = payload;
+      })
+      .addCase(searchesGraduated.rejected, state => {
         state.isLoading = false;
       });
   },

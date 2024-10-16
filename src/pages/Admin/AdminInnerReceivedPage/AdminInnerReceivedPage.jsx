@@ -4,7 +4,7 @@ import { Box, styled, Typography, InputLabel } from '@mui/material';
 import { useState } from 'react';
 import { AdminPaymentTable } from './AdminTable/AdminTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   getReceivedUser,
   postReceivedUserPayment,
@@ -19,12 +19,13 @@ const options = [
 
 export const AdminInnerReceivePage = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { receivedUser, isLoading } = useSelector(state => state.adminReceived);
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('Ожидание.');
-  const { receivedUser, isLoading } = useSelector(state => state.adminReceived);
   const [sum, setText] = useState('');
 
-  const dispatch = useDispatch();
   const handleChange = event => setStatus(event.target.value);
   const openModal = () => setOpen(prev => !prev);
 
@@ -34,10 +35,12 @@ export const AdminInnerReceivePage = () => {
       sum,
       status,
     };
-    dispatch(postReceivedUserPayment({ userId: id, value })).then(() => {
-      openModal();
-      dispatch(getReceivedUser());
-    });
+    dispatch(postReceivedUserPayment({ userId: id, value, navigate })).then(
+      () => {
+        openModal();
+        dispatch(getReceivedUser());
+      }
+    );
     setStatus('Ожидание.');
     setText('');
   };
@@ -45,6 +48,9 @@ export const AdminInnerReceivePage = () => {
 
   return (
     <>
+      <ButtomSlies>
+        <Button onClick={() => navigate(-1)}>Назад</Button>
+      </ButtomSlies>
       {isLoading && <Spinner />}
       <Container>
         <BlockOne>
@@ -111,6 +117,10 @@ const Container = styled(Box)(() => ({
   alignItems: 'center',
   flexDirection: 'column',
   height: '100vh',
+}));
+
+const ButtomSlies = styled('div')(({ theme }) => ({
+  margin: '10px',
 }));
 
 const ModalBox = styled('form')(({ theme }) => ({

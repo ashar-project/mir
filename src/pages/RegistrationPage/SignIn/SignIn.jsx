@@ -17,17 +17,17 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from '@/store/slice/auth/authThunk';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 export const SignIn = () => {
   const { isMobile } = useCheckClient();
-  // const { token, isAuth } = useSelector(state => state.auth);
+  const { isLoading } = useSelector(state => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     formState: { errors },
     handleSubmit,
     register,
-    reset,
   } = useForm();
 
   const forgotPage = () => {
@@ -38,6 +38,7 @@ export const SignIn = () => {
   };
   return (
     <Container>
+      {isLoading && <Spinner />}
       <Logo>
         {isMobile ? <LogoTwo /> : <LogoOne />}
         <TypographyStyled>Добро пожаловать</TypographyStyled>

@@ -14,12 +14,26 @@ export const getAdminReceived = createAsyncThunk(
   }
 );
 
+export const searchesReceived = createAsyncThunk(
+  'adminReceived/searchesReceived',
+  async (query, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.get(
+        `/api/users/search/receivedUser?query=${query}`
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const getReceivedUser = createAsyncThunk(
   'adminReceived/getReceivedUser',
   async ({ id, navigate }, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.get(`/api/users/receivedUser/${id}`);
-      navigate(`${id}/received-inner-page`);
+      navigate(`/admin/received-page/${id}/received-inner-page`);
       return data;
     } catch (error) {
       return rejectWithValue(error);
@@ -29,7 +43,7 @@ export const getReceivedUser = createAsyncThunk(
 
 export const postReceivedUserPayment = createAsyncThunk(
   'adminReceived/postReceivedUserPayment',
-  async ({ userId, value }, { rejectWithValue, dispatch }) => {
+  async ({ userId, value, navigate }, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await axiosInstance.post(
         `/api/payments/${userId}/addPayment`,
@@ -38,7 +52,7 @@ export const postReceivedUserPayment = createAsyncThunk(
           status: value.status,
         }
       );
-      
+
       toastifyMessage({
         message: 'Успешно',
         status: 'success',
@@ -46,7 +60,7 @@ export const postReceivedUserPayment = createAsyncThunk(
       });
 
       let id = userId;
-      dispatch(getReceivedUser({id}));
+      dispatch(getReceivedUser({ id, navigate }));
       dispatch(getAdminReceived());
 
       return data;

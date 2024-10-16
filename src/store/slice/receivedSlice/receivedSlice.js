@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getReceived, getUserById } from './receivedThunk';
+import { getReceived, getUserById, searchReceived } from './receivedThunk';
 
 export const receivedSlice = createSlice({
   name: 'received',
@@ -20,8 +20,7 @@ export const receivedSlice = createSlice({
       .addCase(getReceived.fulfilled, (state, { payload }) => {
         state.received = payload;
         state.isLoading = false;
-
-        state.receivedBig = [...payload];
+        state.searches = payload;
       })
       .addCase(getReceived.rejected, state => {
         state.isLoading = false;
@@ -35,6 +34,13 @@ export const receivedSlice = createSlice({
       })
       .addCase(getUserById.rejected, state => {
         state.isLoading = false;
+      })
+      .addCase(searchReceived.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(searchReceived.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.searches = payload;
       });
   },
 });

@@ -48,6 +48,8 @@ export const AdminInnerTablePage = () => {
   const price = new Intl.NumberFormat('ru-RU').format(total);
   const allTotal = new Intl.NumberFormat('ru-RU').format(debt + total);
 
+  const tot = debt + total;
+  
   const handleAmountChange = e => {
     const input = e.target.value.replace(/\s+/g, '');
     const inputAmount = Number(input);
@@ -67,7 +69,7 @@ export const AdminInnerTablePage = () => {
   };
 
   const handlerSubmitValue = () => {
-    dispatch(addDebtUser({ userId: userInfo.id, debtSum: allTotal }))
+    dispatch(addDebtUser({ userId: userInfo.id, debtSum: tot }))
       .then(unwrapResult)
       .then(() => {
         handleClose();

@@ -40,7 +40,7 @@ export const gaveUser = createAsyncThunk(
 
 export const updateProfile = createAsyncThunk(
   'profile/updateProfile',
-  async (value, { rejectWithValue }) => {
+  async ({ value, navigate }, { rejectWithValue, dispatch }) => {
     console.log(value);
     try {
       const { data } = await axiosInstance.put(
@@ -52,6 +52,9 @@ export const updateProfile = createAsyncThunk(
         duration: 2500,
         status: 'success',
       });
+
+      dispatch(getProfileUser());
+      navigate(-1);
       return data;
     } catch (error) {
       toastifyMessage({

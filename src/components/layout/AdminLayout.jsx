@@ -15,27 +15,50 @@ import { useCheckClient } from '@/helpers';
 import { IoMenu as MenuIcon } from 'react-icons/io5';
 import { useEffect, useState } from 'react';
 import { Button, ReusableModal } from '..';
-import { deleteGraduatedUsers } from '@/store/admin/adminGraduated/adminGraduatedThunk';
-import { getReceivedUser } from '@/store/admin/adminReceived/adminReceivedThunk';
+import {
+  deleteGraduatedUsers,
+  searchesGraduated,
+} from '@/store/admin/adminGraduated/adminGraduatedThunk';
+import {
+  getReceivedUser,
+  searchesReceived,
+} from '@/store/admin/adminReceived/adminReceivedThunk';
 import { Spinner } from '../Spinner/Spinner';
 import {
   deleteGaveUpdUsers,
   getAdminGaveUp,
+  searchGaveUp,
 } from '@/store/admin/adminGaveUp/adminGaveUpTjunk';
+import { useDebounce } from 'use-debounce';
 
 export const AdminLayout = () => {
   const { open, setOpen } = useSidebar();
   const dispatch = useDispatch();
-  const [status, setStatus] = useState(true);
-  const { isMobile } = useCheckClient();
-  const { pathname } = useLocation();
-  const [path, setPath] = useState(false);
-  const pathVisiblity = ['/admin/gave-page', '/admin/graduated-page'];
-  const [openModal, setOpenModal] = useState(false);
   const { isLoading: graduatedLoadiing } = useSelector(
     state => state.adminGraduated
   );
+  const { pathname } = useLocation();
+  const { isMobile } = useCheckClient();
+
+  const [status, setStatus] = useState(true);
+  const [path, setPath] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const pathVisiblity = ['/admin/gave-page', '/admin/graduated-page'];
+  const [text, setText] = useState('');
   const modal = () => setOpenModal(prev => !prev);
+  const [debounced] = useDebounce(text, 1500);
+
+  useEffect(() => {
+    if (debounced !== undefined) {
+      if (pathname === '/admin/gave-page') {
+        dispatch(searchGaveUp(debounced));
+      } else if (pathname === '/admin/graduated-page') {
+        dispatch(searchesGraduated(debounced));
+      } else {
+        dispatch(searchesReceived(debounced));
+      }
+    }
+  }, [debounced]);
 
   useEffect(() => {
     setPath(pathVisiblity.includes(pathname));
@@ -49,7 +72,7 @@ export const AdminLayout = () => {
     /^\/admin\/received-page\/\d+\/received-inner-page$/,
     '/admin/return-pay',
   ];
-
+  const noInput = ['/admin', '/admin/worlds-page'];
   useEffect(() => {
     setStatus(
       !hiddenPaths.some(path =>
@@ -93,8 +116,13 @@ export const AdminLayout = () => {
                   <MenuIcon />
                 </IconButton>
               )}
-              {pathname !== '/admin' && (
-                <Input size="small" placeholder="Поиск" />
+              {!noInput.includes(pathname) && (
+                <Input
+                  onChange={e => setText(e.target.value)}
+                  value={text}
+                  size="small"
+                  placeholder="Поиск"
+                />
               )}
 
               {path && (
@@ -152,8 +180,8 @@ const Container = styled(Box)(({ theme }) => ({
   margin: '0 auto',
   position: 'relative',
   overflow: 'hidden',
-  maxWidth: '1680px',
-  minWidth: '1200px',
+  // maxWidth: '1680px',
+  // minWidth: '1200px',
 
   [theme.breakpoints.down('sm')]: {
     maxWidth: '100%',
@@ -187,6 +215,7 @@ const BoxStyled = styled(Box)(({ theme }) => ({
   gap: '20px',
   wordBreak: 'break-word',
   padding: '20px',
+
   [theme.breakpoints.down('sm')]: {
     border: '1px solid black',
     width: '90%',

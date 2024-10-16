@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-const ProtectedRouter = ({ isAuth, fallbackPath, children, roles }) => {
+export const ProtectedRouter = ({ isAuth, fallbackPath, children, roles }) => {
   const { role } = useSelector(state => state.auth);
 
   const isAllowed = roles.includes(role);
@@ -13,4 +13,3 @@ const ProtectedRouter = ({ isAuth, fallbackPath, children, roles }) => {
   return <Navigate to={fallbackPath} replace />;
 };
 
-export default ProtectedRouter;

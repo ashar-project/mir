@@ -24,3 +24,17 @@ export const getUserById = createAsyncThunk(
     }
   }
 );
+
+export const searchReceived = createAsyncThunk(
+  'received/searchReceived',
+  async (query, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.get(
+        `/api/users/search/receivedUser?query=${query}`
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
