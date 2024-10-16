@@ -21,21 +21,20 @@ export const postPayment = createAsyncThunk(
       });
       return data;
     } catch (error) {
-      toastifyMessage({
-        message: '',
-        status: 'error',
-        duration: 1500,
-      });
-      toast('Упс что то пошло не так попробуйте еще раз', {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: 'light',
-        type: 'error',
-      });
+      toast(
+        error?.response?.data?.exceptionMessage ||
+          'Упс что то пошло не так попробуйте еще раз',
+        {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: 'light',
+          type: 'error',
+        }
+      );
       return rejectWithValue(error);
     }
   }
