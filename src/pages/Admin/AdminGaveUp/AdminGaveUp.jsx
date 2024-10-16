@@ -8,7 +8,7 @@ import { Spinner } from '@/components/Spinner/Spinner';
 
 export const AdminGaveUpPage = () => {
   const dispatch = useDispatch();
-  const { isLoading, searchesAll } = useSelector(state => state.adminGaveUp);
+  const { isLoading, allGave } = useSelector(state => state.adminGaveUp);
   useEffect(() => {
     dispatch(getAdminGaveUp());
   }, []);
@@ -19,16 +19,16 @@ export const AdminGaveUpPage = () => {
       <ContentWrapper>
         <StyledDiv />
         <StyledBox>
-          {searchesAll?.map(card => (
+          {allGave?.map(card => (
             <StyledContainerCart key={card.id}>
               <Cards
                 name={card.userName}
                 percentage={card.percentage}
-                imageSrc={card.imageSrc}
+                imageSrc={card.photoUrl}
               />
             </StyledContainerCart>
           ))}
-          {!searchesAll.length && <Typography>Пока что нет данных</Typography>}
+          {!allGave.length && <Typography>Пока что нет данных</Typography>}
         </StyledBox>
       </ContentWrapper>
     </Wrapper>

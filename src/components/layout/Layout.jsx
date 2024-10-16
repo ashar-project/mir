@@ -141,7 +141,7 @@ const LayoutContainer = styled(Box)(({ theme }) => ({
   height: '100%',
   display: 'flex',
   [theme.breakpoints.down('sm')]: {
-    paddingBottom: '80px',
+    paddingBottom: '60px',
   },
 }));
 

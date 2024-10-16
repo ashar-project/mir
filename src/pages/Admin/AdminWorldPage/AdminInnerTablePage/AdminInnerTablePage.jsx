@@ -49,7 +49,7 @@ export const AdminInnerTablePage = () => {
   const allTotal = new Intl.NumberFormat('ru-RU').format(debt + total);
 
   const tot = debt + total;
-  
+
   const handleAmountChange = e => {
     const input = e.target.value.replace(/\s+/g, '');
     const inputAmount = Number(input);
@@ -73,6 +73,7 @@ export const AdminInnerTablePage = () => {
       .then(unwrapResult)
       .then(() => {
         handleClose();
+        navigate(-1);
       })
       .catch(error => {
         console.error('Error adding debt:', error);
@@ -131,16 +132,16 @@ export const AdminInnerTablePage = () => {
               {!errorMessage && debt > 0 && (
                 <>
                   <div>
-                    Общая сумма комисси: <StyledSpan>{price}</StyledSpan> сом
+                    Долг без комисси:{' '}
+                    <StyledSpan>
+                      {new Intl.NumberFormat('ru-Ru').format(
+                        amount - userInfo.userTotalSum
+                      )}
+                    </StyledSpan>{' '}
+                    сом
                   </div>
-
                   <div>
-                    Долг{' '}
-                    <span style={{ fontWeight: '600' }}>
-                      {userInfo.userName}
-                    </span>{' '}
-                    составит:
-                    <StyledSpan> {allTotal}</StyledSpan> сом
+                    Общая сумма комисси: <StyledSpan>{price}</StyledSpan> сом
                   </div>
 
                   <StyledLinkTypographyBlue>
@@ -156,13 +157,12 @@ export const AdminInnerTablePage = () => {
                     <StyledSpan> {program.toLocaleString()} сом</StyledSpan>
                   </StyledLinkTypographyOrange>
                   <div>
-                    Долг без комисси:{' '}
-                    <StyledSpan>
-                      {new Intl.NumberFormat('ru-Ru').format(
-                        amount - userInfo.userTotalSum
-                      )}
-                    </StyledSpan>{' '}
-                    сом
+                    Долг{' '}
+                    <span style={{ fontWeight: '600' }}>
+                      {userInfo.userName}
+                    </span>{' '}
+                    составит:
+                    <StyledSpan> {allTotal}</StyledSpan> сом
                   </div>
                 </>
               )}

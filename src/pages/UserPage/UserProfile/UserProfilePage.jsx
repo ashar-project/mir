@@ -1,6 +1,7 @@
 import { Avatar, Negr } from '@/assets/image';
 import { Button, ReusableModal } from '@/components';
 import { Spinner } from '@/components/Spinner/Spinner';
+import { PaymentTable } from '@/modules/User';
 import {
   gaveUser,
   getProfileUser,
@@ -14,7 +15,7 @@ export const UserProfilePage = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { profile, isLoading } = useSelector(state => state.profile);
+  const { profile, isLoading,tabelProfile } = useSelector(state => state.profile);
   console.log(profile);
 
   useEffect(() => {
@@ -101,6 +102,9 @@ export const UserProfilePage = () => {
           </BoxButton>
         </ModalBox>
       </ReusableModal>
+      <TableInfo>
+        <PaymentTable value={tabelProfile} variants={'profile'} />
+      </TableInfo>
     </>
   );
 };
@@ -121,6 +125,11 @@ const ButtonStyled = styled(Button)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     display: 'block',
   },
+}));
+
+const TableInfo = styled(Box)(({ theme }) => ({
+  width: '90%',
+  margin: '20px auto',
 }));
 
 const Main = styled(Box)(({ theme }) => ({

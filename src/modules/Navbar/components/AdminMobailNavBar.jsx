@@ -12,27 +12,27 @@ export const AdminMobileNavBar = () => {
   return (
     <MobileSideBarStyled>
       <Block>
-        <StyledNavLink to={'/admin'}>
+        <StyledNavLink to="/admin">
           <Home />
         </StyledNavLink>
       </Block>
       <Block>
-        <StyledNavLink to={'worlds-page'}>
+        <StyledNavLink to="/admin/worlds-page">
           <WorldPageicon />
         </StyledNavLink>
       </Block>
       <Block>
-        <StyledNavLink to={'received-page'}>
+        <StyledNavLink to="/admin/received-page">
           <ReceivedIcon />
         </StyledNavLink>
       </Block>
       <Block>
-        <StyledNavLink to={'graduated-page'}>
+        <StyledNavLink to="/admin/graduated-page">
           <FinichedIcon />
         </StyledNavLink>
       </Block>
       <Block>
-        <StyledNavLink to={'gave-page'}>
+        <StyledNavLink to="/admin/gave-page">
           <GaveUpIcon />
         </StyledNavLink>
       </Block>
@@ -79,7 +79,7 @@ const StyledNavLink = styled(NavLink)(() => ({
   alignItems: 'center',
   transition: 'background-color 0.3s ease, color 0.3s ease',
 
-  '& img': {
+  '& svg': {
     width: '24px',
     height: '24px',
     transition: 'filter 0.3s ease',

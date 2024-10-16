@@ -38,8 +38,8 @@ export const RatingPage = () => {
   const { id: ratingID } = useParams();
   const { user, isLoading } = useSelector(state => state.userAdmin);
   const navigate = useNavigate();
-  const value = data.find(item => item.id === +ratingID);
   const dispatch = useDispatch();
+  const value = data.find(item => item.id === +ratingID);
 
   const onClickTableItem = userId => {
     console.log(userId);
@@ -72,7 +72,8 @@ export const RatingPage = () => {
       <div className={styles.ratingBox}>
         <div className={styles.ratingItem}>{ratingID}</div>
         <div className={styles.ratingAmount}>
-          {value.from} - {value.to}
+          {new Intl.NumberFormat('ru-RU').format(value.from)} -{' '}
+          {new Intl.NumberFormat('ru-RU').format(value.to)}
         </div>
       </div>
 

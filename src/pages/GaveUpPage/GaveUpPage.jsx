@@ -13,11 +13,10 @@ export const GaveUpPage = () => {
   useEffect(() => {
     dispatch(getGaveUp());
   }, []);
-
-  return (
+  return (  
     <Box height="100vh" width="100%">
       {isLoading && <Spinner />}
-      {!searchesAll.lenght ? (
+      {searchesAll.length ? (
         <GraduatedTable data={searchesAll} />
       ) : (
         <div style={{ width: '100%', height: '100%' }}>

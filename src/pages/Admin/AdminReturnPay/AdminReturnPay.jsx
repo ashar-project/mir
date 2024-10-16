@@ -1,5 +1,6 @@
 import { Button } from '@/components';
 import { Spinner } from '@/components/Spinner/Spinner';
+import { searchGaveUp } from '@/store/admin/adminGaveUp/adminGaveUpTjunk';
 import {
   postPayment,
   returnPayUser,
@@ -35,7 +36,7 @@ export const AdminReturnPay = () => {
     } else if (isNaN(sum) || Number(sum) <= 0) {
       setSumError('Сумма должна быть положительным числом');
     }
-
+    const query = '';
     if (
       email &&
       emailRegex.test(email) &&
@@ -48,7 +49,9 @@ export const AdminReturnPay = () => {
         sum,
       };
       console.log(value);
-      dispatch(returnPayUser({ value, navigate }));
+      dispatch(returnPayUser({ value, navigate })).then(() => {
+        dispatch(searchGaveUp(query));
+      });
       setEmail('');
       setSum('');
     }

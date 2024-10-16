@@ -31,6 +31,8 @@ export const adminGraduatedSlice = createSlice({
       })
       .addCase(deleteGraduatedUsers.fulfilled, state => {
         state.isLoading = false;
+        state.adminGraudated = [];
+        state.searchAll = [];
       })
       .addCase(deleteGraduatedUsers.rejected, state => {
         state.isLoading = false;

@@ -27,22 +27,25 @@ export const TotalAmout = () => {
     {
       accessorKey: 'email',
       header: 'Email',
-      cell: info => info.getValue(),
     },
     {
-      accessorKey: 'phoneNumber',
+      accessorKey: 'number',
       header: 'Number',
     },
     {
       accessorKey: '',
       header: 'Cумма',
       cell: ({ row }) => (
-        <div style={{ marginLeft: '20px' }}>{row.original.totalSum}</div>
+        <div style={{ marginLeft: '20px' }}>{row.original.userTotalSum}</div>
       ),
     },
   ];
 
   if (isLoading) return <Spinner />;
+
+  if (!main || !main.users || main.users.length === 0) {
+    return <div>No data available</div>;
+  }
 
   return (
     <>
@@ -80,9 +83,9 @@ export const TotalAmout = () => {
           </Typography>
         </BlockOne>
 
-        <MobileCard item={main.users} />
+        <MobileCard item={main.users || []} />
         <Div>
-          <Table data={main.users} columns={columns} />
+          <Table data={main.users || []} columns={columns} />
         </Div>
       </Main>
     </>
