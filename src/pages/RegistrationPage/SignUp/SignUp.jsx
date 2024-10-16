@@ -39,7 +39,6 @@ export const SignUp = () => {
   } = useForm();
 
   const handlerSubmit = data => {
-    console.log(data);
     dispatch(signUp(data));
   };
 
@@ -96,7 +95,7 @@ export const SignUp = () => {
               placeholder="Email"
             />
             <Input
-              {...register('totalSum', {
+              {...register('phoneNumber', {
                 required: 'Сумма обязательна для заполнения',
                 min: {
                   value: 1,
@@ -115,7 +114,7 @@ export const SignUp = () => {
               placeholder="Phone Number"
             />
             <Input
-              {...register('phoneNumber', {
+              {...register('totalSum', {
                 required: 'Номер телефона обязателен для заполнения',
                 pattern: {
                   value: /^[0-9]+$/,
