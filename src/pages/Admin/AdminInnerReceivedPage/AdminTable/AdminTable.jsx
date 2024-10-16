@@ -36,6 +36,9 @@ export const AdminPaymentTable = ({ onClick, variants, value }) => {
         <Bot>
           <div>
             <DebtInfo variant="body1">
+              Текущий счет: {value?.totalSum} сом
+            </DebtInfo>
+            <DebtInfo variant="body1">
               Основной долг: {value?.principalDebt} сом
             </DebtInfo>
             <DebtInfo variant="body1" style={{ color: 'green' }}>

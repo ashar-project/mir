@@ -11,6 +11,7 @@ export const profileSlice = createSlice({
   initialState: {
     isLoading: false,
     profile: {},
+    tabelProfile: {},
     error: null,
     file: '',
   },
@@ -28,6 +29,7 @@ export const profileSlice = createSlice({
           photoUrl: payload.photoUrl,
           id: payload.id,
         };
+        state.tabelProfile = payload;
         state.isLoading = false;
       })
 

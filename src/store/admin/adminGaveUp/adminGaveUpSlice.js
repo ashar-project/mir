@@ -12,6 +12,7 @@ export const adminGaveUpSlice = createSlice({
     adminGaveUp: [],
     error: null,
     searchesAll: [],
+    allGave: [],
   },
 
   reducers: {},
@@ -23,6 +24,7 @@ export const adminGaveUpSlice = createSlice({
       .addCase(getAdminGaveUp.fulfilled, (state, { payload }) => {
         state.adminGaveUp = payload;
         state.isLoading = false;
+        state.allGave = payload;
       })
       .addCase(getAdminGaveUp.rejected, state => {
         state.isLoading = false;
@@ -34,6 +36,7 @@ export const adminGaveUpSlice = createSlice({
         state.isLoading = false;
         state.adminGaveUp = [];
         state.searchesAll = [];
+        state.allGave = [];
       })
       .addCase(deleteGaveUpdUsers.rejected, state => {
         state.isLoading = false;
@@ -44,6 +47,7 @@ export const adminGaveUpSlice = createSlice({
       .addCase(searchGaveUp.fulfilled, (state, { payload }) => {
         state.searchesAll = payload;
         state.isLoading = false;
+        state.allGave = payload;
       })
       .addCase(searchGaveUp.rejected, state => {
         state.isLoading = false;

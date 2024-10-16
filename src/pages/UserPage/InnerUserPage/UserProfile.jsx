@@ -15,6 +15,7 @@ export const InnerUserPage = () => {
   useEffect(() => {
     dispatch(getUserById(id));
   }, []);
+  
   return (
     <>
       {isLoading && <Spinner />}
@@ -29,9 +30,6 @@ export const InnerUserPage = () => {
             >
               {receivedInfo.userName}
             </TypographyStyled>
-            {/* <TypographyStyled variant="h4" fontFamily={'Montserrat,sans-serif'}>
-              50%
-            </TypographyStyled> */}
           </ImgBlock>
         </BlockOne>
         <BlockTwo>

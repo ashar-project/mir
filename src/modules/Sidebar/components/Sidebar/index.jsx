@@ -86,7 +86,6 @@ const menuElements = [
     navigation: 'return-pay',
   },
 ];
-
 const AdminDesktopSidebar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -107,7 +106,7 @@ const AdminDesktopSidebar = () => {
 
       <List sx={{ borderTop: '1px solid grey', marginTop: '10px' }}>
         {menuElements.map(({ label, navigation }) => {
-          const isSelectedPage = `/admin/${navigation}` === pathname;
+          const isSelectedPage = pathname.startsWith(`/admin/${navigation}`);
 
           return (
             <ListItem
@@ -118,9 +117,9 @@ const AdminDesktopSidebar = () => {
               <ListItemButton
                 sx={{
                   borderRadius: '3px',
-                  backgroundColor: isSelectedPage && '#637E7E',
+                  backgroundColor: isSelectedPage ? '#637E7E' : 'transparent',
                   ':hover': {
-                    backgroundColor: isSelectedPage && '#637E7E',
+                    backgroundColor: isSelectedPage ? '#637E7E' : '#f0f0f0',
                   },
                 }}
               >
@@ -157,7 +156,7 @@ const AdminDesktopSidebar = () => {
       </div>
       <ReusableModal open={openModal} onClose={handlerModal}>
         <Box sx={{ display: 'flex', gap: '30px', flexDirection: 'column' }}>
-          Вы точна хотите выйти
+          Вы точно хотите выйти
           <div style={{ display: 'flex', gap: '20px' }}>
             <Button onClick={handlerModal}>Отмена</Button>
             <Button onClick={() => dispatch(logout())}>Да</Button>

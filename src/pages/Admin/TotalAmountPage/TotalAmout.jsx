@@ -29,14 +29,14 @@ export const TotalAmout = () => {
       header: 'Email',
     },
     {
-      accessorKey: 'phoneNumber',
+      accessorKey: 'number',
       header: 'Number',
     },
     {
       accessorKey: '',
       header: 'Cумма',
       cell: ({ row }) => (
-        <div style={{ marginLeft: '20px' }}>{row.original.totalSum}</div>
+        <div style={{ marginLeft: '20px' }}>{row.original.userTotalSum}</div>
       ),
     },
   ];

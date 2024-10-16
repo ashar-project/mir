@@ -33,9 +33,9 @@ export const getByIdWorldInfo = createAsyncThunk(
 
 export const addDebtUser = createAsyncThunk(
   'user/addDebtUser',
-  async ({ userId, debtSum }, { rejectWithValue }) => {
-    console.log(debtSum)
-    
+  async ({ userId, debtSum }, { rejectWithValue, dispatch }) => {
+    console.log(debtSum);
+
     try {
       const { data } = await axiosInstance.post(
         `/api/payments/${userId}/giveDebt`,
@@ -48,6 +48,7 @@ export const addDebtUser = createAsyncThunk(
         status: 'success',
         duration: 2500,
       });
+      dispatch(getAdminWorld());
       return data;
     } catch (error) {
       toastifyMessage({

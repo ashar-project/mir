@@ -84,10 +84,12 @@ export const AdminLayout = () => {
   const deleteReceivedUsers = async () => {
     await dispatch(deleteGraduatedUsers());
     await dispatch(getReceivedUser());
+    modal();
   };
   const deleteGaveUpdUserss = async () => {
     await dispatch(getAdminGaveUp());
     await dispatch(deleteGaveUpdUsers());
+    modal();
   };
 
   return (
@@ -217,7 +219,6 @@ const BoxStyled = styled(Box)(({ theme }) => ({
   padding: '20px',
 
   [theme.breakpoints.down('sm')]: {
-    border: '1px solid black',
     width: '90%',
     height: '90%',
     display: 'flex',

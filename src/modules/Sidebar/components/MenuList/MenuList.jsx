@@ -27,10 +27,11 @@ export const MenuList = () => {
   const logoutFn = () => {
     dispatch(logout());
   };
+
   return (
     <List>
       {menuElements.map(({ label, navigation }) => {
-        const isSelectedPage = navigation === pathname;
+        const isSelectedPage = pathname === navigation || pathname.startsWith(`${navigation}/`);
 
         return (
           <ListItem
@@ -41,9 +42,9 @@ export const MenuList = () => {
             <ListItemButton
               sx={{
                 borderRadius: '3px',
-                backgroundColor: isSelectedPage && '#637E7E',
+                backgroundColor: isSelectedPage ? '#637E7E' : 'transparent',
                 ':hover': {
-                  backgroundColor: isSelectedPage && '#637E7E',
+                  backgroundColor: isSelectedPage ? '#637E7E' : '#E0E0E0',
                 },
               }}
             >
@@ -71,7 +72,7 @@ export const MenuList = () => {
       <ReusableModal open={open} onClose={handlerOpenModal}>
         <BoxStyled>
           <Typography fontWeight={800} fontSize={20}>
-            Вы точна хотите выйти ?
+            Вы точно хотите выйти ?
           </Typography>
           <div style={{ display: 'flex', gap: '20px' }}>
             <Button onClick={handlerOpenModal}>Отмена</Button>
@@ -82,6 +83,7 @@ export const MenuList = () => {
     </List>
   );
 };
+
 
 const BoxStyled = styled(Box)(() => ({
   width: '400px',

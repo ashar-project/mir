@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 
 export const PaymentTable = ({ onClick, variants, value }) => {
+  console.log(value);
   const translateValue = {
     PAID: 'Оплачено',
     WAITING: 'Ожидание',
@@ -36,14 +37,24 @@ export const PaymentTable = ({ onClick, variants, value }) => {
       <TableWrapper>
         <Bot>
           <div>
+            {variants === 'profile' && (
+              <DebtInfo variant="body1">
+                Текущий сумма:{' '}
+                {new Intl.NumberFormat('ru-RU').format(value?.totalSum)} сом
+              </DebtInfo>
+            )}
             <DebtInfo variant="body1">
-              Основной долг: {value?.principalDebt} сом
+              Основной долг:{' '}
+              {new Intl.NumberFormat('ru-RU').format(value?.principalDebt)} сом
             </DebtInfo>
             <DebtInfo variant="body1" style={{ color: 'green' }}>
-              Оплатил: {value?.payDebt} сом
+              Оплатил: {new Intl.NumberFormat('ru-RU').format(value?.payDebt)}{' '}
+              сом
             </DebtInfo>
             <DebtInfo variant="body1" style={{ color: 'orange' }}>
-              Остаток: {value?.remainingAmount} сом
+              Остаток:{' '}
+              {new Intl.NumberFormat('ru-RU').format(value?.remainingAmount)}{' '}
+              сом
             </DebtInfo>
           </div>
           {variants === 'admin' && (

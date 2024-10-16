@@ -6,11 +6,14 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   MdOutlineMarkEmailUnread as EmailIcon,
   MdOutlinePassword as PasswordIcon,
 } from 'react-icons/md';
+import { GoEyeClosed } from 'react-icons/go';
+import { GoEye } from 'react-icons/go';
+
 import { log as LogoOne, LogoTwo } from '@/assets/icon';
 import { useCheckClient } from '@/helpers';
 import { useNavigate } from 'react-router-dom';
@@ -22,6 +25,8 @@ import { Spinner } from '@/components/Spinner/Spinner';
 export const SignIn = () => {
   const { isMobile } = useCheckClient();
   const { isLoading } = useSelector(state => state.auth);
+  const [open, setOpen] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -35,6 +40,9 @@ export const SignIn = () => {
   };
   const submitHandler = value => {
     dispatch(signIn(value));
+  };
+  const clickEYE = () => {
+    setOpen(rev => !rev);
   };
   return (
     <Container>
@@ -61,13 +69,15 @@ export const SignIn = () => {
           <Input
             {...register('password', { required: true })}
             error={!!errors.password}
+            type={!open ? 'password' : 'text'}
             InputProps={{
               endAdornment: (
                 <InputAdornmentStyled
+                  onClick={clickEYE}
                   sx={{ position: 'relative', cursor: 'pointer' }}
                   position="end"
                 >
-                  <PasswordIcon size={25} />
+                  {!open ? <GoEyeClosed size={25} /> : <GoEye size={25} />}
                 </InputAdornmentStyled>
               ),
             }}

@@ -8,28 +8,53 @@ export const RatingCard = ({ minAmount, maxAmount, rating }) => {
     <Stack
       sx={{
         padding: '15px',
-        minWidth: '220px',
+        minWidth: '200px',
         maxHeight: '160px',
-        border: '1px solid grey',
-        boxShadow: '0px 4px 5px grey',
+        border: '1px solid #ccc',
+        borderRadius: '8px',
+        boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
         borderTop: '5px solid #637E7E',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-
-        [theme.breakpoints.down('sm')]: {
-          minWidth: '150px',
-          maxHeight: '185px',
-        },
+        backgroundColor: theme.palette.background.paper,
         cursor: 'pointer',
+        transition: 'transform 0.2s, box-shadow 0.2s', 
+        '&:hover': {
+          transform: 'scale(1.02)',
+          boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.2)', 
+        },
+
+        [theme.breakpoints.down('md')]: {
+          minWidth: '176px',
+          maxHeight: '185px',
+          padding: '10px',
+        },
+        '@media (max-width: 375px)': {
+          width: '116px',
+          height: '125px',
+          padding: '5px', 
+        },
       }}
     >
-      <Typography lineHeight={1.15} fontSize={96} fontWeight={500}>
+      <Typography
+        lineHeight={1.15}
+        fontSize={64}
+        fontWeight={500}
+        color={theme.palette.text.primary}
+        textAlign="center" 
+      >
         {rating}
       </Typography>
-      <Stack direction="row" gap="10px">
-        <Typography fontSize={16} fontWeight={500}>
-          {minAmount} - {maxAmount}
+      <Stack>
+        <Typography
+          fontSize={14}
+          fontWeight={500}
+          color={theme.palette.text.secondary}
+          textAlign="center" 
+        >
+          {new Intl.NumberFormat('ru-RU').format(minAmount)} -{' '}
+          {new Intl.NumberFormat('ru-RU').format(maxAmount)}
         </Typography>
       </Stack>
     </Stack>
