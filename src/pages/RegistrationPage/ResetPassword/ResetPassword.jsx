@@ -64,7 +64,7 @@ export const ResetPassword = () => {
         <BlockOne>Изменить</BlockOne>
         <BlockTwo>
           <Input
-            type={!showPassword ? 'text' : 'password'}
+            type={showPassword ? 'text' : 'password'}
             {...register('password', {
               required: true,
               minLength: {
@@ -79,7 +79,7 @@ export const ResetPassword = () => {
               endAdornment: (
                 <InputAdornmentStyled position="end">
                   <div onClick={handleClickEye}>
-                    {showPassword ? (
+                    {!showPassword ? (
                       <IoEyeOffOutline size={30} />
                     ) : (
                       <IoEyeOutline size={30} />
@@ -92,7 +92,7 @@ export const ResetPassword = () => {
           />
 
           <Input
-            type={!showPassword2 ? 'text' : 'password'}
+            type={showPassword2 ? 'text' : 'password'}
             {...register('password2', {
               required: true,
               validate: value =>
@@ -105,7 +105,7 @@ export const ResetPassword = () => {
               endAdornment: (
                 <InputAdornmentStyled position="end">
                   <div onClick={handleClickEye2}>
-                    {showPassword2 ? (
+                    {!showPassword2 ? (
                       <IoEyeOffOutline size={30} />
                     ) : (
                       <IoEyeOutline size={30} />

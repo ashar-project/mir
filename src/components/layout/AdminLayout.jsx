@@ -218,7 +218,7 @@ const Container = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     maxWidth: '450px',
     minWidth: '375px',
-    height: '100vh',
+    // height: '100vh',
     display: 'flex',
     flexDirection: 'column',
   },

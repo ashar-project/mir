@@ -1,6 +1,7 @@
 import { toastifyMessage } from '@/components/Toastify/Toastify';
 import { axiosInstance } from '@/config/axiosInstans';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 export const postPayment = createAsyncThunk(
   'pay/postPayment',
@@ -8,18 +9,32 @@ export const postPayment = createAsyncThunk(
     try {
       const { data } = await axiosInstance.post('/api/payments/addSum', value);
       navigate('/admin/worlds-page');
-      toastifyMessage({
-        message: 'Успешно',
-        status: 'success',
-        duration: 1500,
+
+      toast(data.message || 'Успешно добавлен!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
       });
       return data;
     } catch (error) {
-      toastifyMessage({
-        message: 'Упс что то пошло не так попробуйте еще раз',
-        status: 'error',
-        duration: 1500,
-      });
+      toast(
+        error?.response?.data?.exceptionMessage ||
+          'Упс что то пошло не так попробуйте еще раз',
+        {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: 'light',
+          type: 'error',
+        }
+      );
       return rejectWithValue(error);
     }
   }
@@ -34,18 +49,27 @@ export const returnPayUser = createAsyncThunk(
         value
       );
 
-      toastifyMessage({
-        message: 'Успешно',
-        status: 'success',
-        duration: 1500,
+      toast(data.message || 'Успешно !', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
       });
       navigate('/admin/worlds-page');
       return data;
     } catch (error) {
-      toastifyMessage({
-        message: 'Упс что то пошло не так попробуйте еще раз',
-        status: 'error',
-        duration: 1500,
+      toast('Упс что то пошло не так попробуйте еще раз', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
+        type: 'error',
       });
       return rejectWithValue(error);
     }

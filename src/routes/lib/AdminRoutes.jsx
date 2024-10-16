@@ -15,7 +15,7 @@ import { Spinner } from '@/components/Spinner/Spinner';
 
 export const ADMIN_ROUTER = [
   {
-    index: true,
+    path:'/admin',
     element: (
       <Suspense fallback={<Spinner />}>
         <TotalAmout />

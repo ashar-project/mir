@@ -1,6 +1,7 @@
 import { toastifyMessage } from '@/components/Toastify/Toastify';
 import { axiosInstance } from '@/config/axiosInstans';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 export const getAdminGraduated = createAsyncThunk(
   'adminGraduated/getAdminGraduated',
@@ -41,17 +42,27 @@ export const deleteGraduatedUsers = createAsyncThunk(
           params: { status: FINISHED },
         }
       );
-      toastifyMessage({
-        message: 'Успешно удалено все закончившие участники',
-        status: 'success',
-        duration: 2500,
+
+      toast(data.message || 'Успешно удалено все закончившие участники', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
       });
       return data;
     } catch (error) {
-      toastifyMessage({
-        message: 'Упс что то пошло не так попробуйте еще раз',
-        status: 'error',
-        duration: 2500,
+      toast('Упс что то пошло не так попробуйте еще раз', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
+        type: 'error',
       });
       return rejectWithValue(error);
     }

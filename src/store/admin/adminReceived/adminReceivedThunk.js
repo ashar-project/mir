@@ -1,6 +1,7 @@
 import { toastifyMessage } from '@/components/Toastify/Toastify';
 import { axiosInstance } from '@/config/axiosInstans';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 export const getAdminReceived = createAsyncThunk(
   'adminReceived/getAdminReceived',
@@ -53,10 +54,14 @@ export const postReceivedUserPayment = createAsyncThunk(
         }
       );
 
-      toastifyMessage({
-        message: 'Успешно',
-        status: 'success',
-        duration: 1500,
+      toast(data.message || 'Успешно!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
       });
 
       let id = userId;
@@ -67,12 +72,16 @@ export const postReceivedUserPayment = createAsyncThunk(
     } catch (error) {
       const simplifiedError = {
         message: error.response?.data?.message || 'Что-то пошло не так',
-        statusCode: error.response?.status || 500,
       };
-      toastifyMessage({
-        message: 'Упс что-то пошло не так, попробуйте еще раз',
-        status: 'error',
-        duration: 1500,
+      toast(simplifiedError, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
+        type: 'error',
       });
       return rejectWithValue(simplifiedError);
     }
