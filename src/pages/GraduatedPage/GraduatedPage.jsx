@@ -7,9 +7,9 @@ import { NodFound } from '@/assets/image';
 import { Spinner } from '@/components/Spinner/Spinner';
 
 export const GraduatedPage = () => {
-  const { searchesAll, isLoading } = useSelector(state => state.graduatad);
+  const { isLoading, all } = useSelector(state => state.graduatad);
   const dispatch = useDispatch();
-
+  console.log(all)
   useEffect(() => {
     dispatch(graduatadThunk());
   }, []);
@@ -17,8 +17,8 @@ export const GraduatedPage = () => {
   return (
     <Box height="100vh" width="100%">
       {isLoading && <Spinner />}
-      {!searchesAll.lenght ? (
-        <GraduatedInfo data={searchesAll} />
+      {all.length ? (
+        <GraduatedInfo data={all} />
       ) : (
         <div style={{ width: '100%', height: '100%' }}>
           <img style={{ width: '100%', height: '80%' }} src={NodFound} />

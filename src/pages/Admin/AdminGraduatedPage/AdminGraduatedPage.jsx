@@ -7,7 +7,10 @@ import { Spinner } from '@/components/Spinner/Spinner';
 
 export const AdminGraduatedPage = () => {
   const dispatch = useDispatch();
-  const { isLoading, searchAll } = useSelector(state => state.adminGraduated);
+  const { isLoading, searchAll, all } = useSelector(
+    state => state.adminGraduated
+  );
+
   useEffect(() => {
     dispatch(getAdminGraduated());
   }, []);
@@ -18,7 +21,7 @@ export const AdminGraduatedPage = () => {
       <ContentWrapper>
         <StyledDiv />
         <StyledBox>
-          {searchAll.map(card => (
+          {all.map(card => (
             <StyledContainerCart key={card.id}>
               <Cards
                 name={card.userName}
@@ -27,7 +30,7 @@ export const AdminGraduatedPage = () => {
               />
             </StyledContainerCart>
           ))}
-          {!searchAll?.length && <Typography>Пока что нет данных</Typography>}
+          {!all?.length && <Typography>Пока что нет данных</Typography>}
         </StyledBox>
       </ContentWrapper>
     </Wrapper>

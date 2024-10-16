@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 
 export const PaymentTable = ({ onClick, variants, value }) => {
-  console.log(value);
   const translateValue = {
     PAID: 'Оплачено',
     WAITING: 'Ожидание',
@@ -30,7 +29,6 @@ export const PaymentTable = ({ onClick, variants, value }) => {
             ? 'orange'
             : 'inherit',
   }));
-  console.log(value);
 
   return (
     <Box>
@@ -95,7 +93,7 @@ export const PaymentTable = ({ onClick, variants, value }) => {
                 ))
               ) : (
                 <Typography fontFamily={'Montserrat, sans-serif'}>
-                  Упс данных пока нету
+                  Упс данных пока нет
                 </Typography>
               )}
             </TableBody>

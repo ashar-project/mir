@@ -76,8 +76,9 @@ export const UserEditPage = () => {
     console.log(data);
     const { id, ...value } = data;
 
-    dispatch(updateProfile({value,navigate}))
+    dispatch(updateProfile({ value, navigate }));
   };
+  console.log(profile);
 
   return (
     <>
@@ -89,7 +90,7 @@ export const UserEditPage = () => {
         <Container>
           <BlockOne {...getRootProps()}>
             <Div>
-              {!Files && <Upload />}
+              {!Files && !profile.photoUrl && <Upload />}
               <input {...getInputProps()} />
             </Div>
             {Files ? (
@@ -143,6 +144,7 @@ export const UserEditPage = () => {
         </Container>
         <ButtonBlock>
           <Button
+            type="button"
             variant="outlined"
             style={{ borderRadius: '10px' }}
             onClick={() => navigate(-1)}

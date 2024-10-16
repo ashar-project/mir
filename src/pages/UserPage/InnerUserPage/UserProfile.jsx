@@ -1,4 +1,4 @@
-import { Girl } from '@/assets/image';
+import { Avatar, Girl } from '@/assets/image';
 import { Spinner } from '@/components/Spinner/Spinner';
 import { PaymentTable } from '@/modules/User';
 import { getUserById } from '@/store/slice/receivedSlice/receivedThunk';
@@ -22,7 +22,7 @@ export const InnerUserPage = () => {
       <Container>
         <BlockOne>
           <ImgBlock>
-            <Img src={receivedInfo.imageSrc || Girl} />
+            <Img src={receivedInfo.photoUrl || Avatar} />
             <TypographyStyled
               variant="h5"
               fontFamily={'Montserrat,sans-serif'}

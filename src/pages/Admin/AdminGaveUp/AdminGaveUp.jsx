@@ -9,6 +9,7 @@ import { Spinner } from '@/components/Spinner/Spinner';
 export const AdminGaveUpPage = () => {
   const dispatch = useDispatch();
   const { isLoading, allGave } = useSelector(state => state.adminGaveUp);
+  
   useEffect(() => {
     dispatch(getAdminGaveUp());
   }, []);
@@ -28,7 +29,7 @@ export const AdminGaveUpPage = () => {
               />
             </StyledContainerCart>
           ))}
-          {!allGave.length && <Typography>Пока что нет данных</Typography>}
+          {!allGave?.length && <Typography>Пока что нет данных</Typography>}
         </StyledBox>
       </ContentWrapper>
     </Wrapper>

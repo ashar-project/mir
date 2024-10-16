@@ -34,9 +34,10 @@ import { useDebounce } from 'use-debounce';
 export const AdminLayout = () => {
   const { open, setOpen } = useSidebar();
   const dispatch = useDispatch();
-  const { isLoading: graduatedLoadiing } = useSelector(
+  const { isLoading: graduatedLoadiing, all } = useSelector(
     state => state.adminGraduated
   );
+  const { allGave } = useSelector(state => state.adminGaveUp);
   const { pathname } = useLocation();
   const { isMobile } = useCheckClient();
 
@@ -51,7 +52,7 @@ export const AdminLayout = () => {
   useEffect(() => {
     if (debounced !== undefined) {
       if (pathname === '/admin/gave-page') {
-        dispatch(searchGaveUp(debounced));
+        allGave.length && dispatch(searchGaveUp(debounced));
       } else if (pathname === '/admin/graduated-page') {
         dispatch(searchesGraduated(debounced));
       } else {
@@ -141,26 +142,47 @@ export const AdminLayout = () => {
                 <BoxStyled>
                   {pathname === '/admin/gave-page' ? (
                     <>
-                      <TypographyStyled textAlign={'center'}>
-                        Вы точна хотите удалить всех сдавшихся участников ?
-                      </TypographyStyled>
+                      {!allGave?.length ? (
+                        <TypographyStyled textAlign={'center'}>
+                          Сдавшихся участников нету попробуйте позже
+                        </TypographyStyled>
+                      ) : (
+                        <TypographyStyled textAlign={'center'}>
+                          Вы точна хотите удалить всех сдавшихся участников ?
+                        </TypographyStyled>
+                      )}
                       <div style={{ display: 'flex', gap: '10px' }}>
                         <Button variant="outlined" onClick={modal}>
                           Отмена
                         </Button>
-                        <Button onClick={deleteGaveUpdUserss}>Да</Button>
+                        {allGave?.length ? (
+                          <Button onClick={deleteGaveUpdUserss}>Да</Button>
+                        ) : (
+                          <Button onClick={modal}>Назад</Button>
+                        )}
                       </div>
                     </>
                   ) : (
                     <>
-                      <TypographyStyled textAlign={'center'}>
-                        Вы точна хотите удалить всех закончившихся участников ?
-                      </TypographyStyled>
+                      {all?.length ? (
+                        <TypographyStyled textAlign={'center'}>
+                          Вы точна хотите удалить всех закончившихся участников
+                          ?
+                        </TypographyStyled>
+                      ) : (
+                        <TypographyStyled>
+                          Закончившие участников нету попробуйте позже
+                        </TypographyStyled>
+                      )}
                       <div style={{ display: 'flex', gap: '10px' }}>
                         <Button variant="outlined" onClick={modal}>
                           Отмена
                         </Button>
-                        <Button onClick={deleteReceivedUsers}>Да</Button>
+                        {all?.length ? (
+                          <Button onClick={deleteReceivedUsers}>Да</Button>
+                        ) : (
+                          <Button onClick={modal}>Назад</Button>
+                        )}
                       </div>
                     </>
                   )}

@@ -14,23 +14,23 @@ export const toastifyMessage = ({
   duration = 2000,
 }) => {
   let borderColor;
-  let backroundColor;
+  let backgroundColor;
 
   switch (status) {
     case 'error':
       borderColor = 'red';
-      backroundColor = '#fff8f8';
+      backgroundColor = '#fff8f8';
       break;
     default:
       borderColor = 'green';
-      backroundColor = '#f0fef3';
+      backgroundColor = '#f0fef3';
       break;
   }
 
   const style = {
     borderLeft: '10px solid',
     borderLeftColor: borderColor,
-    backgroundColor: backroundColor,
+    backgroundColor: backgroundColor,
   };
 
   const toastOptions = {

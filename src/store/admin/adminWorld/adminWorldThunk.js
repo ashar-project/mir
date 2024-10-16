@@ -1,6 +1,7 @@
 import { toastifyMessage } from '@/components/Toastify/Toastify';
 import { axiosInstance } from '@/config/axiosInstans';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { getAdminReceived } from '../adminReceived/adminReceivedThunk';
 
 export const getAdminWorld = createAsyncThunk(
   'user/getAdminWorld',
@@ -33,9 +34,7 @@ export const getByIdWorldInfo = createAsyncThunk(
 
 export const addDebtUser = createAsyncThunk(
   'user/addDebtUser',
-  async ({ userId, debtSum }, { rejectWithValue, dispatch }) => {
-    console.log(debtSum);
-
+  async ({ userId, debtSum, navigate }, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await axiosInstance.post(
         `/api/payments/${userId}/giveDebt`,
@@ -48,7 +47,8 @@ export const addDebtUser = createAsyncThunk(
         status: 'success',
         duration: 2500,
       });
-      dispatch(getAdminWorld());
+      navigate('/admin/received-page');
+      dispatch(getAdminReceived());
       return data;
     } catch (error) {
       toastifyMessage({

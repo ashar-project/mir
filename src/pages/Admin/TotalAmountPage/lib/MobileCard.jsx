@@ -1,4 +1,5 @@
 import { Delete } from '@/assets/icon';
+import { Avatar } from '@/assets/image';
 import { styled, Typography } from '@mui/material';
 import React from 'react';
 
@@ -10,7 +11,11 @@ export const MobileCard = ({ item, handlerId }) => {
       {item?.map(el => (
         <Card key={el.id} onClick={() => handlerId(el.id)}>
           <BlockAvatat>
-            <Delete />
+            <img
+              style={{ width: '60px', height: '60px', borderRadius: '100%' }}
+              src={el.photoUrl || Avatar}
+              alt=""
+            />
             <div>
               <Typography fontWeight={400} fontSize={'17px'}>
                 {el.userName || 'Ахатджанов Даниел'}
@@ -27,7 +32,8 @@ export const MobileCard = ({ item, handlerId }) => {
               fontSize={'32px'}
               fontFamily="'Nunito', sans-serif"
             >
-              {`${el?.userTotalSum} сом` || '1 000 000 сом'}
+              {`${new Intl.NumberFormat('ru-RU').format(el?.userTotalSum) || new Intl.NumberFormat('ru-RU').format(el.totalSum)} сом` ||
+                '1 000 000 сом'}
             </Typography>
           </BlockPrice>
         </Card>

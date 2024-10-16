@@ -8,6 +8,7 @@ export const graduatadSlice = createSlice({
     error: null,
     graduatad: [],
     searchesAll: [],
+    all:[]
   },
   reducers: {},
   extraReducers: builder => {
@@ -16,6 +17,7 @@ export const graduatadSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(graduatadThunk.fulfilled, (state, { payload }) => {
+        state.all = payload;
         state.graduatad = payload;
         state.isLoading = false;
       })
@@ -27,6 +29,7 @@ export const graduatadSlice = createSlice({
       })
       .addCase(searchesGraduated.fulfilled, (state, { payload }) => {
         state.isLoading = false;
+        state.all = payload;
         state.searchesAll = payload;
       })
       .addCase(searchesGraduated.rejected, state => {

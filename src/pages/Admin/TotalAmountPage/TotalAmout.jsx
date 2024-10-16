@@ -1,12 +1,10 @@
 import { Box, styled, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Button } from '@/components';
 import { ActionsImg } from './lib/Actions';
 import { Table } from '@/components/Table';
 import { MobileCard } from '..';
 import { useDispatch, useSelector } from 'react-redux';
-import { RxHamburgerMenu } from 'react-icons/rx';
-import { toggleOpen } from '@/modules/Sidebar/store';
 import { getMainData } from '@/store/admin/adminMain/adminMainThunk';
 import { Spinner } from '@/components/Spinner/Spinner';
 
@@ -36,7 +34,9 @@ export const TotalAmout = () => {
       accessorKey: '',
       header: 'Cумма',
       cell: ({ row }) => (
-        <div style={{ marginLeft: '20px' }}>{row.original.userTotalSum}</div>
+        <div style={{ marginLeft: '20px' }}>
+          {new Intl.NumberFormat('ru-RU').format(row.original.userTotalSum)}
+        </div>
       ),
     },
   ];

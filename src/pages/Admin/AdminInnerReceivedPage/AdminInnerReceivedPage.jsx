@@ -1,4 +1,4 @@
-import { Girl } from '@/assets/image';
+import { Avatar, Girl } from '@/assets/image';
 import { Button, Input, ReusableModal, Select } from '@/components';
 import { Box, styled, Typography, InputLabel } from '@mui/material';
 import { useState } from 'react';
@@ -55,7 +55,7 @@ export const AdminInnerReceivePage = () => {
       <Container>
         <BlockOne>
           <ImgBlock>
-            <Img src={receivedUser.photoUrl || Girl} alt="Profile" />
+            <Img src={receivedUser.photoUrl || Avatar} alt="Profile" />
             <TypographyStyled
               variant="h5"
               fontFamily={'Montserrat,sans-serif'}

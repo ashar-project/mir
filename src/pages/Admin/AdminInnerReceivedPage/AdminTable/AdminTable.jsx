@@ -36,16 +36,21 @@ export const AdminPaymentTable = ({ onClick, variants, value }) => {
         <Bot>
           <div>
             <DebtInfo variant="body1">
-              Текущий счет: {value?.totalSum} сом
+              Текущий счет:{' '}
+              {new Intl.NumberFormat('ru-RU').format(value?.totalSum)} сом
             </DebtInfo>
             <DebtInfo variant="body1">
-              Основной долг: {value?.principalDebt} сом
+              Основной долг:{' '}
+              {new Intl.NumberFormat('ru-RU').format(value?.principalDebt)} сом
             </DebtInfo>
             <DebtInfo variant="body1" style={{ color: 'green' }}>
-              Оплатил: {value?.payDebt} сом
+              Оплатил: {new Intl.NumberFormat('ru-RU').format(value?.payDebt)}{' '}
+              сом
             </DebtInfo>
             <DebtInfo variant="body1" style={{ color: 'orange' }}>
-              Остаток: {value?.remainingAmount} сом
+              Остаток:{' '}
+              {new Intl.NumberFormat('ru-RU').format(value?.remainingAmount)}{' '}
+              сом
             </DebtInfo>
           </div>
           {variants === 'admin' && (
@@ -88,7 +93,7 @@ export const AdminPaymentTable = ({ onClick, variants, value }) => {
                 <TableRowStyled>
                   <TableCell colSpan={4}>
                     <NoDataText fontFamily={'Montserrat, sans-serif'}>
-                      Упс, данных пока нету
+                      Упс, данных пока нет
                     </NoDataText>
                   </TableCell>
                 </TableRowStyled>
