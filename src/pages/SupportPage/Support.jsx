@@ -27,7 +27,13 @@ export const Support = () => {
           remaining essentially unchanged. It was popularised in the 1960s with
           the release of Letraset sheets containing Lorem Ipsum passages, and
           more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
+          including versions of Lorem Ipsum. Lorem ipsum dolor sit amet
+          consectetur adipisicing elit. Ab consectetur earum ex, modi excepturi
+          id. Consequatur nam porro culpa praesentium sunt, fuga a sit, eum,
+          harum nisi quibusdam. Quod, aspernatur. In omnis tempore minus quaerat
+          libero velit doloribus, perferendis, aspernatur unde facere nisi,
+          nostrum cum ex possimus excepturi repellat id. Dignissimos provident
+          deserunt quasi optio repellat fugit voluptas ex suscipit.
         </StyledLoremText>
       </StyledLoremTextBox>
     </StyledContainer>
@@ -36,7 +42,7 @@ export const Support = () => {
 
 const StyledContainer = styled('div')(({ theme }) => ({
   width: '100%',
-  maxWidth: '787px',
+  maxWidth: '1087px',
   height: '681px',
   margin: '20px auto',
   display: 'flex',
@@ -96,7 +102,7 @@ const StyledIcon = styled('img')({
 
 const StyledLoremTextBox = styled('div')(({ theme }) => ({
   width: '100%',
-  maxWidth: '787px',
+  maxWidth: '1087px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

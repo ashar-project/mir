@@ -11,7 +11,7 @@ export const CustomGrid = ({ children }) => {
         sx={{
           rowGap: '20px',
           columnGap: '20px',
-          padding: '15px 15px',
+          padding: '10px 10px',
 
           [theme.breakpoints.down('sm')]: {
             display: 'flex',
