@@ -44,7 +44,6 @@ export const AdminInnerReceivePage = () => {
     setStatus('Ожидание.');
     setText('');
   };
-  console.log(receivedUser);
 
   return (
     <>

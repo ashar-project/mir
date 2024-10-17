@@ -27,13 +27,10 @@ export const MobileSidebar = () => {
   const dispatch = useDispatch();
 
   const handlerModal = () => {
-    console.log('click');
     setOpenModal(prev => !prev);
   };
 
   const handleLogout = () => {
-    console.log('click');
-
     dispatch(logout());
     handlerModal();
   };

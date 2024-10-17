@@ -37,20 +37,20 @@ export const AdminPaymentTable = ({ onClick, variants, value }) => {
           <div>
             <DebtInfo variant="body1">
               Текущий счет:{' '}
-              {new Intl.NumberFormat('ru-RU').format(value?.totalSum)} сом
+              {new Intl.NumberFormat('ru-RU').format(value?.totalSum)} рубль
             </DebtInfo>
             <DebtInfo variant="body1">
               Основной долг:{' '}
-              {new Intl.NumberFormat('ru-RU').format(value?.principalDebt)} сом
+              {new Intl.NumberFormat('ru-RU').format(value?.principalDebt)} рубль
             </DebtInfo>
             <DebtInfo variant="body1" style={{ color: 'green' }}>
               Оплатил: {new Intl.NumberFormat('ru-RU').format(value?.payDebt)}{' '}
-              сом
+              рубль
             </DebtInfo>
             <DebtInfo variant="body1" style={{ color: 'orange' }}>
               Остаток:{' '}
               {new Intl.NumberFormat('ru-RU').format(value?.remainingAmount)}{' '}
-              сом
+              рубль
             </DebtInfo>
           </div>
           {variants === 'admin' && (

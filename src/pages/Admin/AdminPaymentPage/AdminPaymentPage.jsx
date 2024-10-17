@@ -44,7 +44,6 @@ export const AdminPaymentPage = () => {
         email,
         sum,
       };
-      console.log(value);
       dispatch(postPayment({ value, navigate }));
       setEmail('');
       setSum('');

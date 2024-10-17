@@ -24,7 +24,6 @@ export const AdminInnerTablePage = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(userInfo);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -95,9 +94,9 @@ export const AdminInnerTablePage = () => {
         <StyledName variant="h6">
           {userInfo.userName || 'Admin Adminov'}
         </StyledName>
-        <StyledGoal variant="body1">Цель: {userInfo.userGoal} сом</StyledGoal>
+        <StyledGoal variant="body1">Цель: {userInfo.userGoal} рубль</StyledGoal>
         <StyledPaid variant="body1">
-          Текущий счет: {userInfo.userTotalSum} сом
+          Текущий счет: {userInfo.userTotalSum} рубль
         </StyledPaid>
         <StyledButton variant="contained" onClick={handleClickOpen}>
           Далее
@@ -128,7 +127,7 @@ export const AdminInnerTablePage = () => {
                     {userInfo.userTotalSum}
                   </span>
                 </StyledSpan>
-                сом
+                рубль
               </div>
 
               {!errorMessage && debt > 0 && (
@@ -140,23 +139,23 @@ export const AdminInnerTablePage = () => {
                         amount - userInfo.userTotalSum
                       )}
                     </StyledSpan>{' '}
-                    сом
+                    рубль
                   </div>
                   <div>
-                    Общая сумма комисси: <StyledSpan>{price}</StyledSpan> сом
+                    Общая сумма комисси: <StyledSpan>{price}</StyledSpan> рубль
                   </div>
 
                   <StyledLinkTypographyBlue>
                     <StyledLinkBlue href="#">Сотрудники</StyledLinkBlue> 3% =
-                    <StyledSpan> {commission.toLocaleString()} сом</StyledSpan>
+                    <StyledSpan> {commission.toLocaleString()} рубль</StyledSpan>
                   </StyledLinkTypographyBlue>
                   <StyledLinkTypographyGreen>
                     <StyledLinkGreen href="#">Страховка</StyledLinkGreen> 2% =
-                    <StyledSpan> {service.toLocaleString()} сом</StyledSpan>
+                    <StyledSpan> {service.toLocaleString()} рубль</StyledSpan>
                   </StyledLinkTypographyGreen>
                   <StyledLinkTypographyOrange>
                     <StyledLinkOrange href="#">Программа</StyledLinkOrange> 1% =
-                    <StyledSpan> {program.toLocaleString()} сом</StyledSpan>
+                    <StyledSpan> {program.toLocaleString()} рубль</StyledSpan>
                   </StyledLinkTypographyOrange>
                   <div>
                     Долг{' '}
@@ -164,7 +163,7 @@ export const AdminInnerTablePage = () => {
                       {userInfo.userName}
                     </span>{' '}
                     составит:
-                    <StyledSpan> {allTotal}</StyledSpan> сом
+                    <StyledSpan> {allTotal}</StyledSpan> рубль
                   </div>
                 </>
               )}

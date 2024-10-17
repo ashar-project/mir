@@ -68,7 +68,7 @@ export const TotalAmout = () => {
                 color="#37D3D3"
               >
                 {new Intl.NumberFormat('ru-RU').format(main.globalSum)}
-                <span> сом</span>
+                <span> рубль</span>
               </Typography>
             </KrugBlockMini>
           </KrugBlock>

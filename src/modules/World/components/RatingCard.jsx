@@ -20,6 +20,7 @@ export const RatingCard = ({ minAmount, maxAmount, rating }) => {
         backgroundColor: theme.palette.background.paper,
         cursor: 'pointer',
         transition: 'transform 0.2s, box-shadow 0.2s', 
+        
         '&:hover': {
           transform: 'scale(1.02)',
           boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.2)', 
@@ -30,9 +31,9 @@ export const RatingCard = ({ minAmount, maxAmount, rating }) => {
           maxHeight: '185px',
           padding: '10px',
         },
-        '@media (max-width: 375px)': {
-          width: '116px',
-          height: '125px',
+        '@media (max-width: 360px)': {
+          width: '90px',
+          height: '110px',
           padding: '5px', 
         },
       }}

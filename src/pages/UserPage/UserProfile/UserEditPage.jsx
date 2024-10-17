@@ -73,12 +73,10 @@ export const UserEditPage = () => {
   }, [selectedFile]);
 
   const handlerSubmitValue = data => {
-    console.log(data);
     const { id, ...value } = data;
 
     dispatch(updateProfile({ value, navigate }));
   };
-  console.log(profile);
 
   return (
     <>

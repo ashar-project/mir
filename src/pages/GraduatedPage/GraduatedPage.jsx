@@ -9,7 +9,6 @@ import { Spinner } from '@/components/Spinner/Spinner';
 export const GraduatedPage = () => {
   const { isLoading, all } = useSelector(state => state.graduatad);
   const dispatch = useDispatch();
-  console.log(all)
   useEffect(() => {
     dispatch(graduatadThunk());
   }, []);
