@@ -35,7 +35,7 @@ export const TotalAmout = () => {
       header: 'Cумма',
       cell: ({ row }) => (
         <div style={{ marginLeft: '20px' }}>
-          {new Intl.NumberFormat('ru-RU').format(row.original.userTotalSum)}
+          {new Intl.NumberFormat('ru-RU').format(row.original.totalSum)}
         </div>
       ),
     },
@@ -74,12 +74,12 @@ export const TotalAmout = () => {
           </KrugBlock>
           <Typography
             fontSize={'24px'}
-            textAlign={'center'}
+            textAlign={'start'}
             fontWeight={500}
             color="#000000"
-            sx={{ margin: '10px 0' }}
+            sx={{ margin: '10px 0 0 50px' }}
           >
-            Запросы на добавления
+            Все участники
           </Typography>
         </BlockOne>
 
@@ -112,18 +112,6 @@ const Div = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     display: 'none',
   },
-}));
-
-const ButtonStyled = styled(Button)(({ theme }) => ({
-  margin: '50px auto',
-  backgroundColor: '#3D348B',
-  color: 'white',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '10px',
-  borderRadius: '16px',
-  width: '300px',
 }));
 
 const BlockOne = styled(Box)(({ theme }) => ({
@@ -200,17 +188,4 @@ const TypographyStyled = styled(Typography)(({ theme }) => ({
   color: '#000',
   margin: '20px auto',
   [theme.breakpoints.down('sm')]: {},
-}));
-
-const BlockNext = styled('div')(({ theme }) => ({
-  width: '150px',
-  height: '50px',
-  margin: '0 auto ',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '10px',
-  [theme.breakpoints.down('sm')]: {
-    display: 'none',
-  },
 }));

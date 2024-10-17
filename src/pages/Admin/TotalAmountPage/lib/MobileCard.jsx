@@ -45,6 +45,7 @@ export const MobileCard = ({ item, handlerId }) => {
 const Card = styled('div')(({ theme }) => ({
   width: '100%',
   display: 'none',
+
   [theme.breakpoints.down('sm')]: {
     width: '95%',
     minHeight: '150px',
@@ -60,6 +61,7 @@ const Card = styled('div')(({ theme }) => ({
 
 const BlockAvatat = styled('div')(({ theme }) => ({
   width: '50%',
+  
   [theme.breakpoints.down('sm')]: {
     width: '95%',
     height: '73px',
@@ -92,18 +94,3 @@ const BlockPrice = styled('div')(({ theme }) => ({
     marginTop: '10px',
   },
 }));
-
-const BlockActions = styled('div')(({ theme }) => ({
-  width: '100%',
-  [theme.breakpoints.down('sm')]: {
-    width: '95%',
-    minHeight: '60px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '0 10px',
-  },
-}));
-
-const DeleteIcon = styled('img')({});
-const CompleteIcon = styled('img')({});

@@ -67,8 +67,8 @@ export const SignIn = () => {
             {...register('password', {
               required: 'Пароль обязателен',
               minLength: {
-                value: 8,
-                message: 'Пароль должен быть не менее 8 символов',
+                value: 6,
+                message: 'Пароль должен быть не менее 6 символов',
               },
             })}
             error={!!error?.password}
