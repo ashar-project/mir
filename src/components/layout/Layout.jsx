@@ -102,8 +102,8 @@ const Container = styled(Box)(({ theme }) => ({
   margin: '0 auto',
   position: 'relative',
   overflow: 'hidden',
-  maxWidth: '1680px',
-  minWidth: '1200px',
+  // maxWidth: '1680px',
+  // minWidth: '1200px',
 
   [theme.breakpoints.down('sm')]: {
     maxWidth: '100%',
