@@ -15,6 +15,13 @@ export const TotalAmout = () => {
   useEffect(() => {
     dispatch(getMainData());
   }, [dispatch]);
+  
+  const translateValue = {
+    RECEIVED: { color: 'green', label: 'Получивщий' },
+    MIR: { color: 'blue', label: 'Мир' },
+    SUBMITTED: { color: 'red', label: 'Сдался' },
+    FINISHED: { color: 'black', label: 'Закончивший' },
+  };
 
   const columns = [
     {
@@ -25,6 +32,22 @@ export const TotalAmout = () => {
     {
       accessorKey: 'email',
       header: 'Email',
+    },
+    {
+      accessorKey: 'userStatus',
+      header: 'Статус',
+      cell: ({ row }) => {
+        const status = row.original.userStatus;
+        if (status) {
+          const { color, label } = translateValue[status] || {};
+          return (
+            <div>
+              <p style={{ color: color }}>{label}</p>
+            </div>
+          );
+        }
+        return <div>Статус не известен</div>;
+      },
     },
     {
       accessorKey: 'number',
@@ -40,6 +63,7 @@ export const TotalAmout = () => {
       ),
     },
   ];
+  console.log(main);
 
   if (isLoading) return <Spinner />;
 
@@ -68,7 +92,7 @@ export const TotalAmout = () => {
                 color="#37D3D3"
               >
                 {new Intl.NumberFormat('ru-RU').format(main.globalSum)}
-                <span> рубль</span>
+                <span style={{ fontSize: '14px' }}> рубль</span>
               </Typography>
             </KrugBlockMini>
           </KrugBlock>

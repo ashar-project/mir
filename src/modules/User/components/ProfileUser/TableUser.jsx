@@ -38,7 +38,7 @@ export const PaymentTable = ({ onClick, variants, value }) => {
           <div>
             {variants === 'profile' && (
               <DebtInfo variant="body1">
-                Текущий сумма:{' '}
+                Текущая сумма:{' '}
                 {new Intl.NumberFormat('ru-RU').format(value?.totalSum)} рубль
               </DebtInfo>
             )}

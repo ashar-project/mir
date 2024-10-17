@@ -87,7 +87,7 @@ export const SignIn = () => {
             }}
             placeholder="Password"
           />
-          <TypographyMuiTwo onClick={forgotPage}>Забыл пароль</TypographyMuiTwo>
+          <TypographyMuiTwo onClick={forgotPage}>Забыли пароль</TypographyMuiTwo>
         </BlockTwo>
         <BlockThree>
           <ButtonStyled fullWidth type="submit">

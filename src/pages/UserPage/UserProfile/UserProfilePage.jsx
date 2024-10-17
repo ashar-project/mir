@@ -222,10 +222,11 @@ const BlockOne = styled(Box)(({ theme }) => ({
 const Img = styled('img')(({ theme }) => ({
   width: '100%',
   height: '100%',
-
+  borderRadius: '100%',
   [theme.breakpoints.down('sm')]: {
     width: '100%',
     height: '100%',
+    borderRadius: '100%',
   },
 }));
 
