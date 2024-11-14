@@ -5,6 +5,7 @@ import { MobileCard } from '@/pages/Admin';
 import { ActionsImg } from '@/pages/Admin/TotalAmountPage/lib/Actions';
 import { Box, styled, Typography, useTheme } from '@mui/material';
 import { FaArrowLeft as BackIcon } from 'react-icons/fa6';
+import { MdCurrencyRuble } from 'react-icons/md';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -20,7 +21,6 @@ export const WorldInfo = () => {
       accessorKey: 'userName',
       header: 'Имя, фамилия',
       cell: ({ row }) => {
-        console.log(row.original);
         return <ActionsImg row={row} />;
       },
     },
@@ -85,7 +85,7 @@ export const WorldInfo = () => {
             }}
           >
             {new Intl.NumberFormat('ru-RU').format(value.from)} -
-            {new Intl.NumberFormat('ru-RU').format(value.to)} Сом
+            {new Intl.NumberFormat('ru-RU').format(value.to)}
           </Typography>
         </BlockSumm>
       </NavBox>

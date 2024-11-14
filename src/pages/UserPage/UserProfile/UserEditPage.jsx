@@ -73,12 +73,10 @@ export const UserEditPage = () => {
   }, [selectedFile]);
 
   const handlerSubmitValue = data => {
-    console.log(data);
     const { id, ...value } = data;
 
     dispatch(updateProfile({ value, navigate }));
   };
-  console.log(profile);
 
   return (
     <>
@@ -243,8 +241,10 @@ const Img = styled('img')(({ theme }) => ({
   width: '100%',
   height: '100%',
   objectFit: 'cover',
-
+  borderRadius:"100%",
+  
   [theme.breakpoints.down('sm')]: {
+    borderRadius:"100%",
     width: '100%',
     height: '100%',
   },

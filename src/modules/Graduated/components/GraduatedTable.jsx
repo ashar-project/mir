@@ -2,7 +2,6 @@ import { Grid2 as Grid } from '@mui/material';
 import { Cards, CustomGrid } from '@/components';
 
 export const GraduatedTable = ({ data, goInnerPage }) => {
-  console.log(data);
   const upId = id => {
     if (typeof goInnerPage === 'function') {
       goInnerPage(id);
@@ -10,7 +9,6 @@ export const GraduatedTable = ({ data, goInnerPage }) => {
       console.error('goInnerPage is not a function');
     }
   };
-  console.log(data)
   return (
     <CustomGrid>
       {data.map(({ userName, photoUrl, id }, index) => (

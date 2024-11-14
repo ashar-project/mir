@@ -10,9 +10,11 @@ export const GaveUpPage = () => {
   const { isLoading, all } = useSelector(state => state.gaveUp);
 
   const dispatch = useDispatch();
+  
   useEffect(() => {
     dispatch(getGaveUp());
   }, []);
+
   return (
     <Box height="100vh" width="100%">
       {isLoading && <Spinner />}

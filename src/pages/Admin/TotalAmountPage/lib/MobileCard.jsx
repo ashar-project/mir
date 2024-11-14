@@ -1,11 +1,9 @@
-import { Delete } from '@/assets/icon';
 import { Avatar } from '@/assets/image';
 import { styled, Typography } from '@mui/material';
 import React from 'react';
+import { MdCurrencyRuble } from 'react-icons/md';
 
 export const MobileCard = ({ item, handlerId }) => {
-  console.log(item);
-
   return (
     <>
       {item?.map(el => (
@@ -14,14 +12,13 @@ export const MobileCard = ({ item, handlerId }) => {
             <img
               style={{ width: '60px', height: '60px', borderRadius: '100%' }}
               src={el.photoUrl || Avatar}
-              alt=""
             />
             <div>
               <Typography fontWeight={400} fontSize={'17px'}>
-                {el.userName || 'Ахатджанов Даниел'}
+                {el.userName || 'Admin Adminov'}
               </Typography>
               <Typography color="#959393" fontWeight={400} fontSize={'13px'}>
-                {el?.email || 'tanya.hill@example.com'}
+                {el?.email || 'admin@example.com'}
               </Typography>
             </div>
           </BlockAvatat>
@@ -32,8 +29,13 @@ export const MobileCard = ({ item, handlerId }) => {
               fontSize={'32px'}
               fontFamily="'Nunito', sans-serif"
             >
-              {`${new Intl.NumberFormat('ru-RU').format(el?.totalSum) || new Intl.NumberFormat('ru-RU').format(el.userTotalSum)} сом` ||
-                '1 000 000 сом'}
+              {new Intl.NumberFormat('ru-RU').format(
+                el?.totalSum || el?.userTotalSum
+              )}
+              <span>
+                {' '}
+                <MdCurrencyRuble size={20} />
+              </span>
             </Typography>
           </BlockPrice>
         </Card>
@@ -45,6 +47,7 @@ export const MobileCard = ({ item, handlerId }) => {
 const Card = styled('div')(({ theme }) => ({
   width: '100%',
   display: 'none',
+
   [theme.breakpoints.down('sm')]: {
     width: '95%',
     minHeight: '150px',
@@ -60,6 +63,7 @@ const Card = styled('div')(({ theme }) => ({
 
 const BlockAvatat = styled('div')(({ theme }) => ({
   width: '50%',
+
   [theme.breakpoints.down('sm')]: {
     width: '95%',
     height: '73px',
@@ -92,18 +96,3 @@ const BlockPrice = styled('div')(({ theme }) => ({
     marginTop: '10px',
   },
 }));
-
-const BlockActions = styled('div')(({ theme }) => ({
-  width: '100%',
-  [theme.breakpoints.down('sm')]: {
-    width: '95%',
-    minHeight: '60px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '0 10px',
-  },
-}));
-
-const DeleteIcon = styled('img')({});
-const CompleteIcon = styled('img')({});

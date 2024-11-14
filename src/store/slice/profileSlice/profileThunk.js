@@ -54,7 +54,6 @@ export const gaveUser = createAsyncThunk(
 export const updateProfile = createAsyncThunk(
   'profile/updateProfile',
   async ({ value, navigate }, { rejectWithValue, dispatch }) => {
-    console.log(value);
     try {
       const { data } = await axiosInstance.put(
         `/api/users/updateProfile`,
@@ -99,7 +98,7 @@ export const addFileAWS3 = createAsyncThunk(
         formData.append('file', file);
         console.log('FormData содержит файл:', formData.get('file'));
       } else {
-        console.error('Передан некорректный файл:', file);
+        alert('Передан некорректный файл:', file);
       }
 
       const { data } = await axiosInstanceFile.post(

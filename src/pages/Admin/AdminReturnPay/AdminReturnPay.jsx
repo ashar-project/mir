@@ -48,7 +48,6 @@ export const AdminReturnPay = () => {
         email,
         sum,
       };
-      console.log(value);
       dispatch(returnPayUser({ value, navigate })).then(() => {
         dispatch(searchGaveUp(query));
       });

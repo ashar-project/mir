@@ -40,11 +40,13 @@ export const Forgot = () => {
     <Container>
       {isLoading && <Spinner />}
       <Logo>
-        <Img />
+        <Img>
+          <LogoTwo />
+        </Img>
         <TypographyStyled>Добро пожаловать</TypographyStyled>
       </Logo>
       <Block onSubmit={handleSubmit(submitHandlers)}>
-        <BlockOne>Регестрация</BlockOne>
+        <BlockOne>Изменить</BlockOne>
         <BlockTwo>
           <Input
             {...register('email', { required: true })}
@@ -61,7 +63,7 @@ export const Forgot = () => {
         </BlockTwo>
         <BlockThree>
           <ButtonStyled fullWidth type="submit">
-            Next
+            Следующий
           </ButtonStyled>
 
           <TypographyMui onClick={signInPage} type="button">

@@ -15,6 +15,13 @@ export const TotalAmout = () => {
   useEffect(() => {
     dispatch(getMainData());
   }, [dispatch]);
+  
+  const translateValue = {
+    RECEIVED: { color: 'green', label: 'Получивщий' },
+    MIR: { color: 'blue', label: 'Мир' },
+    SUBMITTED: { color: 'red', label: 'Сдался' },
+    FINISHED: { color: 'black', label: 'Закончивший' },
+  };
 
   const columns = [
     {
@@ -25,6 +32,22 @@ export const TotalAmout = () => {
     {
       accessorKey: 'email',
       header: 'Email',
+    },
+    {
+      accessorKey: 'userStatus',
+      header: 'Статус',
+      cell: ({ row }) => {
+        const status = row.original.userStatus;
+        if (status) {
+          const { color, label } = translateValue[status] || {};
+          return (
+            <div>
+              <p style={{ color: color }}>{label}</p>
+            </div>
+          );
+        }
+        return <div>Статус не известен</div>;
+      },
     },
     {
       accessorKey: 'number',
@@ -40,6 +63,7 @@ export const TotalAmout = () => {
       ),
     },
   ];
+  console.log(main);
 
   if (isLoading) return <Spinner />;
 
@@ -68,18 +92,18 @@ export const TotalAmout = () => {
                 color="#37D3D3"
               >
                 {new Intl.NumberFormat('ru-RU').format(main.globalSum)}
-                <span> сом</span>
+                <span style={{ fontSize: '14px' }}> рубль</span>
               </Typography>
             </KrugBlockMini>
           </KrugBlock>
           <Typography
             fontSize={'24px'}
-            textAlign={'center'}
+            textAlign={'start'}
             fontWeight={500}
             color="#000000"
-            sx={{ margin: '10px 0' }}
+            sx={{ margin: '10px 0 0 50px' }}
           >
-            Запросы на добавления
+            Все участники
           </Typography>
         </BlockOne>
 
@@ -112,18 +136,6 @@ const Div = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     display: 'none',
   },
-}));
-
-const ButtonStyled = styled(Button)(({ theme }) => ({
-  margin: '50px auto',
-  backgroundColor: '#3D348B',
-  color: 'white',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '10px',
-  borderRadius: '16px',
-  width: '300px',
 }));
 
 const BlockOne = styled(Box)(({ theme }) => ({
@@ -200,17 +212,4 @@ const TypographyStyled = styled(Typography)(({ theme }) => ({
   color: '#000',
   margin: '20px auto',
   [theme.breakpoints.down('sm')]: {},
-}));
-
-const BlockNext = styled('div')(({ theme }) => ({
-  width: '150px',
-  height: '50px',
-  margin: '0 auto ',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '10px',
-  [theme.breakpoints.down('sm')]: {
-    display: 'none',
-  },
 }));

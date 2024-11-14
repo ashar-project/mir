@@ -19,7 +19,6 @@ axiosInstanceFile.interceptors.request.use(
   function (config) {
     const updateConfig = { ...config };
     const token = store.getState().auth;
-    console.log(token.token);
     if (token) {
       updateConfig.headers.Authorization = `Bearer ${token.token}`;
     }

@@ -42,7 +42,6 @@ export const RatingPage = () => {
   const value = data.find(item => item.id === +ratingID);
 
   const onClickTableItem = userId => {
-    console.log(userId);
     dispatch(getByIdWorldInfo({ userId }))
       .then(result => {
         if (result.meta.requestStatus === 'fulfilled') {
@@ -55,7 +54,6 @@ export const RatingPage = () => {
         console.error('Произошла ошибка:', error);
       });
   };
-  console.log(user);
 
   return (
     <div className={styles.container}>
