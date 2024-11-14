@@ -87,3 +87,15 @@ export const postReceivedUserPayment = createAsyncThunk(
     }
   }
 );
+
+export const procentUser = createAsyncThunk(
+  'adminReceived/procentUser',
+  async (userId, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.get(`/api/users/percent/${userId}`);
+      return data;
+    } catch (error) {
+      rejectWithValue(error);
+    }
+  }
+);

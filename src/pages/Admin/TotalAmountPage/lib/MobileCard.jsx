@@ -32,7 +32,7 @@ export const MobileCard = ({ item, handlerId }) => {
               fontSize={'32px'}
               fontFamily="'Nunito', sans-serif"
             >
-              {`${new Intl.NumberFormat('ru-RU').format(el?.userTotalSum) || new Intl.NumberFormat('ru-RU').format(el.totalSum)} сом` ||
+              {`${new Intl.NumberFormat('ru-RU').format(el?.totalSum) || new Intl.NumberFormat('ru-RU').format(el.userTotalSum)} сом` ||
                 '1 000 000 сом'}
             </Typography>
           </BlockPrice>

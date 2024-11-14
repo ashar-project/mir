@@ -35,7 +35,7 @@ export const TotalAmout = () => {
       header: 'Cумма',
       cell: ({ row }) => (
         <div style={{ marginLeft: '20px' }}>
-          {new Intl.NumberFormat('ru-RU').format(row.original.userTotalSum)}
+          {new Intl.NumberFormat('ru-RU').format(row.original.totalSum)}
         </div>
       ),
     },

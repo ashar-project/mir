@@ -20,19 +20,20 @@ import { unwrapResult } from '@reduxjs/toolkit';
 export const AdminInnerTablePage = () => {
   const [open, setOpen] = useState(false);
   const { userInfo, isLoading } = useSelector(state => state.userAdmin);
+
   const [amount, setAmount] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(userInfo);
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+
   const handleClose = () => {
     setOpen(false);
   };
-
   const cleanedAmount = Number(amount.replace(/\s+/g, '')) || 0;
   const debt = cleanedAmount - userInfo.userTotalSum;
 
@@ -103,7 +104,7 @@ export const AdminInnerTablePage = () => {
           Далее
         </StyledButton>
       </StyledProfile>
-
+      
       <StyledDialog open={open} onClose={handleClose}>
         <StyledDialogContainer>
           <p>Введите сумму</p>
