@@ -20,10 +20,12 @@ import { unwrapResult } from '@reduxjs/toolkit';
 export const AdminInnerTablePage = () => {
   const [open, setOpen] = useState(false);
   const { userInfo, isLoading } = useSelector(state => state.userAdmin);
+
   const [amount, setAmount] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -31,7 +33,6 @@ export const AdminInnerTablePage = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
   const cleanedAmount = Number(amount.replace(/\s+/g, '')) || 0;
   const debt = cleanedAmount - userInfo.userTotalSum;
 
@@ -147,7 +148,10 @@ export const AdminInnerTablePage = () => {
 
                   <StyledLinkTypographyBlue>
                     <StyledLinkBlue href="#">Сотрудники</StyledLinkBlue> 3% =
-                    <StyledSpan> {commission.toLocaleString()} рубль</StyledSpan>
+                    <StyledSpan>
+                      {' '}
+                      {commission.toLocaleString()} рубль
+                    </StyledSpan>
                   </StyledLinkTypographyBlue>
                   <StyledLinkTypographyGreen>
                     <StyledLinkGreen href="#">Страховка</StyledLinkGreen> 2% =

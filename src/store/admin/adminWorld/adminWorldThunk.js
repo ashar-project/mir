@@ -57,7 +57,10 @@ export const addDebtUser = createAsyncThunk(
       dispatch(getAdminReceived());
       return data;
     } catch (error) {
-      toast('Упс что то пошло не так попробуйте еще раз', {
+      const errorMessage =
+        error.response?.data?.exceptionMessage ||
+        'Произошла ошибка, попробуйте еще раз';
+      toast(errorMessage, {
         position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,

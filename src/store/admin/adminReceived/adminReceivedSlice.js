@@ -3,6 +3,7 @@ import {
   getAdminReceived,
   getReceivedUser,
   postReceivedUserPayment,
+  procentUser,
   searchesReceived,
 } from './adminReceivedThunk';
 
@@ -15,6 +16,7 @@ export const adminReceivedSlice = createSlice({
     error: null,
     searchesAll: [],
     all: [],
+    procent: null,
   },
   reducers: {},
   extraReducers: builder => {
@@ -60,6 +62,9 @@ export const adminReceivedSlice = createSlice({
       })
       .addCase(searchesReceived.rejected, state => {
         state.isLoading = false;
+      })
+      .addCase(procentUser.fulfilled, (state, { payload }) => {
+        state.procent = payload;
       });
   },
 });

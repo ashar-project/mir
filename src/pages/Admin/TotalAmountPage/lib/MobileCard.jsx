@@ -4,7 +4,6 @@ import React from 'react';
 import { MdCurrencyRuble } from 'react-icons/md';
 
 export const MobileCard = ({ item, handlerId }) => {
-
   return (
     <>
       {item?.map(el => (
@@ -31,7 +30,7 @@ export const MobileCard = ({ item, handlerId }) => {
               fontFamily="'Nunito', sans-serif"
             >
               {new Intl.NumberFormat('ru-RU').format(
-                el?.userTotalSum || el?.totalSum
+                el?.totalSum || el?.userTotalSum
               )}
               <span>
                 {' '}
