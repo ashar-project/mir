@@ -79,15 +79,15 @@ export const AdminPaymentTable = ({ onClick, variants, value, id }) => {
             <MobileDiv>
               <p style={{ color: '#0C0CB9DE' }}>
                 Сотрудники 3% ={' '}
-                {new Intl.NumberFormat('ru-RU').format(procent?.employees)} сом
+                {new Intl.NumberFormat('ru-RU').format(procent?.employees)} рубль
               </p>
               <p style={{ color: '#0CB927DE' }}>
                 Страховка 2% ={' '}
-                {new Intl.NumberFormat('ru-RU').format(procent?.insurance)} сом
+                {new Intl.NumberFormat('ru-RU').format(procent?.insurance)} рубль
               </p>
               <p style={{ color: '#FFCE1FDE' }}>
                 Программа 1% ={' '}
-                {new Intl.NumberFormat('ru-RU').format(procent?.program)} сом
+                {new Intl.NumberFormat('ru-RU').format(procent?.program)} рубль
               </p>
             </MobileDiv>
           </ProcentBlock>
