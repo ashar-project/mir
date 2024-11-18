@@ -1,5 +1,4 @@
 import { Button } from '@/components';
-import { procentUser } from '@/store/admin/adminReceived/adminReceivedThunk';
 import {
   Table,
   TableBody,
@@ -12,22 +11,13 @@ import {
   Box,
   styled,
 } from '@mui/material';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
-export const AdminPaymentTable = ({ onClick, variants, value, id }) => {
+export const AdminPaymentTable = ({ onClick, variants, value }) => {
   const translateValue = {
     PAID: 'Оплачено',
     WAITING: 'Ожидание',
     MISSED: 'Пропущено',
   };
-  const dispatch = useDispatch();
-  const { procent } = useSelector(state => state.adminReceived);
-  useEffect(() => {
-    if (id) {
-      dispatch(procentUser(id));
-    }
-  }, [dispatch, id]);
 
   const StatusText = styled('span')(({ status }) => ({
     color:
@@ -40,7 +30,6 @@ export const AdminPaymentTable = ({ onClick, variants, value, id }) => {
             : 'inherit',
   }));
 
-  console.log(procent);
   return (
     <Box>
       <TableWrapper>
@@ -52,7 +41,8 @@ export const AdminPaymentTable = ({ onClick, variants, value, id }) => {
             </DebtInfo>
             <DebtInfo variant="body1">
               Основной долг:{' '}
-              {new Intl.NumberFormat('ru-RU').format(value?.principalDebt)} рубль
+              {new Intl.NumberFormat('ru-RU').format(value?.principalDebt)}{' '}
+              рубль
             </DebtInfo>
             <DebtInfo variant="body1" style={{ color: 'green' }}>
               Оплатил: {new Intl.NumberFormat('ru-RU').format(value?.payDebt)}{' '}
@@ -76,20 +66,6 @@ export const AdminPaymentTable = ({ onClick, variants, value, id }) => {
                 </Button>
               </Block>
             )}
-            <MobileDiv>
-              <p style={{ color: '#0C0CB9DE' }}>
-                Сотрудники 3% ={' '}
-                {new Intl.NumberFormat('ru-RU').format(procent?.employees)} рубль
-              </p>
-              <p style={{ color: '#0CB927DE' }}>
-                Страховка 2% ={' '}
-                {new Intl.NumberFormat('ru-RU').format(procent?.insurance)} рубль
-              </p>
-              <p style={{ color: '#FFCE1FDE' }}>
-                Программа 1% ={' '}
-                {new Intl.NumberFormat('ru-RU').format(procent?.program)} рубль
-              </p>
-            </MobileDiv>
           </ProcentBlock>
         </Bot>
         <TableContainer>
@@ -143,27 +119,10 @@ const DebtInfo = styled(Typography)(({ theme }) => ({
   },
 }));
 
-const MobileDiv = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '15px',
-  fontSize: '20px',
-  marginTop: '10px',
-
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '15px',
-  },
-}));
-
 const ProcentBlock = styled(Box)(({ theme }) => ({
-  width: '600px',
   display: 'flex',
   flexDirection: 'column',
-  height: '200px',
-  [theme.breakpoints.down('sm')]: {
-    height: '200px',
-    width: '250px',
-  },
+  alignItems: 'end',
 }));
 const Bot = styled('div')(({ theme }) => ({
   display: 'flex',
