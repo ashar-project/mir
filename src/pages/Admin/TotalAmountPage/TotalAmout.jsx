@@ -15,7 +15,7 @@ export const TotalAmout = () => {
   useEffect(() => {
     dispatch(getMainData());
   }, [dispatch]);
-  
+
   const translateValue = {
     RECEIVED: { color: 'green', label: 'Получивщий' },
     MIR: { color: 'blue', label: 'Мир' },
@@ -96,6 +96,30 @@ export const TotalAmout = () => {
               </Typography>
             </KrugBlockMini>
           </KrugBlock>
+
+          <MobileDiv>
+            <p style={{ color: '#0C0CB9DE' }}>
+              Сотрудники 3% ={' '}
+              {main?.employees
+                ? new Intl.NumberFormat('ru-RU').format(main?.employees)
+                : new Intl.NumberFormat('ru-RU').format('0')}{' '}
+              рубль
+            </p>
+            <p style={{ color: '#0CB927DE' }}>
+              Страховка 2% ={' '}
+              {main?.insurance
+                ? new Intl.NumberFormat('ru-RU').format(main?.insurance)
+                : '0'}{' '}
+              рубль
+            </p>
+            <p style={{ color: '#FFCE1FDE' }}>
+              Программа 1% ={' '}
+              {main?.program
+                ? new Intl.NumberFormat('ru-RU').format(main?.program)
+                : '0'}{' '}
+              рубль
+            </p>
+          </MobileDiv>
           <Typography
             fontSize={'24px'}
             textAlign={'start'}
@@ -125,6 +149,20 @@ const Main = styled('main')(({ theme }) => ({
     width: '95%',
     minHeight: '100px',
     margin: '5px auto',
+  },
+}));
+
+const MobileDiv = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '15px',
+  fontSize: '20px',
+  margin: '10px auto',
+  width: '50%',
+
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '15px',
+    width: '75%',
   },
 }));
 
