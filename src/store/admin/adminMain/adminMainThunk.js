@@ -12,3 +12,14 @@ export const getMainData = createAsyncThunk(
     }
   }
 );
+export const getMainDataProcent = createAsyncThunk(
+  'adminMain/getMainDataProcent',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosInstance.get('/api/users/percent');
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);

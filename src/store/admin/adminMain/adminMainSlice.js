@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getMainData } from './adminMainThunk';
+import { getMainData, getMainDataProcent } from './adminMainThunk';
 
 export const adminMainSlice = createSlice({
   name: 'adminMain',
   initialState: {
     isLoading: false,
     main: {},
+    procent: {},
     error: null,
   },
   reducers: {},
@@ -20,6 +21,9 @@ export const adminMainSlice = createSlice({
       })
       .addCase(getMainData.rejected, state => {
         state.isLoading = false;
+      })
+      .addCase(getMainDataProcent.fulfilled, (state, { payload }) => {
+        state.procent = payload;
       });
   },
 });
