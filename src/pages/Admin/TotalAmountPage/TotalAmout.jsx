@@ -98,7 +98,7 @@ export const TotalAmout = () => {
                 fontWeight={700}
                 color="#37D3D3"
               >
-                {new Intl.NumberFormat('ru-RU').format(procent.globalSum)}
+                {new Intl.NumberFormat('ru-RU').format(main.globalSum)}
                 <span style={{ fontSize: '14px' }}> рубль</span>
               </Typography>
             </KrugBlockMini>
