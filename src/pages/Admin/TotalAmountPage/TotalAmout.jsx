@@ -5,15 +5,22 @@ import { ActionsImg } from './lib/Actions';
 import { Table } from '@/components/Table';
 import { MobileCard } from '..';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMainData } from '@/store/admin/adminMain/adminMainThunk';
+import {
+  getMainData,
+  getMainDataProcent,
+} from '@/store/admin/adminMain/adminMainThunk';
 import { Spinner } from '@/components/Spinner/Spinner';
 
 export const TotalAmout = () => {
   const dispatch = useDispatch();
-  const { main, isLoading } = useSelector(state => state.adminMain);
+  const { main, isLoading, procent } = useSelector(state => state.adminMain);
 
   useEffect(() => {
     dispatch(getMainData());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getMainDataProcent());
   }, [dispatch]);
 
   const translateValue = {
@@ -91,7 +98,7 @@ export const TotalAmout = () => {
                 fontWeight={700}
                 color="#37D3D3"
               >
-                {new Intl.NumberFormat('ru-RU').format(main.globalSum)}
+                {new Intl.NumberFormat('ru-RU').format(procent.globalSum)}
                 <span style={{ fontSize: '14px' }}> рубль</span>
               </Typography>
             </KrugBlockMini>
@@ -100,22 +107,22 @@ export const TotalAmout = () => {
           <MobileDiv>
             <p style={{ color: '#0C0CB9DE' }}>
               Сотрудники 3% ={' '}
-              {main?.employees
-                ? new Intl.NumberFormat('ru-RU').format(main?.employees)
+              {procent?.employees
+                ? new Intl.NumberFormat('ru-RU').format(procent?.employees)
                 : new Intl.NumberFormat('ru-RU').format('0')}{' '}
               рубль
             </p>
             <p style={{ color: '#0CB927DE' }}>
               Страховка 2% ={' '}
-              {main?.insurance
-                ? new Intl.NumberFormat('ru-RU').format(main?.insurance)
+              {procent?.insurance
+                ? new Intl.NumberFormat('ru-RU').format(procent?.insurance)
                 : '0'}{' '}
               рубль
             </p>
             <p style={{ color: '#FFCE1FDE' }}>
               Программа 1% ={' '}
-              {main?.program
-                ? new Intl.NumberFormat('ru-RU').format(main?.program)
+              {procent?.program
+                ? new Intl.NumberFormat('ru-RU').format(procent?.program)
                 : '0'}{' '}
               рубль
             </p>
